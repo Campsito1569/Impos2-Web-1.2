@@ -1,0 +1,35 @@
+{
+  "name": "impos2-web",
+  "version": "1.0.0",
+  "description": "IMPOS2 - Juego web de deducción entre amigos",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "react",
+    "vite",
+    "game",
+    "web"
+  ],
+  "author": "Jose Ernesto Camps Silva",
+  "license": "MIT",
+  "dependencies": {
+    "framer-motion": "^11.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.4.0"
+  }
+}
+
