@@ -9,7 +9,7 @@ import { getRandomAutomaticWord, getAllAutomaticWords } from '../data/words_auto
 
 export default function WordSetup() {
   const navigate = useNavigate()
-  const { gameMode, wordPool, addWordsToPool, getRandomWord, setCurrentGame, players, impostorCount, assignImpostors, shuffleArray, usedAutomaticWords, setUsedAutomaticWords } = useGame()
+  const { gameMode, wordPool, addWordsToPool, getRandomWord, setCurrentGame, players, impostorCount, eliminationRule, assignImpostors, shuffleArray, usedAutomaticWords, setUsedAutomaticWords } = useGame()
   const [manualWord, setManualWord] = useState('')
   const [semiManualWords, setSemiManualWords] = useState('')
   const [wordPoolDisplay, setWordPoolDisplay] = useState([])
@@ -42,6 +42,7 @@ export default function WordSetup() {
       turnOrder: turnOrder,
       word,
       impostorCount,
+      eliminationRule,
       gameMode: 'manual'
     }
 
@@ -90,6 +91,7 @@ export default function WordSetup() {
       turnOrder: turnOrder,
       word,
       impostorCount,
+      eliminationRule,
       gameMode: 'semi-manual'
     }
 
@@ -132,6 +134,7 @@ export default function WordSetup() {
       turnOrder: turnOrder,
       word,
       impostorCount,
+      eliminationRule,
       gameMode: 'database'
     }
 

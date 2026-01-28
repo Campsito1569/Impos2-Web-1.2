@@ -12,6 +12,10 @@ export default function Round() {
 
   useEffect(() => {
     const game = currentGame || JSON.parse(localStorage.getItem('currentGame') || '{}')
+    // Fallback para juegos antiguos sin eliminationRule
+    if (!game.eliminationRule) {
+      game.eliminationRule = 'classic'
+    }
     setGameState(game)
   }, [currentGame])
 
@@ -19,6 +23,33 @@ export default function Round() {
     if (!gameState) return
     
     const updatedPlayers = [...gameState.players]
+    const player = updatedPlayers[index]
+    const isEliminating = !player.eliminado
+    
+    // Si estamos eliminando (no reviviendo) y la regla es no-miss
+    if (isEliminating && gameState.eliminationRule === 'no-miss') {
+      // Si el jugador NO es impostor, los impostores ganan inmediatamente
+      if (player.role !== 'impostor') {
+        updatedPlayers[index].eliminado = true
+        
+        const endGameData = {
+          ...gameState,
+          players: updatedPlayers,
+          winner: 'Impostores',
+          winnerType: 'impostors',
+          endReason: 'Regla: Sin fallos (Muerte súbita). Expulsión incorrecta → ganan impostores.',
+          eliminationRule: gameState.eliminationRule
+        }
+        
+        setGameState(endGameData)
+        setCurrentGame(endGameData)
+        localStorage.setItem('currentGame', JSON.stringify(endGameData))
+        navigate('/end')
+        return
+      }
+    }
+    
+    // Comportamiento normal (classic o revivir)
     updatedPlayers[index].eliminado = !updatedPlayers[index].eliminado
     
     const updatedGame = {
@@ -59,7 +90,8 @@ export default function Round() {
       winnerType,
       endReason: winnerType === 'players' 
         ? 'Todos los impostores fueron eliminados'
-        : 'Los impostores igualan o superan a los jugadores'
+        : 'Los impostores igualan o superan a los jugadores',
+      eliminationRule: gameState.eliminationRule || 'classic'
     }
 
     setCurrentGame(endGameData)

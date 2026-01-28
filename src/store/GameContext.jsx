@@ -6,6 +6,7 @@ export function GameProvider({ children }) {
   const [gameMode, setGameMode] = useState(null)
   const [players, setPlayers] = useState([])
   const [impostorCount, setImpostorCount] = useState(1)
+  const [eliminationRule, setEliminationRule] = useState('classic')
   const [currentGame, setCurrentGame] = useState(null)
   const [wordPool, setWordPool] = useState([])
   const [usedWords, setUsedWords] = useState([])
@@ -17,6 +18,7 @@ export function GameProvider({ children }) {
     const savedMode = localStorage.getItem('gameMode')
     const savedPlayers = localStorage.getItem('players')
     const savedImpostorCount = localStorage.getItem('impostorCount')
+    const savedEliminationRule = localStorage.getItem('eliminationRule')
     const savedWordPool = localStorage.getItem('wordPool')
     const savedUsedWords = localStorage.getItem('usedWords')
     const savedUsedAutomaticWords = localStorage.getItem('usedAutomaticWords')
@@ -25,6 +27,7 @@ export function GameProvider({ children }) {
     if (savedMode) setGameMode(savedMode)
     if (savedPlayers) setPlayers(JSON.parse(savedPlayers))
     if (savedImpostorCount) setImpostorCount(parseInt(savedImpostorCount))
+    if (savedEliminationRule) setEliminationRule(savedEliminationRule)
     if (savedWordPool) setWordPool(JSON.parse(savedWordPool))
     if (savedUsedWords) setUsedWords(JSON.parse(savedUsedWords))
     if (savedUsedAutomaticWords) setUsedAutomaticWords(JSON.parse(savedUsedAutomaticWords))
@@ -43,6 +46,10 @@ export function GameProvider({ children }) {
   useEffect(() => {
     if (impostorCount > 0) localStorage.setItem('impostorCount', impostorCount.toString())
   }, [impostorCount])
+
+  useEffect(() => {
+    if (eliminationRule) localStorage.setItem('eliminationRule', eliminationRule)
+  }, [eliminationRule])
 
   useEffect(() => {
     if (wordPool.length > 0) localStorage.setItem('wordPool', JSON.stringify(wordPool))
@@ -219,6 +226,8 @@ export function GameProvider({ children }) {
         updatePlayer,
         impostorCount,
         setImpostorCount,
+        eliminationRule,
+        setEliminationRule,
         currentGame,
         setCurrentGame,
         wordPool,

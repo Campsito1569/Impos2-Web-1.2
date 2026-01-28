@@ -73,7 +73,11 @@ export default function End() {
             {winner} GANARON
           </h1>
           {endData.endReason && (
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-6 md:mb-8 px-2">
+            <p className={`text-base sm:text-lg md:text-xl mb-4 sm:mb-6 md:mb-8 px-2 ${
+              endData.endReason.includes('Expulsión incorrecta') 
+                ? 'text-red-400 font-semibold' 
+                : 'text-gray-300'
+            }`}>
               {endData.endReason}
             </p>
           )}

@@ -8,7 +8,7 @@ import { useGame } from '../store/GameContext'
 
 export default function Players() {
   const navigate = useNavigate()
-  const { players, setPlayers, addPlayer, removePlayer, updatePlayer, impostorCount, setImpostorCount } = useGame()
+  const { players, setPlayers, addPlayer, removePlayer, updatePlayer, impostorCount, setImpostorCount, eliminationRule, setEliminationRule } = useGame()
   const [localPlayers, setLocalPlayers] = useState(['', ''])
   const [editingIndex, setEditingIndex] = useState(null)
   const [editingName, setEditingName] = useState('')
@@ -128,6 +128,46 @@ export default function Players() {
             </div>
             <p className="text-xs sm:text-sm text-gray-400 mt-2">
               Puedes tener hasta {maxImpostors} impostor{maxImpostors !== 1 ? 'es' : ''}
+            </p>
+          </div>
+
+          <div className="mb-4 sm:mb-6 pt-4 sm:pt-6 border-t border-purple-500/30">
+            <label className="block text-xs sm:text-sm font-medium text-neon-lila mb-2 sm:mb-3">
+              Tipo de Eliminación
+            </label>
+            <div className="flex gap-2 sm:gap-3">
+              <button
+                onClick={() => setEliminationRule('classic')}
+                className={`
+                  flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all
+                  ${eliminationRule === 'classic'
+                    ? 'bg-neon-lila text-white border-2 border-neon-lila shadow-lg shadow-purple-500/50'
+                    : 'bg-dark-hover text-gray-300 border-2 border-neon-purple hover:border-neon-lila'
+                  }
+                `}
+              >
+                Clásico
+                <span className="block text-xs text-gray-400 mt-1">(Recomendado)</span>
+              </button>
+              <button
+                onClick={() => setEliminationRule('no-miss')}
+                className={`
+                  flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all
+                  ${eliminationRule === 'no-miss'
+                    ? 'bg-red-600 text-white border-2 border-red-500 shadow-lg shadow-red-500/50'
+                    : 'bg-dark-hover text-gray-300 border-2 border-neon-purple hover:border-red-500'
+                  }
+                `}
+              >
+                Sin fallos
+                <span className="block text-xs text-gray-400 mt-1">(Muerte súbita)</span>
+              </button>
+            </div>
+            <p className="text-xs sm:text-sm text-gray-400 mt-2">
+              {eliminationRule === 'classic' 
+                ? 'Puedes expulsar jugadores aunque te equivoques.'
+                : 'Si expulsan a un jugador y NO es impostor, los impostores ganan inmediatamente.'
+              }
             </p>
           </div>
         </Card>
