@@ -17,13 +17,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(135deg, #0B0714 0%, #1A1033 100%);
   color: #ffffff;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100vh;
+  /* Prevenir zoom en iOS al hacer focus en inputs */
+  touch-action: manipulation;
 }
 
 #root {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Scrollbar personalizada */
@@ -43,4 +47,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #7C3AED;
 }
+
+
 

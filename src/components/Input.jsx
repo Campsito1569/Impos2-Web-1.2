@@ -10,9 +10,9 @@ export default function Input({
   ...props 
 }) {
   const inputClasses = `
-    w-full px-4 py-3 rounded-xl
+    w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl
     bg-dark-hover border-2 border-neon-purple
-    text-white placeholder-gray-400
+    text-white placeholder-gray-400 text-base
     focus:outline-none focus:border-neon-lila
     focus:shadow-neon-lila
     transition-all duration-300
@@ -21,7 +21,7 @@ export default function Input({
   return (
     <div className={`mb-4 ${className}`}>
       {label && (
-        <label className="block text-sm font-medium text-neon-lila mb-2">
+        <label className="block text-xs sm:text-sm font-medium text-neon-lila mb-2">
           {label}
         </label>
       )}

@@ -82,15 +82,15 @@ export default function Round() {
   const canEndGame = activeImpostors.length === 0 || activeImpostors.length >= activeNormalPlayers.length
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-6 overflow-y-auto">
-      <div className="max-w-4xl w-full py-8">
-        <h1 className="text-5xl font-bold mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+      <div className="max-w-4xl w-full py-4 sm:py-6 md:py-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
           Ronda de Eliminación
         </h1>
 
-        <Card glowColor="lila" className="mb-6">
+        <Card glowColor="lila" className="mb-4 sm:mb-6">
           <div className="mb-4">
-            <h2 className="text-xl font-bold mb-3 text-neon-lila">Jugadores</h2>
+            <h2 className="text-lg sm:text-xl font-bold mb-3 text-neon-lila">Jugadores</h2>
             <div className="space-y-3">
               <AnimatePresence>
                 {gameState.players.map((player, index) => (
@@ -141,10 +141,11 @@ export default function Round() {
           </div>
         </Card>
 
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2">
           <Button
             onClick={() => navigate('/reveal-role')}
             variant="secondary"
+            className="w-full sm:w-auto"
           >
             Volver
           </Button>
@@ -152,7 +153,7 @@ export default function Round() {
             onClick={handleEndGame}
             variant="primary"
             disabled={!canEndGame}
-            className="text-lg px-12 py-4"
+            className="text-base sm:text-lg px-8 sm:px-12 py-3 sm:py-4 w-full sm:w-auto"
           >
             Finalizar Partida
           </Button>
@@ -173,4 +174,6 @@ export default function Round() {
     </div>
   )
 }
+
+
 

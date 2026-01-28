@@ -94,44 +94,46 @@ export default function Players() {
   const maxImpostors = Math.max(1, localPlayers.filter(p => p.trim() !== '').length - 1)
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-6 overflow-y-auto">
-      <div className="max-w-3xl w-full py-8">
-        <h1 className="text-5xl font-bold mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+      <div className="max-w-3xl w-full py-4 sm:py-6 md:py-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
           Gestión de Jugadores
         </h1>
 
-        <Card glowColor="lila" className="mb-6">
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-neon-lila mb-3">
+        <Card glowColor="lila" className="mb-4 sm:mb-6">
+          <div className="mb-4 sm:mb-6">
+            <label className="block text-xs sm:text-sm font-medium text-neon-lila mb-2 sm:mb-3">
               Cantidad de Impostores
             </label>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               <Button
                 onClick={() => setImpostorCount(Math.max(1, impostorCount - 1))}
                 variant="secondary"
                 disabled={impostorCount <= 1}
+                className="text-lg sm:text-xl px-3 sm:px-4"
               >
                 -
               </Button>
-              <div className="text-3xl font-bold text-neon-green min-w-[60px] text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-neon-green min-w-[50px] sm:min-w-[60px] text-center">
                 {impostorCount}
               </div>
               <Button
                 onClick={() => setImpostorCount(Math.min(maxImpostors, impostorCount + 1))}
                 variant="secondary"
                 disabled={impostorCount >= maxImpostors}
+                className="text-lg sm:text-xl px-3 sm:px-4"
               >
                 +
               </Button>
             </div>
-            <p className="text-sm text-gray-400 mt-2">
+            <p className="text-xs sm:text-sm text-gray-400 mt-2">
               Puedes tener hasta {maxImpostors} impostor{maxImpostors !== 1 ? 'es' : ''}
             </p>
           </div>
         </Card>
 
-        <Card glowColor="purple" className="mb-6">
-          <h2 className="text-2xl font-bold mb-4 text-neon-lila">Jugadores</h2>
+        <Card glowColor="purple" className="mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-neon-lila">Jugadores</h2>
           
           <div className="space-y-3 mb-4">
             <AnimatePresence>
@@ -204,16 +206,18 @@ export default function Players() {
           </Button>
         </Card>
 
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2">
           <Button
             onClick={() => navigate('/mode-select')}
             variant="secondary"
+            className="w-full sm:w-auto"
           >
             Volver
           </Button>
           <Button
             onClick={handleContinue}
             variant="primary"
+            className="w-full sm:w-auto"
           >
             Continuar
           </Button>
@@ -222,4 +226,6 @@ export default function Players() {
     </div>
   )
 }
+
+
 

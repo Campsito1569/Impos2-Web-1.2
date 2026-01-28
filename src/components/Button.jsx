@@ -22,7 +22,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
       className={`
-        px-6 py-3 rounded-2xl font-semibold text-white
+        px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-semibold text-white text-sm sm:text-base
         transition-all duration-300
         ${variants[variant]}
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
@@ -34,4 +34,6 @@ export default function Button({
     </motion.button>
   )
 }
+
+
 

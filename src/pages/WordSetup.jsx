@@ -142,17 +142,17 @@ export default function WordSetup() {
 
   if (gameMode === 'manual') {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-6">
+      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="max-w-2xl w-full"
         >
-          <h1 className="text-5xl font-bold mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
             Palabra Secreta
           </h1>
 
-          <Card glowColor="lila" className="mb-6">
+          <Card glowColor="lila" className="mb-4 sm:mb-6">
             <Input
               label="Ingresa la palabra secreta para esta partida"
               value={manualWord}
@@ -163,16 +163,18 @@ export default function WordSetup() {
             />
           </Card>
 
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2">
             <Button
               onClick={() => navigate('/players')}
               variant="secondary"
+              className="w-full sm:w-auto"
             >
               Volver
             </Button>
             <Button
               onClick={handleManualWordSubmit}
               variant="primary"
+              className="w-full sm:w-auto"
             >
               Continuar
             </Button>
@@ -184,17 +186,17 @@ export default function WordSetup() {
 
   if (gameMode === 'semi-manual') {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-6 overflow-y-auto">
+      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-2xl w-full py-8"
+          className="max-w-2xl w-full py-4 sm:py-6 md:py-8"
         >
-          <h1 className="text-5xl font-bold mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
             Pool de Palabras
           </h1>
 
-          <Card glowColor="lila" className="mb-6">
+          <Card glowColor="lila" className="mb-4 sm:mb-6">
             <Input
               label="Agrega palabras (una por línea o separadas por comas)"
               value={semiManualWords}
@@ -213,14 +215,14 @@ export default function WordSetup() {
           </Card>
 
           {wordPoolDisplay.length > 0 && (
-            <Card glowColor="purple" className="mb-6">
-              <h2 className="text-xl font-bold mb-3 text-neon-lila">
+            <Card glowColor="purple" className="mb-4 sm:mb-6">
+              <h2 className="text-lg sm:text-xl font-bold mb-3 text-neon-lila">
                 Pool actual: {wordPoolDisplay.length} palabra{wordPoolDisplay.length !== 1 ? 's' : ''}
               </h2>
               <div className="max-h-40 overflow-y-auto">
                 <div className="flex flex-wrap gap-2">
                   {wordPoolDisplay.map((word, index) => (
-                    <span key={index} className="px-3 py-1 bg-dark-hover rounded-lg text-sm text-gray-300">
+                    <span key={index} className="px-2 sm:px-3 py-1 bg-dark-hover rounded-lg text-xs sm:text-sm text-gray-300">
                       {word}
                     </span>
                   ))}
@@ -229,10 +231,11 @@ export default function WordSetup() {
             </Card>
           )}
 
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2">
             <Button
               onClick={() => navigate('/players')}
               variant="secondary"
+              className="w-full sm:w-auto"
             >
               Volver
             </Button>
@@ -240,6 +243,7 @@ export default function WordSetup() {
               onClick={handleSemiManualContinue}
               variant="primary"
               disabled={wordPoolDisplay.length === 0}
+              className="w-full sm:w-auto"
             >
               Continuar
             </Button>
@@ -251,33 +255,34 @@ export default function WordSetup() {
 
   if (gameMode === 'database') {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-6">
+      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="max-w-2xl w-full text-center"
         >
-          <h1 className="text-5xl font-bold mb-8 bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
             Preparación de Palabra
           </h1>
 
-          <Card glowColor="lila" className="mb-6">
-            <p className="text-gray-300 mb-6">
+          <Card glowColor="lila" className="mb-4 sm:mb-6">
+            <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
               Se seleccionará una palabra aleatoria de la base de datos de ~1000 palabras conocidas.
             </p>
             <Button
               onClick={handleDatabaseContinue}
               variant="primary"
-              className="w-full text-lg py-4"
+              className="w-full text-base sm:text-lg py-3 sm:py-4"
             >
               Continuar
             </Button>
           </Card>
 
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-3 sm:gap-4 px-2">
             <Button
               onClick={() => navigate('/players')}
               variant="secondary"
+              className="w-full sm:w-auto"
             >
               Volver
             </Button>

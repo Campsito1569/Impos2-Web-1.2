@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { GameProvider } from './store/GameContext'
 import { LanguageProvider } from './store/LanguageContext'
@@ -17,7 +17,7 @@ function App() {
     <LanguageProvider>
       <GameProvider>
         <Router>
-          <div className="w-full h-screen bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg overflow-hidden">
+          <div className="w-full min-h-screen bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg">
             <AnimatePresence mode="wait">
               <Routes>
                 <Route path="/" element={<Home />} />

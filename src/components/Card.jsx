@@ -19,7 +19,7 @@ export default function Card({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       className={`
-        bg-dark-card rounded-3xl p-6 border-2
+        bg-dark-card rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 border-2
         ${glowVariants[glowColor]}
         ${className}
       `}
@@ -29,4 +29,6 @@ export default function Card({
     </motion.div>
   )
 }
+
+
 

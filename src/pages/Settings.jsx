@@ -20,18 +20,18 @@ export default function Settings() {
   } = useLanguage()
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-6 overflow-y-auto">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-2xl w-full py-8"
+        className="max-w-2xl w-full py-4 sm:py-6 md:py-8"
       >
-        <h1 className="text-5xl font-bold mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
           {t('settings.title')}
         </h1>
 
-        <Card glowColor="lila" className="mb-6">
-          <div className="space-y-6">
+        <Card glowColor="lila" className="mb-4 sm:mb-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Selector de Idioma */}
             <div>
               <label className="block text-sm font-medium text-neon-lila mb-3">
@@ -133,10 +133,11 @@ export default function Settings() {
           </div>
         </Card>
 
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center gap-3 sm:gap-4 px-2">
           <Button
             onClick={() => navigate(-1)}
             variant="secondary"
+            className="w-full sm:w-auto"
           >
             {t('settings.back')}
           </Button>
@@ -145,4 +146,6 @@ export default function Settings() {
     </div>
   )
 }
+
+
 

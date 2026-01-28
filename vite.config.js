@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
   plugins: [react()],
+  base: './', // Importante para Capacitor - rutas relativas
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')
@@ -14,6 +15,12 @@ export default defineConfig({
   },
   server: {
     port: 5173
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false
   }
 })
+
 
