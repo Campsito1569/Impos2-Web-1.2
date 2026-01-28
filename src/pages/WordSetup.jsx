@@ -6,6 +6,7 @@ import Card from '../components/Card'
 import Input from '../components/Input'
 import { useGame } from '../store/GameContext'
 import { getRandomAutomaticWord, getAllAutomaticWords } from '../data/words_auto_es'
+import { getRandomFootballWord, getAllFootballWords } from '../data/footballWords'
 
 export default function WordSetup() {
   const navigate = useNavigate()
@@ -136,6 +137,36 @@ export default function WordSetup() {
       impostorCount,
       eliminationRule,
       gameMode: 'database'
+    }
+
+    setCurrentGame(gameData)
+    localStorage.setItem('currentGame', JSON.stringify(gameData))
+    navigate('/reveal-role')
+  }
+
+  const handleFootballContinue = () => {
+    // Seleccionar una palabra aleatoria del dataset de fútbol
+    const word = getRandomFootballWord()
+    
+    // Crear turnOrder barajado
+    const turnOrder = shuffleArray(players)
+    // Asignar impostores sobre turnOrder
+    const impostorIndices = assignImpostors(turnOrder, impostorCount)
+    
+    // Crear players con roles basados en turnOrder
+    const playersWithRoles = turnOrder.map((playerName, index) => ({
+      name: playerName,
+      role: impostorIndices.includes(index) ? 'impostor' : 'player',
+      eliminado: false
+    }))
+    
+    const gameData = {
+      players: playersWithRoles,
+      turnOrder: turnOrder,
+      word,
+      impostorCount,
+      eliminationRule,
+      gameMode: 'football'
     }
 
     setCurrentGame(gameData)
@@ -274,6 +305,46 @@ export default function WordSetup() {
             </p>
             <Button
               onClick={handleDatabaseContinue}
+              variant="primary"
+              className="w-full text-base sm:text-lg py-3 sm:py-4"
+            >
+              Continuar
+            </Button>
+          </Card>
+
+          <div className="flex justify-center gap-3 sm:gap-4 px-2">
+            <Button
+              onClick={() => navigate('/players')}
+              variant="secondary"
+              className="w-full sm:w-auto"
+            >
+              Volver
+            </Button>
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
+
+  if (gameMode === 'football') {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-2xl w-full text-center"
+        >
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
+            Preparación de Palabra
+          </h1>
+
+          <Card glowColor="lila" className="mb-4 sm:mb-6">
+            <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">⚽</div>
+            <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
+              Se seleccionará una palabra aleatoria de la base de datos de fútbol (jugadores y equipos famosos).
+            </p>
+            <Button
+              onClick={handleFootballContinue}
               variant="primary"
               className="w-full text-base sm:text-lg py-3 sm:py-4"
             >

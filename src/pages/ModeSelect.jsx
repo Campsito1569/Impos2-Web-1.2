@@ -25,6 +25,8 @@ export default function ModeSelect() {
       navigate('/word-setup')
     } else if (selectedMode === 'database') {
       navigate('/players')
+    } else if (selectedMode === 'football') {
+      navigate('/players')
     }
   }
 
@@ -39,7 +41,7 @@ export default function ModeSelect() {
           Selecciona el Modo de Juego
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mb-6 sm:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mb-6 sm:mb-8">
           <motion.div
             whileHover={{ scale: 1.05 }}
             onClick={() => handleModeSelect('manual')}
@@ -107,6 +109,29 @@ export default function ModeSelect() {
                 <p className="text-gray-300 text-xs sm:text-sm px-2">
                   Base de datos local con ~1000 palabras MUY conocidas.
                   Categorías: Países, Famosos, Animales, Objetos, Acciones y Lugares.
+                </p>
+              </div>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            onClick={() => handleModeSelect('football')}
+          >
+            <Card
+              glowColor={selectedMode === 'football' ? 'lila' : 'purple'}
+              className={`
+                cursor-pointer h-full
+                ${selectedMode === 'football' ? 'ring-4 ring-neon-lila' : ''}
+              `}
+            >
+              <div className="text-center">
+                <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">⚽</div>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-neon-lila">
+                  Modo Fútbol
+                </h2>
+                <p className="text-gray-300 text-xs sm:text-sm px-2">
+                  Juega con una base de datos de fútbol (jugadores y equipos famosos).
                 </p>
               </div>
             </Card>
