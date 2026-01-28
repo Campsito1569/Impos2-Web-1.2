@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import { useLanguage } from '../store/LanguageContext'
+import { setBackgroundVolume } from '../utils/audio'
 
 export default function Settings() {
   const navigate = useNavigate()
@@ -116,7 +117,12 @@ export default function Settings() {
                 min="0"
                 max="100"
                 value={musicVolume}
-                onChange={(e) => setMusicVolume(parseInt(e.target.value))}
+                onChange={(e) => {
+                  const newVolume = parseInt(e.target.value)
+                  setMusicVolume(newVolume)
+                  // Convertir de 0-100 a 0-1 y actualizar el volumen del audio en tiempo real
+                  setBackgroundVolume(newVolume / 100)
+                }}
                 className="w-full h-2 bg-dark-hover rounded-lg appearance-none cursor-pointer accent-neon-lila"
                 style={{
                   background: `linear-gradient(to right, #A78BFA 0%, #A78BFA ${musicVolume}%, #1A1033 ${musicVolume}%, #1A1033 100%)`
@@ -126,9 +132,6 @@ export default function Settings() {
                 <span>0%</span>
                 <span>100%</span>
               </div>
-              <p className="text-xs text-gray-500 mt-2">
-                (Funcionalidad de música próximamente)
-              </p>
             </div>
           </div>
         </Card>

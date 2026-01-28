@@ -4,10 +4,11 @@ import { motion } from 'framer-motion'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import { useLanguage } from '../store/LanguageContext'
+import { playBackgroundMusic } from '../utils/audio'
 
 export default function Home() {
   const navigate = useNavigate()
-  const { t } = useLanguage()
+  const { t, musicVolume } = useLanguage()
   const [logoLoaded, setLogoLoaded] = useState(false)
   const [logoError, setLogoError] = useState(false)
 
@@ -78,7 +79,11 @@ export default function Home() {
             </p>
             
             <Button
-              onClick={() => navigate('/mode-select')}
+              onClick={() => {
+                // Usar el volumen guardado en configuración (convertir de 0-100 a 0-1)
+                playBackgroundMusic(musicVolume / 100)
+                navigate('/mode-select')
+              }}
               variant="primary"
               className="w-full text-base sm:text-lg py-3 sm:py-4"
             >
