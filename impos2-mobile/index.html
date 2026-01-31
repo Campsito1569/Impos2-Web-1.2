@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://impos2-web-1-2.vercel.app https://*.vercel.app https://*.vercelcdn.net data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https://impos2-web-1-2.vercel.app https://*.vercel.app wss://*.vercel.app; img-src 'self' https://impos2-web-1-2.vercel.app https://*.vercel.app https://*.vercelcdn.net data: blob:; script-src 'self' https://impos2-web-1-2.vercel.app https://*.vercel.app 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://impos2-web-1-2.vercel.app https://*.vercel.app 'unsafe-inline';">
+  <title>Impos2</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    #loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    #error-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .error-icon {
+      font-size: 64px;
+      color: #e74c3c;
+    }
+
+    .error-title {
+      font-size: 24px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .error-message {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .retry-button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .retry-button:hover {
+      background: #2980b9;
+    }
+
+    .retry-button:active {
+      background: #21618c;
+    }
+
+    #webview-container {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    #webview {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-container">
+    <div class="spinner"></div>
+    <div class="loading-text">Cargando Impos2...</div>
+  </div>
+
+  <div id="error-container">
+    <div class="error-icon">⚠️</div>
+    <div class="error-title">Error de conexión</div>
+    <div class="error-message">
+      No se pudo cargar la aplicación. Por favor, verifica tu conexión a internet e intenta nuevamente.
+    </div>
+    <button class="retry-button" onclick="retryLoad()">Reintentar</button>
+  </div>
+
+  <div id="webview-container">
+    <iframe id="webview" src="https://impos2-web-1-2.vercel.app/" allow="camera; microphone; geolocation; payment; fullscreen"></iframe>
+  </div>
+
+  <script type="module">
+    import { Capacitor } from '@capacitor/core';
+    import { App } from '@capacitor/app';
+    import { SplashScreen } from '@capacitor/splash-screen';
+    import { StatusBar } from '@capacitor/status-bar';
+
+    const WEB_URL = 'https://impos2-web-1-2.vercel.app/';
+    const LOAD_TIMEOUT = 30000; // 30 segundos
+
+    let loadTimeout;
+    let isLoaded = false;
+
+    const loadingContainer = document.getElementById('loading-container');
+    const errorContainer = document.getElementById('error-container');
+    const webviewContainer = document.getElementById('webview-container');
+    const webview = document.getElementById('webview');
+
+    // Función para detener toda la música
+    function detenerMusica() {
+      try {
+        // Pausar todos los audios en el documento principal
+        const audios = document.querySelectorAll('audio');
+        audios.forEach(a => {
+          if (!a.paused) {
+            a.pause();
+            console.log('⏸️ Audio pausado en documento principal');
+          }
+        });
+
+        // Intentar pausar audios dentro del iframe (puede fallar por CORS)
+        if (webview && webview.contentWindow && webview.contentDocument) {
+          try {
+            const iframeAudios = webview.contentDocument.querySelectorAll('audio');
+            iframeAudios.forEach(a => {
+              if (!a.paused) {
+                a.pause();
+                console.log('⏸️ Audio pausado en iframe');
+              }
+            });
+          } catch (e) {
+            // Si falla por CORS, intentar acceder vía contentWindow
+            try {
+              const iframeAudios = webview.contentWindow.document.querySelectorAll('audio');
+              iframeAudios.forEach(a => {
+                if (!a.paused) {
+                  a.pause();
+                  console.log('⏸️ Audio pausado en iframe (vía contentWindow)');
+                }
+              });
+            } catch (e2) {
+              console.warn('⚠️ No se puede acceder al contenido del iframe (CORS):', e2.message);
+            }
+          }
+        }
+
+        // También intentar pausar mediante postMessage si la web lo soporta
+        if (webview && webview.contentWindow) {
+          try {
+            webview.contentWindow.postMessage({ action: 'pauseAllAudio' }, '*');
+            console.log('📨 Mensaje enviado al iframe para pausar audio');
+          } catch (e) {
+            console.warn('⚠️ No se puede enviar mensaje al iframe:', e.message);
+          }
+        }
+      } catch (error) {
+        console.error('❌ Error al detener música:', error);
+      }
+    }
+
+    // Inicializar plugins de Capacitor
+    async function initCapacitor() {
+      if (Capacitor.isNativePlatform()) {
+        try {
+          await StatusBar.setStyle({ style: 'dark' });
+          await StatusBar.setBackgroundColor({ color: '#ffffff' });
+        } catch (e) {
+          console.warn('StatusBar plugin not available:', e);
+        }
+
+        // Manejar botón atrás en Android
+        App.addListener('backButton', ({ canGoBack }) => {
+          if (canGoBack && webview.contentWindow) {
+            webview.contentWindow.history.back();
+          } else {
+            App.exitApp();
+          }
+        });
+
+        // Manejar cuando la app pasa a segundo plano o vuelve al foreground
+        App.addListener('appStateChange', ({ isActive }) => {
+          if (!isActive) {
+            // App pasó a segundo plano - pausar música
+            console.log('📱 App pasó a segundo plano - pausando música');
+            detenerMusica();
+          } else {
+            // App volvió al foreground
+            if (!isLoaded) {
+              retryLoad();
+            }
+          }
+        });
+      }
+    }
+
+    // Función para mostrar error
+    function showError() {
+      loadingContainer.style.display = 'none';
+      errorContainer.style.display = 'flex';
+      webviewContainer.style.display = 'none';
+      
+      if (Capacitor.isNativePlatform()) {
+        SplashScreen.hide().catch(() => {});
+      }
+    }
+
+    // Función para mostrar la webview
+    function showWebview() {
+      isLoaded = true;
+      loadingContainer.style.display = 'none';
+      errorContainer.style.display = 'none';
+      webviewContainer.style.display = 'block';
+      
+      if (Capacitor.isNativePlatform()) {
+        SplashScreen.hide().catch(() => {});
+      }
+    }
+
+    // Función para cargar la web
+    async function loadWeb() {
+      try {
+        // Limpiar timeout anterior
+        if (loadTimeout) {
+          clearTimeout(loadTimeout);
+        }
+
+        // Mostrar loading
+        loadingContainer.style.display = 'flex';
+        errorContainer.style.display = 'none';
+        webviewContainer.style.display = 'none';
+
+        // Timeout de carga
+        loadTimeout = setTimeout(() => {
+          if (!isLoaded) {
+            showError();
+          }
+        }, LOAD_TIMEOUT);
+
+        // Event listeners para detectar cuando carga
+        webview.onload = () => {
+          clearTimeout(loadTimeout);
+          setTimeout(() => {
+            showWebview();
+          }, 500); // Pequeño delay para asegurar que todo está listo
+        };
+
+        webview.onerror = () => {
+          clearTimeout(loadTimeout);
+          showError();
+        };
+
+        // Intentar cargar
+        webview.src = WEB_URL;
+
+      } catch (error) {
+        console.error('Error loading web:', error);
+        clearTimeout(loadTimeout);
+        showError();
+      }
+    }
+
+    // Función para reintentar
+    window.retryLoad = function() {
+      isLoaded = false;
+      loadWeb();
+    };
+
+    // Listener para detectar cuando la página pasa a segundo plano (web)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        console.log('👁️ Página oculta - pausando música');
+        detenerMusica();
+      }
+    });
+
+    // Listener para cuando la ventana pierde el foco (web)
+    window.addEventListener('blur', () => {
+      console.log('🔍 Ventana perdió foco - pausando música');
+      detenerMusica();
+    });
+
+    // Inicializar
+    (async () => {
+      await initCapacitor();
+      await loadWeb();
+    })();
+  </script>
+</body>
+</html>
+
+
+

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from '../components/Button'
@@ -8,24 +7,18 @@ import { useGame } from '../store/GameContext'
 export default function ModeSelect() {
   const navigate = useNavigate()
   const { setGameMode } = useGame()
-  const [selectedMode, setSelectedMode] = useState(null)
 
-  const handleModeSelect = (mode) => {
-    setSelectedMode(mode)
-  }
-
-  const handleContinue = () => {
-    if (!selectedMode) return
+  const handleModeClick = (mode) => {
+    // Guardar el modo seleccionado y navegar inmediatamente
+    setGameMode(mode)
     
-    setGameMode(selectedMode)
-    
-    if (selectedMode === 'manual') {
+    if (mode === 'manual') {
       navigate('/players')
-    } else if (selectedMode === 'semi-manual') {
+    } else if (mode === 'semi-manual') {
       navigate('/word-setup')
-    } else if (selectedMode === 'database') {
+    } else if (mode === 'database') {
       navigate('/players')
-    } else if (selectedMode === 'football') {
+    } else if (mode === 'football') {
       navigate('/players')
     }
   }
@@ -44,14 +37,11 @@ export default function ModeSelect() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mb-6 sm:mb-8">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            onClick={() => handleModeSelect('manual')}
+            onClick={() => handleModeClick('manual')}
           >
             <Card
-              glowColor={selectedMode === 'manual' ? 'lila' : 'purple'}
-              className={`
-                cursor-pointer h-full
-                ${selectedMode === 'manual' ? 'ring-4 ring-neon-lila' : ''}
-              `}
+              glowColor="purple"
+              className="cursor-pointer h-full"
             >
               <div className="text-center">
                 <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">✍️</div>
@@ -68,14 +58,11 @@ export default function ModeSelect() {
 
           <motion.div
             whileHover={{ scale: 1.05 }}
-            onClick={() => handleModeSelect('semi-manual')}
+            onClick={() => handleModeClick('semi-manual')}
           >
             <Card
-              glowColor={selectedMode === 'semi-manual' ? 'lila' : 'purple'}
-              className={`
-                cursor-pointer h-full
-                ${selectedMode === 'semi-manual' ? 'ring-4 ring-neon-lila' : ''}
-              `}
+              glowColor="purple"
+              className="cursor-pointer h-full"
             >
               <div className="text-center">
                 <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">📝</div>
@@ -92,14 +79,11 @@ export default function ModeSelect() {
 
           <motion.div
             whileHover={{ scale: 1.05 }}
-            onClick={() => handleModeSelect('database')}
+            onClick={() => handleModeClick('database')}
           >
             <Card
-              glowColor={selectedMode === 'database' ? 'lila' : 'purple'}
-              className={`
-                cursor-pointer h-full
-                ${selectedMode === 'database' ? 'ring-4 ring-neon-lila' : ''}
-              `}
+              glowColor="purple"
+              className="cursor-pointer h-full"
             >
               <div className="text-center">
                 <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">📚</div>
@@ -116,14 +100,11 @@ export default function ModeSelect() {
 
           <motion.div
             whileHover={{ scale: 1.05 }}
-            onClick={() => handleModeSelect('football')}
+            onClick={() => handleModeClick('football')}
           >
             <Card
-              glowColor={selectedMode === 'football' ? 'lila' : 'purple'}
-              className={`
-                cursor-pointer h-full
-                ${selectedMode === 'football' ? 'ring-4 ring-neon-lila' : ''}
-              `}
+              glowColor="purple"
+              className="cursor-pointer h-full"
             >
               <div className="text-center">
                 <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">⚽</div>
@@ -145,14 +126,6 @@ export default function ModeSelect() {
             className="w-full sm:w-auto"
           >
             Volver
-          </Button>
-          <Button
-            onClick={handleContinue}
-            variant="primary"
-            disabled={!selectedMode}
-            className="w-full sm:w-auto"
-          >
-            Continuar
           </Button>
         </div>
       </motion.div>

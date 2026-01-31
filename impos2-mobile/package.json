@@ -1,0 +1,37 @@
+{
+  "name": "impos2-mobile",
+  "version": "1.0.0",
+  "description": "IMPOS2 - Aplicación móvil",
+  "scripts": {
+    "build": "node scripts/prepare-dist.js",
+    "setup:dist": "node scripts/prepare-dist.js",
+    "setup:android": "node scripts/setup-android.js",
+    "cap:add:android": "npx cap add android",
+    "cap:add:ios": "npx cap add ios",
+    "cap:sync": "npx cap sync",
+    "cap:open:android": "npx cap open android",
+    "cap:open:ios": "npx cap open ios",
+    "cap:run:android": "npx cap run android",
+    "cap:run:ios": "npx cap run ios",
+    "postinstall": "node scripts/prepare-dist.js"
+  },
+  "keywords": [
+    "capacitor",
+    "mobile",
+    "android",
+    "ios"
+  ],
+  "author": "Jose Ernesto Camps Silva",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^6.2.1",
+    "@capacitor/app": "^6.0.1",
+    "@capacitor/core": "^6.1.0",
+    "@capacitor/splash-screen": "^6.0.1",
+    "@capacitor/status-bar": "^6.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^6.1.0"
+  }
+}
