@@ -168,3 +168,4 @@ Si quieres cambiar el color de fondo del icono adaptativo:
 
 
 
+
