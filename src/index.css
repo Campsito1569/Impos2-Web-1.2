@@ -64,5 +64,45 @@ body {
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
+/* Animación breathing glow */
+@keyframes breathingGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(167, 139, 250, 0.7);
+  }
+}
+
+.animate-breathing-glow {
+  animation: breathingGlow 2s ease-in-out infinite;
+}
+
+@keyframes breathingGlowRed {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(239, 68, 68, 0.7);
+  }
+}
+
+.animate-breathing-glow-red {
+  animation: breathingGlowRed 2s ease-in-out infinite;
+}
+
+@keyframes breathingGlowCyan {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(34, 211, 238, 0.7);
+  }
+}
+
+.animate-breathing-glow-cyan {
+  animation: breathingGlowCyan 2s ease-in-out infinite;
+}
+
 
 

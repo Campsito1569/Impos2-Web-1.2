@@ -131,8 +131,27 @@ export default function RevealRole() {
           </>
         ) : (
           <>
-            <Card glowColor={isImpostor ? 'purple' : 'green'} className="mb-4 sm:mb-6 md:mb-8">
-              <div className="py-6 sm:py-8 md:py-12">
+            {/* Encabezado de privacidad y progreso */}
+            <div className="mb-4 sm:mb-6 animate-fadeInUp">
+              <p className="text-xs sm:text-sm uppercase tracking-wider text-yellow-400/80 mb-2 text-center">
+                📵 SOLO {currentPlayer.name.toUpperCase()} PUEDE MIRAR
+              </p>
+              <p className="text-sm sm:text-base text-gray-300 text-center font-medium">
+                Jugador {currentPlayerIndex + 1} de {turnOrder.length}
+              </p>
+            </div>
+
+            {/* Tarjeta principal cinematográfica */}
+            <div className="mb-6 sm:mb-8 animate-fadeInUp">
+              <div className={`
+                relative max-w-xl w-full mx-auto px-4
+                rounded-3xl border border-white/10
+                ${isImpostor 
+                  ? 'bg-red-950/40 backdrop-blur-md shadow-[0_0_30px_rgba(239,68,68,0.3)]' 
+                  : 'bg-cyan-950/40 backdrop-blur-md shadow-[0_0_30px_rgba(34,211,238,0.3)]'
+                }
+                p-6 sm:p-8 md:p-10
+              `}>
                 <AnimatePresence mode="wait">
                   {isImpostor ? (
                     <motion.div
@@ -140,33 +159,54 @@ export default function RevealRole() {
                       initial={{ opacity: 0, y: 20, scale: 0.9 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                      transition={{ duration: 0.4 }}
+                      transition={{ duration: 0.5 }}
+                      className="text-center space-y-6 sm:space-y-8"
                     >
+                      {/* Badge de rol animado */}
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ delay: 0.2, type: "spring" }}
-                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 sm:mb-6"
+                        className="flex justify-center"
                       >
-                        🎭
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-red-600/40 to-pink-800/40 border-2 border-red-400/50 flex items-center justify-center animate-breathing-glow-red">
+                          <span className="text-5xl sm:text-6xl">😈</span>
+                        </div>
                       </motion.div>
+
+                      {/* Título principal con gradiente */}
                       <motion.h2
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-red-400 mb-4 sm:mb-6"
+                        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-pink-400 to-red-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]"
                       >
                         ERES EL IMPOSTOR
                       </motion.h2>
+
+                      {/* Mensaje para impostor */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.5, type: "spring" }}
+                        className="space-y-3 sm:space-y-4"
+                      >
+                        <p className="text-lg sm:text-xl md:text-2xl font-semibold text-red-300">
+                          NO CONOCES LA PALABRA
+                        </p>
+                        <p className="text-sm sm:text-base text-gray-300 italic opacity-80">
+                          Improvise. No te delates.
+                        </p>
+                      </motion.div>
+
+                      {/* Mensaje de instrucción contextual */}
                       <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                        className="text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed px-2"
+                        transition={{ delay: 0.6 }}
+                        className="text-xs sm:text-sm text-gray-400 opacity-70 leading-relaxed px-2"
                       >
-                        No conoces la palabra secreta.
-                        <br />
-                        <span className="text-red-400 font-semibold">Intenta pasar desapercibido.</span>
+                        Actúa natural. Escucha bien y trata de adivinar la palabra.
                       </motion.p>
                     </motion.div>
                   ) : (
@@ -175,56 +215,75 @@ export default function RevealRole() {
                       initial={{ opacity: 0, y: 20, scale: 0.9 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                      transition={{ duration: 0.4 }}
+                      transition={{ duration: 0.5 }}
+                      className="text-center space-y-6 sm:space-y-8"
                     >
+                      {/* Badge de rol animado */}
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ delay: 0.2, type: "spring" }}
-                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 sm:mb-6"
+                        className="flex justify-center"
                       >
-                        🎯
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-cyan-600/40 to-green-800/40 border-2 border-cyan-400/50 flex items-center justify-center animate-breathing-glow-cyan">
+                          <span className="text-5xl sm:text-6xl">🧠</span>
+                        </div>
                       </motion.div>
+
+                      {/* Título principal con gradiente */}
                       <motion.h2
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-neon-green mb-4 sm:mb-6"
+                        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-cyan-300 to-green-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]"
                       >
                         ERES JUGADOR
                       </motion.h2>
+
+                      {/* Palabra secreta como token/chip */}
                       <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.5, type: "spring" }}
-                        className="mb-4 sm:mb-6"
+                        className="space-y-3 sm:space-y-4"
                       >
                         <p className="text-xs sm:text-sm text-gray-400 mb-2">La palabra secreta es:</p>
-                        <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-neon-lila animate-pulse-neon px-3 sm:px-4 py-2 sm:py-3 bg-dark-hover rounded-lg inline-block">
-                          {game.word?.toUpperCase()}
-                        </p>
+                        <div className="inline-block px-4 sm:px-6 py-3 sm:py-4 bg-dark-hover/80 backdrop-blur-sm border-2 border-cyan-400/50 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.3)]">
+                          <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-300 tracking-wider">
+                            {game.word?.toUpperCase()}
+                          </p>
+                        </div>
                       </motion.div>
+
+                      {/* Mensaje de instrucción contextual */}
                       <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.6 }}
-                        className="text-base sm:text-lg md:text-xl text-gray-300"
+                        className="text-xs sm:text-sm text-gray-400 opacity-70 leading-relaxed px-2"
                       >
-                        Descubre quién es el impostor.
+                        Memoriza la palabra. Cuando estés listo, pasa el teléfono.
                       </motion.p>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
-            </Card>
+            </div>
 
-            <Button
-              onClick={handleNext}
-              variant="primary"
-              className="text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-12 py-3 sm:py-4 w-full sm:w-auto"
-            >
-              {currentPlayerIndex < turnOrder.length - 1 ? 'OCULTAR Y PASAR AL SIGUIENTE' : 'OCULTAR Y COMENZAR RONDA'}
-            </Button>
+            {/* Botón final mejorado */}
+            <div className="flex flex-col items-center space-y-2 sm:space-y-3 animate-fadeInUp">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleNext}
+                className="w-full max-w-md px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 rounded-2xl font-bold text-sm sm:text-base md:text-lg bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(168,85,247,0.5)] transition-all duration-300"
+              >
+                {currentPlayerIndex < turnOrder.length - 1 ? 'OCULTAR Y PASAR AL SIGUIENTE' : 'OCULTAR Y COMENZAR RONDA'}
+              </motion.button>
+              <p className="text-xs sm:text-sm text-gray-500 opacity-70 text-center">
+                Toca para ocultar tu rol y pasar el turno.
+              </p>
+            </div>
           </>
         )}
       </motion.div>
