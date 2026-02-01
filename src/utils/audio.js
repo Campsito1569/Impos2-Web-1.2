@@ -7,8 +7,6 @@ let currentVolume = 0.5
 let isInitialized = false
 let wasPlayingBeforeBackground = false
 let wasManuallyPaused = false
-let appPauseListener = null
-let appResumeListener = null
 let visibilityChangeHandler = null
 let blurHandler = null
 let focusHandler = null
@@ -68,8 +66,9 @@ function initBackgroundAudio() {
 
 /**
  * Pausa el audio cuando la app va a background
+ * Exportada para uso externo (ej: listeners de Capacitor)
  */
-function pauseOnBackground() {
+export function pauseOnBackground() {
   if (backgroundAudio && !backgroundAudio.paused) {
     wasPlayingBeforeBackground = true
     wasManuallyPaused = false
@@ -80,8 +79,9 @@ function pauseOnBackground() {
 
 /**
  * Reanuda el audio cuando la app vuelve a foreground
+ * Exportada para uso externo (ej: listeners de Capacitor)
  */
-async function resumeOnForeground() {
+export async function resumeOnForeground() {
   // Esperar 100ms antes de intentar reanudar
   await new Promise(resolve => setTimeout(resolve, 100))
   
@@ -129,35 +129,8 @@ function setupBackgroundListeners() {
   }
   window.addEventListener('focus', focusHandler)
   
-  // Listeners de Capacitor App (Android/iOS)
-  try {
-    // Intentar importar dinámicamente Capacitor
-    import('@capacitor/app').then(({ App }) => {
-      // Listener para cuando la app va a background (pause)
-      App.addListener('pause', () => {
-        pauseOnBackground()
-      }).then((listener) => {
-        appPauseListener = listener
-        console.log('✅ Listener de pause de Capacitor App configurado')
-      })
-      
-      // Listener para cuando la app vuelve a foreground (resume)
-      App.addListener('resume', () => {
-        resumeOnForeground()
-      }).then((listener) => {
-        appResumeListener = listener
-        console.log('✅ Listener de resume de Capacitor App configurado')
-      })
-      
-      console.log('✅ Listeners de Capacitor App configurados')
-    }).catch((error) => {
-      // Capacitor no está disponible (modo web), usar solo listeners del navegador
-      console.log('ℹ️ Capacitor no disponible, usando solo listeners del navegador')
-    })
-  } catch (error) {
-    // Capacitor no está disponible (modo web)
-    console.log('ℹ️ Capacitor no disponible, usando solo listeners del navegador')
-  }
+  // Nota: Los listeners de Capacitor App se registran externamente
+  // desde main.jsx solo si estamos en una plataforma nativa
 }
 
 /**
@@ -179,15 +152,7 @@ function cleanupBackgroundListeners() {
     focusHandler = null
   }
   
-  if (appPauseListener) {
-    appPauseListener.remove()
-    appPauseListener = null
-  }
-  
-  if (appResumeListener) {
-    appResumeListener.remove()
-    appResumeListener = null
-  }
+  // Nota: Los listeners de Capacitor se limpian externamente
 }
 
 /**
