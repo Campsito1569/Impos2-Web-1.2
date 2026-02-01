@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from '../components/Button'
 import Card from '../components/Card'
+import FooterCreator from '../components/FooterCreator'
 import { useLanguage } from '../store/LanguageContext'
 import { playBackgroundMusic } from '../utils/audio'
 
@@ -113,6 +114,9 @@ export default function Home() {
           </div>
         </motion.div>
       </motion.div>
+      
+      {/* Footer solo en la pantalla inicial */}
+      <FooterCreator />
     </div>
   )
 }

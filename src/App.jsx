@@ -10,7 +10,6 @@ import RevealRole from './pages/RevealRole'
 import Round from './pages/Round'
 import End from './pages/End'
 import Settings from './pages/Settings'
-import FooterCreator from './components/FooterCreator'
 
 function App() {
   return (
@@ -30,7 +29,6 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
               </Routes>
             </AnimatePresence>
-            <FooterCreator />
           </div>
         </Router>
       </GameProvider>
