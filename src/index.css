@@ -104,5 +104,59 @@ body {
   animation: breathingGlowCyan 2s ease-in-out infinite;
 }
 
+/* Animación glow pulsante lento para pantalla final */
+@keyframes slowPulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.3), 0 0 60px rgba(239, 68, 68, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(239, 68, 68, 0.5), 0 0 100px rgba(239, 68, 68, 0.25);
+  }
+}
+
+.animate-slow-pulse-glow-red {
+  animation: slowPulseGlow 3.5s ease-in-out infinite;
+}
+
+@keyframes slowPulseGlowGreen {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.3), 0 0 60px rgba(34, 211, 238, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(34, 211, 238, 0.5), 0 0 100px rgba(34, 211, 238, 0.25);
+  }
+}
+
+.animate-slow-pulse-glow-green {
+  animation: slowPulseGlowGreen 3.5s ease-in-out infinite;
+}
+
+/* Animación de glow en texto */
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5), 0 0 20px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(239, 68, 68, 0.8), 0 0 40px rgba(239, 68, 68, 0.5);
+  }
+}
+
+.animate-text-glow-red {
+  animation: textGlow 3s ease-in-out infinite;
+}
+
+@keyframes textGlowGreen {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.5), 0 0 20px rgba(34, 211, 238, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.8), 0 0 40px rgba(34, 211, 238, 0.5);
+  }
+}
+
+.animate-text-glow-green {
+  animation: textGlowGreen 3s ease-in-out infinite;
+}
+
 
 
