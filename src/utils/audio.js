@@ -5,6 +5,13 @@ let backgroundAudio = null
 let isPlaying = false
 let currentVolume = 0.5
 let isInitialized = false
+let wasPlayingBeforeBackground = false
+let wasManuallyPaused = false
+let appPauseListener = null
+let appResumeListener = null
+let visibilityChangeHandler = null
+let blurHandler = null
+let focusHandler = null
 
 /**
  * Inicializa el audio de fondo si no existe
@@ -53,6 +60,133 @@ function initBackgroundAudio() {
     // Intentar cargar el audio
     backgroundAudio.load()
     isInitialized = true
+    
+    // Inicializar listeners de background/foreground
+    setupBackgroundListeners()
+  }
+}
+
+/**
+ * Pausa el audio cuando la app va a background
+ */
+function pauseOnBackground() {
+  if (backgroundAudio && !backgroundAudio.paused) {
+    wasPlayingBeforeBackground = true
+    wasManuallyPaused = false
+    backgroundAudio.pause()
+    console.log('⏸️ Música pausada por background')
+  }
+}
+
+/**
+ * Reanuda el audio cuando la app vuelve a foreground
+ */
+async function resumeOnForeground() {
+  // Esperar 100ms antes de intentar reanudar
+  await new Promise(resolve => setTimeout(resolve, 100))
+  
+  if (backgroundAudio && wasPlayingBeforeBackground && !wasManuallyPaused) {
+    try {
+      const playPromise = backgroundAudio.play()
+      if (playPromise !== undefined) {
+        await playPromise
+        console.log('▶️ Música reanudada desde background')
+      }
+    } catch (error) {
+      console.warn('⚠️ No se pudo reanudar automáticamente (autoplay bloqueado):', error)
+      // No lanzar error, solo loguear
+    }
+  }
+  wasPlayingBeforeBackground = false
+}
+
+/**
+ * Configura los listeners para detectar cuando la app va a background/foreground
+ */
+function setupBackgroundListeners() {
+  // Limpiar listeners anteriores si existen
+  cleanupBackgroundListeners()
+  
+  // Listener para cambios de visibilidad del documento (web)
+  visibilityChangeHandler = () => {
+    if (document.hidden) {
+      pauseOnBackground()
+    } else {
+      resumeOnForeground()
+    }
+  }
+  document.addEventListener('visibilitychange', visibilityChangeHandler)
+  
+  // Listener para cuando la ventana pierde el foco (web)
+  blurHandler = () => {
+    pauseOnBackground()
+  }
+  window.addEventListener('blur', blurHandler)
+  
+  // Listener para cuando la ventana recupera el foco (web)
+  focusHandler = () => {
+    resumeOnForeground()
+  }
+  window.addEventListener('focus', focusHandler)
+  
+  // Listeners de Capacitor App (Android/iOS)
+  try {
+    // Intentar importar dinámicamente Capacitor
+    import('@capacitor/app').then(({ App }) => {
+      // Listener para cuando la app va a background (pause)
+      App.addListener('pause', () => {
+        pauseOnBackground()
+      }).then((listener) => {
+        appPauseListener = listener
+        console.log('✅ Listener de pause de Capacitor App configurado')
+      })
+      
+      // Listener para cuando la app vuelve a foreground (resume)
+      App.addListener('resume', () => {
+        resumeOnForeground()
+      }).then((listener) => {
+        appResumeListener = listener
+        console.log('✅ Listener de resume de Capacitor App configurado')
+      })
+      
+      console.log('✅ Listeners de Capacitor App configurados')
+    }).catch((error) => {
+      // Capacitor no está disponible (modo web), usar solo listeners del navegador
+      console.log('ℹ️ Capacitor no disponible, usando solo listeners del navegador')
+    })
+  } catch (error) {
+    // Capacitor no está disponible (modo web)
+    console.log('ℹ️ Capacitor no disponible, usando solo listeners del navegador')
+  }
+}
+
+/**
+ * Limpia todos los listeners de background/foreground
+ */
+function cleanupBackgroundListeners() {
+  if (visibilityChangeHandler) {
+    document.removeEventListener('visibilitychange', visibilityChangeHandler)
+    visibilityChangeHandler = null
+  }
+  
+  if (blurHandler) {
+    window.removeEventListener('blur', blurHandler)
+    blurHandler = null
+  }
+  
+  if (focusHandler) {
+    window.removeEventListener('focus', focusHandler)
+    focusHandler = null
+  }
+  
+  if (appPauseListener) {
+    appPauseListener.remove()
+    appPauseListener = null
+  }
+  
+  if (appResumeListener) {
+    appResumeListener.remove()
+    appResumeListener = null
   }
 }
 
@@ -69,6 +203,10 @@ export function playBackgroundMusic(volume = 0.5) {
     setBackgroundVolume(volume)
     return
   }
+  
+  // Marcar que NO fue pausada manualmente (el usuario quiere reproducir)
+  wasManuallyPaused = false
+  wasPlayingBeforeBackground = false
   
   // Establecer volumen antes de reproducir
   currentVolume = Math.max(0, Math.min(1, volume))
@@ -109,6 +247,9 @@ export function stopBackgroundMusic() {
     backgroundAudio.pause()
     backgroundAudio.currentTime = 0
     isPlaying = false
+    // Marcar que fue pausada manualmente por el usuario
+    wasManuallyPaused = true
+    wasPlayingBeforeBackground = false
   }
 }
 
@@ -142,5 +283,22 @@ export function getBackgroundVolume() {
  */
 export function isBackgroundMusicPlaying() {
   return backgroundAudio && !backgroundAudio.paused && isPlaying
+}
+
+/**
+ * Limpia todos los recursos y listeners
+ * Debe llamarse cuando la app se desmonte o cuando ya no se necesite el audio
+ */
+export function cleanupAudio() {
+  cleanupBackgroundListeners()
+  if (backgroundAudio) {
+    backgroundAudio.pause()
+    backgroundAudio = null
+  }
+  isPlaying = false
+  wasPlayingBeforeBackground = false
+  wasManuallyPaused = false
+  isInitialized = false
+  console.log('🧹 Recursos de audio limpiados')
 }
 
