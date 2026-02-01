@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Button from '../components/Button'
@@ -8,10 +8,9 @@ import { useGame } from '../store/GameContext'
 
 export default function Players() {
   const navigate = useNavigate()
-  const { players, setPlayers, addPlayer, removePlayer, updatePlayer, impostorCount, setImpostorCount, eliminationRule, setEliminationRule } = useGame()
+  const { players, setPlayers, impostorCount, setImpostorCount, eliminationRule, setEliminationRule } = useGame()
   const [localPlayers, setLocalPlayers] = useState(['', ''])
-  const [editingIndex, setEditingIndex] = useState(null)
-  const [editingName, setEditingName] = useState('')
+  const inputRefs = useRef([])
 
   useEffect(() => {
     if (players.length > 0) {
@@ -19,8 +18,27 @@ export default function Players() {
     }
   }, [])
 
+  // Guardar automáticamente en el estado global mientras se escribe
+  useEffect(() => {
+    const validPlayers = localPlayers.filter(p => p.trim() !== '')
+    // Solo guardar si hay al menos un jugador válido
+    if (validPlayers.length > 0) {
+      setPlayers(validPlayers)
+    }
+    // Limpiar refs obsoletos cuando cambia la longitud
+    inputRefs.current = inputRefs.current.slice(0, localPlayers.length)
+  }, [localPlayers, setPlayers])
+
   const handleAddPlayer = () => {
-    setLocalPlayers([...localPlayers, ''])
+    const newPlayers = [...localPlayers, '']
+    setLocalPlayers(newPlayers)
+    // Enfocar el nuevo input después de que se renderice
+    setTimeout(() => {
+      const newIndex = newPlayers.length - 1
+      if (inputRefs.current[newIndex]) {
+        inputRefs.current[newIndex].focus()
+      }
+    }, 0)
   }
 
   const handleRemovePlayer = (index) => {
@@ -36,32 +54,23 @@ export default function Players() {
     setLocalPlayers(newPlayers)
   }
 
-  const handleStartEditing = (index) => {
-    setEditingIndex(index)
-    setEditingName(localPlayers[index])
-  }
-
-  const handleSaveEdit = () => {
-    if (editingIndex !== null && editingName.trim()) {
-      const trimmedName = editingName.trim()
-      const isDuplicate = localPlayers.some((p, i) => i !== editingIndex && p.toLowerCase() === trimmedName.toLowerCase())
+  const handleKeyDown = (e, index) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      const isLast = index === localPlayers.length - 1
+      const currentValue = localPlayers[index]?.trim() || ''
       
-      if (isDuplicate) {
-        alert('Ya existe un jugador con ese nombre.')
-        return
+      if (isLast && currentValue !== '') {
+        // Si es el último input y no está vacío → agregar nuevo jugador y enfocar
+        handleAddPlayer()
+      } else if (!isLast) {
+        // Si no es el último → pasar el foco al siguiente input
+        const nextIndex = index + 1
+        if (inputRefs.current[nextIndex]) {
+          inputRefs.current[nextIndex].focus()
+        }
       }
-      
-      const newPlayers = [...localPlayers]
-      newPlayers[editingIndex] = trimmedName
-      setLocalPlayers(newPlayers)
-      setEditingIndex(null)
-      setEditingName('')
     }
-  }
-
-  const handleCancelEdit = () => {
-    setEditingIndex(null)
-    setEditingName('')
   }
 
   const handleContinue = () => {
@@ -185,52 +194,24 @@ export default function Players() {
                   exit={{ opacity: 0, x: 20 }}
                   className="flex gap-3"
                 >
-                  {editingIndex === index ? (
-                    <div className="flex gap-2 flex-1">
-                      <Input
-                        value={editingName}
-                        onChange={(e) => setEditingName(e.target.value)}
-                        placeholder={`Jugador ${index + 1}`}
-                        className="flex-1 mb-0"
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter') handleSaveEdit()
-                          if (e.key === 'Escape') handleCancelEdit()
-                        }}
-                        autoFocus
-                      />
-                      <Button
-                        onClick={handleSaveEdit}
-                        variant="success"
-                        className="px-4"
-                      >
-                        ✓
-                      </Button>
-                      <Button
-                        onClick={handleCancelEdit}
-                        variant="secondary"
-                        className="px-4"
-                      >
-                        ✕
-                      </Button>
-                    </div>
-                  ) : (
-                    <>
-                      <div
-                        className="flex-1 px-4 py-3 rounded-xl bg-dark-hover border-2 border-neon-purple text-white cursor-pointer hover:border-neon-lila transition-all"
-                        onClick={() => handleStartEditing(index)}
-                      >
-                        {player || `Jugador ${index + 1}`}
-                      </div>
-                      {localPlayers.length > 2 && (
-                        <Button
-                          onClick={() => handleRemovePlayer(index)}
-                          variant="danger"
-                          className="px-4"
-                        >
-                          ✕
-                        </Button>
-                      )}
-                    </>
+                  <Input
+                    value={player}
+                    onChange={(e) => handlePlayerChange(index, e.target.value)}
+                    placeholder={`Jugador ${index + 1}`}
+                    className="flex-1 mb-0"
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    ref={(el) => {
+                      inputRefs.current[index] = el
+                    }}
+                  />
+                  {localPlayers.length > 2 && (
+                    <Button
+                      onClick={() => handleRemovePlayer(index)}
+                      variant="danger"
+                      className="px-4"
+                    >
+                      ✕
+                    </Button>
                   )}
                 </motion.div>
               ))}

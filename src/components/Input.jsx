@@ -1,6 +1,7 @@
+import { forwardRef } from 'react'
 import { motion } from 'framer-motion'
 
-export default function Input({ 
+const Input = forwardRef(function Input({ 
   label, 
   value, 
   onChange, 
@@ -8,7 +9,7 @@ export default function Input({
   type = 'text',
   className = '',
   ...props 
-}) {
+}, ref) {
   const inputClasses = `
     w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl
     bg-dark-hover border-2 border-neon-purple
@@ -27,6 +28,7 @@ export default function Input({
       )}
       {type === 'textarea' ? (
         <motion.textarea
+          ref={ref}
           whileFocus={{ scale: 1.02 }}
           value={value}
           onChange={onChange}
@@ -37,6 +39,7 @@ export default function Input({
         />
       ) : (
         <motion.input
+          ref={ref}
           whileFocus={{ scale: 1.02 }}
           type={type}
           value={value}
@@ -48,5 +51,7 @@ export default function Input({
       )}
     </div>
   )
-}
+})
+
+export default Input
 
