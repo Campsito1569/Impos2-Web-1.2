@@ -65,70 +65,38 @@ export default function ModeSelect() {
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-6xl w-full py-4 sm:py-6 md:py-8"
-      >
+      <div className="max-w-6xl w-full py-4 sm:py-6 md:py-8 gpu anim-lite">
         {/* Título mejorado */}
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-8 sm:mb-10 md:mb-12 text-center bg-gradient-to-r from-neon-lila via-purple-400 to-neon-lila bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(167,139,250,0.5)] px-2"
-        >
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-8 sm:mb-10 md:mb-12 text-center bg-gradient-to-r from-neon-lila via-purple-400 to-neon-lila bg-clip-text text-transparent px-2">
           Selecciona el Modo de Juego
-        </motion.h1>
+        </h1>
 
         {/* Grid de modos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10">
           {Object.entries(modeConfig).map(([mode, config], index) => (
-            <motion.div
+            <div
               key={mode}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + index * 0.1, duration: 0.5, ease: "easeOut" }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.98 }}
               onClick={() => handleModeClick(mode)}
-              className="cursor-pointer h-full"
+              className="cursor-pointer h-full gpu anim-lite"
+              style={{
+                opacity: 0,
+                transform: 'translateY(20px)',
+                animation: `fadeInUpLite 0.3s ease-out ${index * 0.05}s forwards`
+              }}
             >
               <div
-                className="relative bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-6 sm:p-8 h-full transition-all duration-300"
+                className="relative bg-white/5 card-lite rounded-3xl border border-white/10 p-6 sm:p-8 h-full glow-lite gpu"
                 style={{
-                  boxShadow: `0 0 40px ${config.glowColor}`,
                   borderColor: config.borderColor.replace('/50', '/30')
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 50px ${config.hoverGlow}`
-                  e.currentTarget.style.borderColor = config.borderColor.replace('/30', '/60')
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 40px ${config.glowColor}`
-                  e.currentTarget.style.borderColor = config.borderColor.replace('/60', '/30')
                 }}
               >
                 <div className="text-center h-full flex flex-col">
-                  {/* Icono con glow y animación */}
-                  <motion.div
-                    animate={{
-                      y: [0, -5, 0],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    className="mb-4 sm:mb-6"
-                    style={{
-                      filter: `drop-shadow(0 0 20px ${config.iconGlow})`
-                    }}
-                  >
+                  {/* Icono sin animación continua */}
+                  <div className="mb-4 sm:mb-6">
                     <div className="text-5xl sm:text-6xl md:text-7xl">
                       {config.icon}
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* Título */}
                   <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white">
@@ -141,27 +109,45 @@ export default function ModeSelect() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Botón Volver */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="flex justify-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+        <div className="flex justify-center gpu anim-lite">
+          <button
             onClick={() => navigate('/')}
-            className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 hover:bg-white/5 hover:border-purple-400/60 transition-all duration-200"
+            className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 hover:bg-white/5 hover:border-purple-400/60 gpu anim-lite"
           >
             Volver
-          </motion.button>
-        </motion.div>
-      </motion.div>
+          </button>
+        </div>
+      </div>
+      
+      <style>{`
+        @keyframes fadeInUpLite {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .card-lite {
+            backdrop-filter: none !important;
+          }
+        }
+        
+        @media (hover: hover) {
+          .gpu:hover {
+            transform: translateY(-2px) scale(1.01) translateZ(0);
+          }
+        }
+        
+        .gpu:active {
+          transform: scale(0.99) translateZ(0);
+        }
+      `}</style>
     </div>
   )
 }

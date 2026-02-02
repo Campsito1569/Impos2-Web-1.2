@@ -189,5 +189,96 @@ body {
   animation: gradientShift 15s ease infinite;
 }
 
+/* Utilidades para optimización de rendimiento en Android */
+.gpu {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+.anim-lite {
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.glow-lite {
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.35);
+}
+
+.card-lite {
+  backdrop-filter: blur(4px);
+}
+
+/* Animaciones ligeras para optimización */
+@keyframes fadeInUpLite {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUpLiteSmall {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScaleLite {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Reducir blur y sombras en móvil */
+@media (max-width: 768px) {
+  .card-lite {
+    backdrop-filter: none;
+  }
+  
+  .glow-lite {
+    box-shadow: 0 0 9px rgba(168, 85, 247, 0.25);
+  }
+}
+
+/* Respetar prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .anim-lite {
+    transition: none !important;
+  }
+  
+  .animate-fadeInUp,
+  .animate-breathing-glow,
+  .animate-breathing-glow-red,
+  .animate-breathing-glow-cyan,
+  .animate-slow-pulse-glow-red,
+  .animate-slow-pulse-glow-green,
+  .animate-text-glow-red,
+  .animate-text-glow-green,
+  .animate-slow-pulse,
+  .animate-gradient-shift {
+    animation: none !important;
+  }
+}
+
 
 

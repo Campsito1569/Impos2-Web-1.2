@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import Button from '../components/Button'
-import Card from '../components/Card'
 import { useGame } from '../store/GameContext'
 
 export default function End() {
@@ -66,84 +63,52 @@ export default function End() {
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-3xl w-full text-center px-2"
-      >
+      <div className="max-w-3xl w-full text-center px-2 gpu anim-lite">
         {/* Título principal mejorado */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-6 sm:mb-8 md:mb-10"
-        >
+        <div className="mb-6 sm:mb-8 md:mb-10">
           <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 sm:mb-6">
             {isImpostorWin ? '🎭' : '🎉'}
           </div>
           <h1 className={`
             text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 sm:mb-5 tracking-wide
             ${isImpostorWin 
-              ? 'bg-gradient-to-r from-pink-400 to-red-500 bg-clip-text text-transparent animate-text-glow-red' 
-              : 'bg-gradient-to-r from-cyan-300 to-green-300 bg-clip-text text-transparent animate-text-glow-green'
+              ? 'bg-gradient-to-r from-pink-400 to-red-500 bg-clip-text text-transparent' 
+              : 'bg-gradient-to-r from-cyan-300 to-green-300 bg-clip-text text-transparent'
             }
           `}>
             {isImpostorWin ? 'IMPOSTORES GANARON' : 'LOS JUGADORES GANARON'}
           </h1>
           
           {/* Mensaje narrativo */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className={`text-base sm:text-lg md:text-xl mb-3 sm:mb-4 ${
-              isImpostorWin ? 'text-pink-300' : 'text-cyan-300'
-            } font-medium`}
-          >
+          <p className={`text-base sm:text-lg md:text-xl mb-3 sm:mb-4 ${
+            isImpostorWin ? 'text-pink-300' : 'text-cyan-300'
+          } font-medium`}>
             {narrativeMessage}
-          </motion.p>
+          </p>
 
           {/* Razón del fin con mejor jerarquía */}
           {endData.endReason && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className={`text-sm sm:text-base md:text-lg px-2 ${
-                endData.endReason.includes('Expulsión incorrecta') 
-                  ? 'text-red-400 font-semibold' 
-                  : 'text-gray-300'
-              }`}
-            >
+            <p className={`text-sm sm:text-base md:text-lg px-2 ${
+              endData.endReason.includes('Expulsión incorrecta') 
+                ? 'text-red-400 font-semibold' 
+                : 'text-gray-300'
+            }`}>
               {endData.endReason}
-            </motion.p>
+            </p>
           )}
-        </motion.div>
+        </div>
 
         {/* Tarjeta principal con glassmorphism */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className={`
-            relative bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-6 sm:p-8 md:p-10 mb-6 sm:mb-8
-            ${isImpostorWin 
-              ? 'animate-slow-pulse-glow-red' 
-              : 'animate-slow-pulse-glow-green'
-            }
-          `}
-        >
+        <div className={`
+          relative bg-white/5 card-lite rounded-3xl border border-white/10 p-6 sm:p-8 md:p-10 mb-6 sm:mb-8 glow-lite
+        `}>
           {/* Palabra secreta como badge destacado */}
           <div className="mb-6 sm:mb-8">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-5 text-gray-300">
               La palabra secreta era:
             </h2>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6, type: "spring" }}
-              className="inline-block px-6 sm:px-8 py-4 sm:py-5 bg-dark-hover/80 backdrop-blur-sm border-2 rounded-xl shadow-[0_0_25px_rgba(167,139,250,0.4)]"
+            <div
+              className="inline-block px-6 sm:px-8 py-4 sm:py-5 bg-dark-hover/80 border-2 rounded-xl glow-lite gpu anim-lite"
               style={{
                 borderColor: isImpostorWin ? 'rgba(239, 68, 68, 0.5)' : 'rgba(34, 211, 238, 0.5)'
               }}
@@ -153,28 +118,25 @@ export default function End() {
               }`}>
                 {endData.word?.toUpperCase()}
               </p>
-            </motion.div>
+            </div>
           </div>
 
           {/* Impostores como chips/badges mejorados */}
           {impostors.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="mt-6 sm:mt-8"
-            >
+            <div className="mt-6 sm:mt-8">
               <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-5 font-medium">
                 Los impostores eran:
               </p>
               <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
                 {impostors.map((impostor, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8 + index * 0.1 }}
-                    className="flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-3 bg-red-500/20 border-2 border-red-400/50 rounded-full"
+                    className="flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-3 bg-red-500/20 border-2 border-red-400/50 rounded-full gpu anim-lite"
+                    style={{
+                      opacity: 0,
+                      transform: 'scale(0.9)',
+                      animation: `fadeInScaleLite 0.2s ease-out ${index * 0.05}s forwards`
+                    }}
                   >
                     {/* Avatar con inicial */}
                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-red-600/60 to-pink-800/60 border border-red-400/50 flex items-center justify-center font-bold text-sm sm:text-base text-red-200">
@@ -183,51 +145,65 @@ export default function End() {
                     <span className="text-sm sm:text-base md:text-lg text-red-300 font-semibold">
                       {impostor.name}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           )}
-        </motion.div>
+        </div>
 
         {/* Botones finales con mejor jerarquía */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          className="flex flex-col gap-4 sm:gap-5 max-w-md mx-auto"
-        >
+        <div className="flex flex-col gap-4 sm:gap-5 max-w-md mx-auto gpu anim-lite">
           {/* Botón principal */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
             onClick={handlePlayAgain}
-            className="w-full px-6 sm:px-8 py-3 sm:py-4 md:py-5 rounded-2xl font-bold text-base sm:text-lg md:text-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(168,85,247,0.5)] transition-all duration-300"
+            className="w-full px-6 sm:px-8 py-3 sm:py-4 md:py-5 rounded-2xl font-bold text-base sm:text-lg md:text-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white glow-lite gpu anim-lite"
           >
             🎮 Jugar Otra Partida
-          </motion.button>
+          </button>
 
           {/* Botones secundarios */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <button
               onClick={handleChangePlayers}
-              className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 hover:bg-white/5 hover:border-purple-400/60 transition-all duration-200"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 gpu anim-lite"
             >
               Cambiar Jugadores
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            </button>
+            <button
               onClick={handleChangeMode}
-              className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 hover:bg-white/5 hover:border-purple-400/60 transition-all duration-200"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 gpu anim-lite"
             >
               Cambiar Modo
-            </motion.button>
+            </button>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
+      
+      <style>{`
+        @keyframes fadeInScaleLite {
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .card-lite {
+            backdrop-filter: none !important;
+          }
+        }
+        
+        @media (hover: hover) {
+          .gpu:hover {
+            transform: translateY(-2px) scale(1.01) translateZ(0);
+          }
+        }
+        
+        .gpu:active {
+          transform: scale(0.99) translateZ(0);
+        }
+      `}</style>
     </div>
   )
 }
