@@ -356,3 +356,5 @@ adb logcat | findstr /i capacitor
 
 
 
+
+
