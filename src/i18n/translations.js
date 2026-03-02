@@ -22,6 +22,10 @@ export const translations = {
         title: "Modo Base de Datos",
         description: "Base de datos local con ~1000 palabras MUY conocidas. Categorías: Países, Famosos, Animales, Objetos, Acciones y Lugares."
       },
+      football: {
+        title: "Modo Fútbol",
+        description: "Juega con una base de datos de fútbol (jugadores y equipos famosos)."
+      },
       back: "Volver",
       continue: "Continuar"
     },
@@ -119,7 +123,12 @@ export const translations = {
     // Common
     common: {
       loading: "Cargando...",
-      error: "Error"
+      error: "Error",
+      offline: {
+        title: "Sin conexión",
+        message: "El impostor se llevó el WiFi",
+        retry: "Reintentar misión"
+      }
     }
   },
   en: {
@@ -142,6 +151,10 @@ export const translations = {
       database: {
         title: "Database Mode",
         description: "Local database with ~1000 VERY well-known words. Categories: Countries, Celebrities, Animals, Objects, Actions and Places."
+      },
+      football: {
+        title: "Football Mode",
+        description: "Play with a football database (famous players and teams)."
       },
       back: "Back",
       continue: "Continue"
@@ -233,7 +246,12 @@ export const translations = {
     },
     common: {
       loading: "Loading...",
-      error: "Error"
+      error: "Error",
+      offline: {
+        title: "No connection",
+        message: "The impostor took the WiFi",
+        retry: "Retry mission"
+      }
     }
   },
   fr: {
@@ -256,6 +274,10 @@ export const translations = {
       database: {
         title: "Mode Base de Données",
         description: "Base de données locale avec ~1000 mots TRÈS connus. Catégories: Pays, Célébrités, Animaux, Objets, Actions et Lieux."
+      },
+      football: {
+        title: "Mode Football",
+        description: "Jouez avec une base de données de football (joueurs et équipes célèbres)."
       },
       back: "Retour",
       continue: "Continuer"
@@ -347,7 +369,12 @@ export const translations = {
     },
     common: {
       loading: "Chargement...",
-      error: "Erreur"
+      error: "Erreur",
+      offline: {
+        title: "Pas de connexion",
+        message: "L'imposteur a pris le WiFi",
+        retry: "Réessayer la mission"
+      }
     }
   },
   pt: {
@@ -370,6 +397,10 @@ export const translations = {
       database: {
         title: "Modo Banco de Dados",
         description: "Banco de dados local com ~1000 palavras MUITO conhecidas. Categorias: Países, Celebridades, Animais, Objetos, Ações e Lugares."
+      },
+      football: {
+        title: "Modo Futebol",
+        description: "Jogue com um banco de dados de futebol (jogadores e times famosos)."
       },
       back: "Voltar",
       continue: "Continuar"
@@ -461,7 +492,12 @@ export const translations = {
     },
     common: {
       loading: "Carregando...",
-      error: "Erro"
+      error: "Erro",
+      offline: {
+        title: "Sem conexão",
+        message: "O impostor levou o WiFi",
+        retry: "Tentar novamente"
+      }
     }
   }
 }

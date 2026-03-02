@@ -3,10 +3,12 @@ import { motion } from 'framer-motion'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import { useGame } from '../store/GameContext'
+import { useLanguage } from '../store/LanguageContext'
 
 export default function ModeSelect() {
   const navigate = useNavigate()
   const { setGameMode } = useGame()
+  const { t } = useLanguage()
 
   const handleModeClick = (mode) => {
     // Guardar el modo seleccionado y navegar inmediatamente
@@ -27,8 +29,8 @@ export default function ModeSelect() {
   const modeConfig = {
     manual: {
       icon: '✍️',
-      title: 'Modo Manual',
-      description: 'Una persona externa escribe UNA palabra secreta al iniciar cada partida. Ideal para mayor control sobre las palabras.',
+      title: t('modeSelect.manual.title'),
+      description: t('modeSelect.manual.description'),
       borderColor: 'border-pink-400/50',
       glowColor: 'rgba(244, 114, 182, 0.3)',
       hoverGlow: 'rgba(244, 114, 182, 0.5)',
@@ -36,8 +38,8 @@ export default function ModeSelect() {
     },
     'semi-manual': {
       icon: '📝',
-      title: 'Modo Semi-Manual',
-      description: 'Permite agregar VARIAS palabras de golpe (una por línea o separadas por comas). Se crea un pool de palabras que se usa aleatoriamente sin repetir.',
+      title: t('modeSelect.semiManual.title'),
+      description: t('modeSelect.semiManual.description'),
       borderColor: 'border-blue-400/50',
       glowColor: 'rgba(96, 165, 250, 0.3)',
       hoverGlow: 'rgba(96, 165, 250, 0.5)',
@@ -45,8 +47,8 @@ export default function ModeSelect() {
     },
     database: {
       icon: '📚',
-      title: 'Modo Base de Datos',
-      description: 'Base de datos local con ~1000 palabras MUY conocidas. Categorías: Países, Famosos, Animales, Objetos, Acciones y Lugares.',
+      title: t('modeSelect.database.title'),
+      description: t('modeSelect.database.description'),
       borderColor: 'border-green-400/50',
       glowColor: 'rgba(74, 222, 128, 0.3)',
       hoverGlow: 'rgba(74, 222, 128, 0.5)',
@@ -54,8 +56,8 @@ export default function ModeSelect() {
     },
     football: {
       icon: '⚽',
-      title: 'Modo Fútbol',
-      description: 'Juega con una base de datos de fútbol (jugadores y equipos famosos).',
+      title: t('modeSelect.football.title'),
+      description: t('modeSelect.football.description'),
       borderColor: 'border-cyan-400/50',
       glowColor: 'rgba(34, 211, 238, 0.3)',
       hoverGlow: 'rgba(34, 211, 238, 0.5)',
@@ -68,7 +70,7 @@ export default function ModeSelect() {
       <div className="max-w-6xl w-full py-4 sm:py-6 md:py-8 gpu anim-lite">
         {/* Título mejorado */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-8 sm:mb-10 md:mb-12 text-center bg-gradient-to-r from-neon-lila via-purple-400 to-neon-lila bg-clip-text text-transparent px-2">
-          Selecciona el Modo de Juego
+          {t('modeSelect.title')}
         </h1>
 
         {/* Grid de modos */}
@@ -119,7 +121,7 @@ export default function ModeSelect() {
             onClick={() => navigate('/')}
             className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 hover:bg-white/5 hover:border-purple-400/60 gpu anim-lite"
           >
-            Volver
+            {t('modeSelect.back')}
           </button>
         </div>
       </div>

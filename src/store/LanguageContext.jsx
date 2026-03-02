@@ -4,28 +4,50 @@ import { translations, languages } from '../i18n/translations'
 const LanguageContext = createContext()
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('es')
-  const [volume, setVolume] = useState(50)
-  const [soundEffectsVolume, setSoundEffectsVolume] = useState(50)
-  const [musicVolume, setMusicVolume] = useState(50)
+  // Inicializar desde localStorage inmediatamente para evitar flash de idioma incorrecto
+  const getInitialLanguage = () => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('language')
+      return saved && translations[saved] ? saved : 'es'
+    }
+    return 'es'
+  }
 
-  // Cargar configuración del localStorage
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language')
-    const savedVolume = localStorage.getItem('volume')
-    const savedSoundEffectsVolume = localStorage.getItem('soundEffectsVolume')
-    const savedMusicVolume = localStorage.getItem('musicVolume')
+  const [language, setLanguage] = useState(getInitialLanguage)
+  const [volume, setVolume] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('volume')
+      return saved ? parseInt(saved) : 50
+    }
+    return 50
+  })
+  const [soundEffectsVolume, setSoundEffectsVolume] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('soundEffectsVolume')
+      return saved ? parseInt(saved) : 50
+    }
+    return 50
+  })
+  const [musicVolume, setMusicVolume] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('musicVolume')
+      return saved ? parseInt(saved) : 50
+    }
+    return 50
+  })
 
-    if (savedLanguage) setLanguage(savedLanguage)
-    if (savedVolume) setVolume(parseInt(savedVolume))
-    if (savedSoundEffectsVolume) setSoundEffectsVolume(parseInt(savedSoundEffectsVolume))
-    if (savedMusicVolume) setMusicVolume(parseInt(savedMusicVolume))
-  }, [])
-
-  // Guardar configuración en localStorage
+  // Guardar configuración en localStorage cuando cambie
   useEffect(() => {
     localStorage.setItem('language', language)
   }, [language])
+
+  // Función para cambiar idioma que también guarda en localStorage
+  const changeLanguage = (newLanguage) => {
+    if (translations[newLanguage]) {
+      setLanguage(newLanguage)
+      localStorage.setItem('language', newLanguage)
+    }
+  }
 
   useEffect(() => {
     localStorage.setItem('volume', volume.toString())
@@ -78,7 +100,9 @@ export function LanguageProvider({ children }) {
     <LanguageContext.Provider
       value={{
         language,
-        setLanguage,
+        setLanguage: changeLanguage,
+        lang: language, // Alias para compatibilidad
+        setLang: changeLanguage, // Alias para compatibilidad
         volume,
         setVolume,
         soundEffectsVolume,
