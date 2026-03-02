@@ -11,16 +11,10 @@ export default function ModeSelect() {
   const { t } = useLanguage()
 
   const handleModeClick = (mode) => {
-    // Guardar el modo seleccionado y navegar inmediatamente
     setGameMode(mode)
-    
-    if (mode === 'manual') {
-      navigate('/players')
-    } else if (mode === 'semi-manual') {
+    if (mode === 'semi-manual') {
       navigate('/word-setup')
-    } else if (mode === 'database') {
-      navigate('/players')
-    } else if (mode === 'football') {
+    } else {
       navigate('/players')
     }
   }
@@ -62,6 +56,42 @@ export default function ModeSelect() {
       glowColor: 'rgba(34, 211, 238, 0.3)',
       hoverGlow: 'rgba(34, 211, 238, 0.5)',
       iconGlow: 'rgba(34, 211, 238, 0.4)'
+    },
+    animals: {
+      icon: '🦁',
+      title: t('modeSelect.animals.title'),
+      description: t('modeSelect.animals.description'),
+      borderColor: 'border-amber-400/50',
+      glowColor: 'rgba(251, 191, 36, 0.3)',
+      hoverGlow: 'rgba(251, 191, 36, 0.5)',
+      iconGlow: 'rgba(251, 191, 36, 0.4)'
+    },
+    countries: {
+      icon: '🌍',
+      title: t('modeSelect.countries.title'),
+      description: t('modeSelect.countries.description'),
+      borderColor: 'border-emerald-400/50',
+      glowColor: 'rgba(52, 211, 153, 0.3)',
+      hoverGlow: 'rgba(52, 211, 153, 0.5)',
+      iconGlow: 'rgba(52, 211, 153, 0.4)'
+    },
+    movies: {
+      icon: '🎬',
+      title: t('modeSelect.movies.title'),
+      description: t('modeSelect.movies.description'),
+      borderColor: 'border-rose-400/50',
+      glowColor: 'rgba(251, 113, 133, 0.3)',
+      hoverGlow: 'rgba(251, 113, 133, 0.5)',
+      iconGlow: 'rgba(251, 113, 133, 0.4)'
+    },
+    sports: {
+      icon: '🏃',
+      title: t('modeSelect.sports.title'),
+      description: t('modeSelect.sports.description'),
+      borderColor: 'border-orange-400/50',
+      glowColor: 'rgba(251, 146, 60, 0.3)',
+      hoverGlow: 'rgba(251, 146, 60, 0.5)',
+      iconGlow: 'rgba(251, 146, 60, 0.4)'
     }
   }
 

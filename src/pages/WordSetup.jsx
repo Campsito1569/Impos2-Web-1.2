@@ -6,7 +6,7 @@ import Card from '../components/Card'
 import Input from '../components/Input'
 import { useGame } from '../store/GameContext'
 import { useLanguage } from '../store/LanguageContext'
-import { getAllWordsFromDb, getAllFootballWordsFromDb, getRandomWordFromDb, getRandomFootballWordFromDb } from '../data/getWordsDb'
+import { getAllWordsFromDb, getAllFootballWordsFromDb, getRandomWordFromDb, getRandomFootballWordFromDb, getRandomAnimalsWordFromDb, getRandomCountriesWordFromDb, getRandomMoviesAndSeriesWordFromDb, getRandomSportsWordFromDb } from '../data/getWordsDb'
 
 export default function WordSetup() {
   const navigate = useNavigate()
@@ -135,33 +135,48 @@ export default function WordSetup() {
     navigate('/reveal-role')
   }
 
-  const handleFootballContinue = () => {
-    const word = getRandomFootballWordFromDb(language)
-    
-    // Crear turnOrder barajado
+  const handleFootballContinue = () => startGameWithWord(getRandomFootballWordFromDb(language), 'football')
+
+  const startGameWithWord = (word, mode) => {
+    if (!word) return
     const turnOrder = shuffleArray(players)
-    // Asignar impostores sobre turnOrder
     const impostorIndices = assignImpostors(turnOrder, impostorCount)
-    
-    // Crear players con roles basados en turnOrder
     const playersWithRoles = turnOrder.map((playerName, index) => ({
       name: playerName,
       role: impostorIndices.includes(index) ? 'impostor' : 'player',
       eliminado: false
     }))
-    
     const gameData = {
       players: playersWithRoles,
-      turnOrder: turnOrder,
+      turnOrder,
       word,
       impostorCount,
       eliminationRule,
-      gameMode: 'football'
+      gameMode: mode
     }
-
     setCurrentGame(gameData)
     localStorage.setItem('currentGame', JSON.stringify(gameData))
     navigate('/reveal-role')
+  }
+
+  const handleAnimalsContinue = () => {
+    const word = getRandomAnimalsWordFromDb(language)
+    startGameWithWord(word, 'animals')
+  }
+
+  const handleCountriesContinue = () => {
+    const word = getRandomCountriesWordFromDb(language)
+    startGameWithWord(word, 'countries')
+  }
+
+  const handleMoviesContinue = () => {
+    const word = getRandomMoviesAndSeriesWordFromDb(language)
+    startGameWithWord(word, 'movies')
+  }
+
+  const handleSportsContinue = () => {
+    const word = getRandomSportsWordFromDb(language)
+    startGameWithWord(word, 'sports')
   }
 
   if (gameMode === 'manual') {
@@ -319,43 +334,90 @@ export default function WordSetup() {
     )
   }
 
+  const DatasetModeScreen = ({ icon, titleKey, descriptionKey, onContinue }) => (
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-2xl w-full text-center"
+      >
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
+          {t(titleKey)}
+        </h1>
+        <Card glowColor="lila" className="mb-4 sm:mb-6">
+          <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">{icon}</div>
+          <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
+            {t(descriptionKey)}
+          </p>
+          <Button
+            onClick={onContinue}
+            variant="primary"
+            className="w-full text-base sm:text-lg py-3 sm:py-4"
+          >
+            {t('wordSetup.continue')}
+          </Button>
+        </Card>
+        <div className="flex justify-center gap-3 sm:gap-4 px-2">
+          <Button onClick={() => navigate('/players')} variant="secondary" className="w-full sm:w-auto">
+            {t('wordSetup.back')}
+          </Button>
+        </div>
+      </motion.div>
+    </div>
+  )
+
   if (gameMode === 'football') {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-2xl w-full text-center"
-        >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
-            {t('wordSetup.database.title')}
-          </h1>
+      <DatasetModeScreen
+        icon="⚽"
+        titleKey="modeSelect.football.title"
+        descriptionKey="modeSelect.football.description"
+        onContinue={handleFootballContinue}
+      />
+    )
+  }
 
-          <Card glowColor="lila" className="mb-4 sm:mb-6">
-            <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">⚽</div>
-            <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
-              {t('modeSelect.football.description')}
-            </p>
-            <Button
-              onClick={handleFootballContinue}
-              variant="primary"
-              className="w-full text-base sm:text-lg py-3 sm:py-4"
-            >
-              {t('wordSetup.continue')}
-            </Button>
-          </Card>
+  if (gameMode === 'animals') {
+    return (
+      <DatasetModeScreen
+        icon="🦁"
+        titleKey="modeSelect.animals.title"
+        descriptionKey="modeSelect.animals.description"
+        onContinue={handleAnimalsContinue}
+      />
+    )
+  }
 
-          <div className="flex justify-center gap-3 sm:gap-4 px-2">
-            <Button
-              onClick={() => navigate('/players')}
-              variant="secondary"
-              className="w-full sm:w-auto"
-            >
-              {t('wordSetup.back')}
-            </Button>
-          </div>
-        </motion.div>
-      </div>
+  if (gameMode === 'countries') {
+    return (
+      <DatasetModeScreen
+        icon="🌍"
+        titleKey="modeSelect.countries.title"
+        descriptionKey="modeSelect.countries.description"
+        onContinue={handleCountriesContinue}
+      />
+    )
+  }
+
+  if (gameMode === 'movies') {
+    return (
+      <DatasetModeScreen
+        icon="🎬"
+        titleKey="modeSelect.movies.title"
+        descriptionKey="modeSelect.movies.description"
+        onContinue={handleMoviesContinue}
+      />
+    )
+  }
+
+  if (gameMode === 'sports') {
+    return (
+      <DatasetModeScreen
+        icon="🏃"
+        titleKey="modeSelect.sports.title"
+        descriptionKey="modeSelect.sports.description"
+        onContinue={handleSportsContinue}
+      />
     )
   }
 

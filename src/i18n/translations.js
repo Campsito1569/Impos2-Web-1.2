@@ -28,6 +28,22 @@ export const translations = {
         title: "Modo Fútbol",
         description: "Juega con una base de datos de fútbol (jugadores y equipos famosos)."
       },
+      animals: {
+        title: "Modo Animales",
+        description: "Palabras aleatorias de una lista de ~70 animales conocidos."
+      },
+      countries: {
+        title: "Modo Países",
+        description: "Palabras aleatorias de una lista de ~100 países del mundo."
+      },
+      movies: {
+        title: "Modo Películas y Series",
+        description: "Palabras aleatorias entre películas y series muy famosas (~70 títulos)."
+      },
+      sports: {
+        title: "Modo Deportes",
+        description: "Palabras aleatorias de deportes generales."
+      },
       back: "Volver",
       continue: "Continuar"
     },
@@ -205,6 +221,22 @@ export const translations = {
         title: "Football Mode",
         description: "Play with a football database (famous players and teams)."
       },
+      animals: {
+        title: "Animals Mode",
+        description: "Random words from a list of ~70 well-known animals."
+      },
+      countries: {
+        title: "Countries Mode",
+        description: "Random words from a list of ~100 countries worldwide."
+      },
+      movies: {
+        title: "Movies & Series Mode",
+        description: "Random words from famous movies and series (~70 titles)."
+      },
+      sports: {
+        title: "Sports Mode",
+        description: "Random words from general sports."
+      },
       back: "Back",
       continue: "Continue"
     },
@@ -375,6 +407,22 @@ export const translations = {
         title: "Mode Football",
         description: "Jouez avec une base de données de football (joueurs et équipes célèbres)."
       },
+      animals: {
+        title: "Mode Animaux",
+        description: "Mots aléatoires parmi ~70 animaux bien connus."
+      },
+      countries: {
+        title: "Mode Pays",
+        description: "Mots aléatoires parmi ~100 pays du monde."
+      },
+      movies: {
+        title: "Mode Films et Séries",
+        description: "Mots aléatoires parmi des films et séries très connus (~70 titres)."
+      },
+      sports: {
+        title: "Mode Sports",
+        description: "Mots aléatoires parmi les sports en général."
+      },
       back: "Retour",
       continue: "Continuer"
     },
@@ -544,6 +592,22 @@ export const translations = {
       football: {
         title: "Modo Futebol",
         description: "Jogue com um banco de dados de futebol (jogadores e times famosos)."
+      },
+      animals: {
+        title: "Modo Animais",
+        description: "Palavras aleatórias de uma lista de ~70 animais conhecidos."
+      },
+      countries: {
+        title: "Modo Países",
+        description: "Palavras aleatórias de uma lista de ~100 países do mundo."
+      },
+      movies: {
+        title: "Modo Filmes e Séries",
+        description: "Palavras aleatórias entre filmes e séries muito famosos (~70 títulos)."
+      },
+      sports: {
+        title: "Modo Esportes",
+        description: "Palavras aleatórias de esportes em geral."
       },
       back: "Voltar",
       continue: "Continuar"
