@@ -3,19 +3,12 @@ import { motion } from 'framer-motion'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import { useLanguage } from '../store/LanguageContext'
-import { setBackgroundVolume } from '../utils/audio'
 
 export default function Settings() {
   const navigate = useNavigate()
   const {
     language,
     setLanguage,
-    volume,
-    setVolume,
-    soundEffectsVolume,
-    setSoundEffectsVolume,
-    musicVolume,
-    setMusicVolume,
     t,
     languages: availableLanguages
   } = useLanguage()
@@ -60,78 +53,16 @@ export default function Settings() {
               </div>
             </div>
 
-            {/* Volumen General */}
+            {/* Acerca del juego */}
             <div>
-              <label className="block text-sm font-medium text-neon-lila mb-3">
-                {t('settings.volume')}: {volume}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={volume}
-                onChange={(e) => setVolume(parseInt(e.target.value))}
-                className="w-full h-2 bg-dark-hover rounded-lg appearance-none cursor-pointer accent-neon-lila"
-                style={{
-                  background: `linear-gradient(to right, #A78BFA 0%, #A78BFA ${volume}%, #1A1033 ${volume}%, #1A1033 100%)`
-                }}
-              />
-              <div className="flex justify-between text-xs text-gray-400 mt-1">
-                <span>0%</span>
-                <span>100%</span>
-              </div>
-            </div>
-
-            {/* Volumen de Efectos de Sonido */}
-            <div>
-              <label className="block text-sm font-medium text-neon-lila mb-3">
-                {t('settings.soundEffects')}: {soundEffectsVolume}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={soundEffectsVolume}
-                onChange={(e) => setSoundEffectsVolume(parseInt(e.target.value))}
-                className="w-full h-2 bg-dark-hover rounded-lg appearance-none cursor-pointer accent-neon-lila"
-                style={{
-                  background: `linear-gradient(to right, #A78BFA 0%, #A78BFA ${soundEffectsVolume}%, #1A1033 ${soundEffectsVolume}%, #1A1033 100%)`
-                }}
-              />
-              <div className="flex justify-between text-xs text-gray-400 mt-1">
-                <span>0%</span>
-                <span>100%</span>
-              </div>
-              <p className="text-xs text-gray-500 mt-2">
-                {t('settings.soundComingSoon')}
-              </p>
-            </div>
-
-            {/* Volumen de Música */}
-            <div>
-              <label className="block text-sm font-medium text-neon-lila mb-3">
-                {t('settings.music')}: {musicVolume}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={musicVolume}
-                onChange={(e) => {
-                  const newVolume = parseInt(e.target.value)
-                  setMusicVolume(newVolume)
-                  // Convertir de 0-100 a 0-1 y actualizar el volumen del audio en tiempo real
-                  setBackgroundVolume(newVolume / 100)
-                }}
-                className="w-full h-2 bg-dark-hover rounded-lg appearance-none cursor-pointer accent-neon-lila"
-                style={{
-                  background: `linear-gradient(to right, #A78BFA 0%, #A78BFA ${musicVolume}%, #1A1033 ${musicVolume}%, #1A1033 100%)`
-                }}
-              />
-              <div className="flex justify-between text-xs text-gray-400 mt-1">
-                <span>0%</span>
-                <span>100%</span>
-              </div>
+              <Button
+                onClick={() => navigate('/about')}
+                variant="secondary"
+                className="w-full flex items-center justify-center gap-2"
+              >
+                <span>ℹ️</span>
+                <span>{t('settings.aboutGame')}</span>
+              </Button>
             </div>
           </div>
         </Card>
@@ -149,6 +80,3 @@ export default function Settings() {
     </div>
   )
 }
-
-
-

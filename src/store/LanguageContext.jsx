@@ -14,52 +14,17 @@ export function LanguageProvider({ children }) {
   }
 
   const [language, setLanguage] = useState(getInitialLanguage)
-  const [volume, setVolume] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('volume')
-      return saved ? parseInt(saved) : 50
-    }
-    return 50
-  })
-  const [soundEffectsVolume, setSoundEffectsVolume] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('soundEffectsVolume')
-      return saved ? parseInt(saved) : 50
-    }
-    return 50
-  })
-  const [musicVolume, setMusicVolume] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('musicVolume')
-      return saved ? parseInt(saved) : 50
-    }
-    return 50
-  })
 
-  // Guardar configuración en localStorage cuando cambie
   useEffect(() => {
     localStorage.setItem('language', language)
   }, [language])
 
-  // Función para cambiar idioma que también guarda en localStorage
   const changeLanguage = (newLanguage) => {
     if (translations[newLanguage]) {
       setLanguage(newLanguage)
       localStorage.setItem('language', newLanguage)
     }
   }
-
-  useEffect(() => {
-    localStorage.setItem('volume', volume.toString())
-  }, [volume])
-
-  useEffect(() => {
-    localStorage.setItem('soundEffectsVolume', soundEffectsVolume.toString())
-  }, [soundEffectsVolume])
-
-  useEffect(() => {
-    localStorage.setItem('musicVolume', musicVolume.toString())
-  }, [musicVolume])
 
   const t = (key, params = {}) => {
     const keys = key.split('.')
@@ -101,14 +66,8 @@ export function LanguageProvider({ children }) {
       value={{
         language,
         setLanguage: changeLanguage,
-        lang: language, // Alias para compatibilidad
-        setLang: changeLanguage, // Alias para compatibilidad
-        volume,
-        setVolume,
-        soundEffectsVolume,
-        setSoundEffectsVolume,
-        musicVolume,
-        setMusicVolume,
+        lang: language,
+        setLang: changeLanguage,
         t,
         languages
       }}

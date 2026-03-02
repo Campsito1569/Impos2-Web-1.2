@@ -5,11 +5,10 @@ import Button from '../components/Button'
 import Card from '../components/Card'
 import FooterCreator from '../components/FooterCreator'
 import { useLanguage } from '../store/LanguageContext'
-import { playBackgroundMusic } from '../utils/audio'
 
 export default function Home() {
   const navigate = useNavigate()
-  const { t, musicVolume } = useLanguage()
+  const { t } = useLanguage()
   const [logoLoaded, setLogoLoaded] = useState(false)
   const [logoError, setLogoError] = useState(false)
 
@@ -101,10 +100,7 @@ export default function Home() {
                 transition={{ delay: 1, duration: 0.5, type: "spring", stiffness: 200 }}
                 whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(168, 85, 247, 0.6)" }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  playBackgroundMusic(musicVolume / 100)
-                  navigate('/mode-select')
-                }}
+                onClick={() => navigate('/mode-select')}
                 className="w-full px-8 sm:px-10 py-4 sm:py-5 md:py-6 rounded-2xl font-bold text-base sm:text-lg md:text-xl bg-gradient-to-r from-purple-500 via-neon-lila to-fuchsia-600 text-white shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:shadow-[0_0_50px_rgba(168,85,247,0.7)] transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <span className="text-lg sm:text-xl">🎮</span>

@@ -26,6 +26,7 @@ import RevealRole from './pages/RevealRole'
 import Round from './pages/Round'
 import End from './pages/End'
 import Settings from './pages/Settings'
+import About from './pages/About'
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine)
@@ -85,6 +86,7 @@ function App() {
               <Route path="/round" element={<Round />} />
               <Route path="/end" element={<End />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/about" element={<About />} />
             </Routes>
           </AnimatePresence>
         </div>
