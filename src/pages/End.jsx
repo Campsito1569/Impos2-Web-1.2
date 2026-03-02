@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGame } from '../store/GameContext'
+import { useLanguage } from '../store/LanguageContext'
 
 export default function End() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
   const { currentGame, resetGame, gameMode, players } = useGame()
   const [endData, setEndData] = useState(null)
 
@@ -42,7 +44,7 @@ export default function End() {
   if (!endData) {
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <div className="text-2xl text-neon-lila">Cargando...</div>
+        <div className="text-2xl text-neon-lila">{t('common.loading')}</div>
       </div>
     )
   }
@@ -50,16 +52,13 @@ export default function End() {
   const winner = endData.winner || 'Jugadores'
   const isImpostorWin = endData.winnerType === 'impostors'
   const impostors = endData.players?.filter(p => p.role === 'impostor') || []
+  const endReasonText = endData.endReasonKey ? t(`end.${endData.endReasonKey}`) : (endData.endReason || null)
 
-  // Función para obtener inicial del nombre
   const getInitial = (name) => {
     return name ? name.charAt(0).toUpperCase() : '?'
   }
 
-  // Mensaje narrativo según el tipo de victoria
-  const narrativeMessage = isImpostorWin
-    ? 'El impostor logró engañar al grupo.'
-    : 'El grupo logró descubrir al impostor.'
+  const narrativeMessage = isImpostorWin ? t('end.narrativeImpostor') : t('end.narrativePlayers')
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
@@ -76,24 +75,20 @@ export default function End() {
               : 'bg-gradient-to-r from-cyan-300 to-green-300 bg-clip-text text-transparent'
             }
           `}>
-            {isImpostorWin ? 'IMPOSTORES GANARON' : 'LOS JUGADORES GANARON'}
+            {isImpostorWin ? t('end.impostorsWin') : t('end.playersWin')}
           </h1>
           
-          {/* Mensaje narrativo */}
           <p className={`text-base sm:text-lg md:text-xl mb-3 sm:mb-4 ${
             isImpostorWin ? 'text-pink-300' : 'text-cyan-300'
           } font-medium`}>
             {narrativeMessage}
           </p>
 
-          {/* Razón del fin con mejor jerarquía */}
-          {endData.endReason && (
+          {endReasonText && (
             <p className={`text-sm sm:text-base md:text-lg px-2 ${
-              endData.endReason.includes('Expulsión incorrecta') 
-                ? 'text-red-400 font-semibold' 
-                : 'text-gray-300'
+              endData.endReasonKey === 'wrongEliminationNoMiss' ? 'text-red-400 font-semibold' : 'text-gray-300'
             }`}>
-              {endData.endReason}
+              {endReasonText}
             </p>
           )}
         </div>
@@ -105,7 +100,7 @@ export default function End() {
           {/* Palabra secreta como badge destacado */}
           <div className="mb-6 sm:mb-8">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-5 text-gray-300">
-              La palabra secreta era:
+              {t('end.secretWord')}
             </h2>
             <div
               className="inline-block px-6 sm:px-8 py-4 sm:py-5 bg-dark-hover/80 border-2 rounded-xl glow-lite gpu anim-lite"
@@ -125,7 +120,7 @@ export default function End() {
           {impostors.length > 0 && (
             <div className="mt-6 sm:mt-8">
               <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-5 font-medium">
-                Los impostores eran:
+                {t('end.impostorsWere')}
               </p>
               <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
                 {impostors.map((impostor, index) => (
@@ -159,22 +154,21 @@ export default function End() {
             onClick={handlePlayAgain}
             className="w-full px-6 sm:px-8 py-3 sm:py-4 md:py-5 rounded-2xl font-bold text-base sm:text-lg md:text-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white glow-lite gpu anim-lite"
           >
-            🎮 Jugar Otra Partida
+            🎮 {t('end.playAgain')}
           </button>
 
-          {/* Botones secundarios */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <button
               onClick={handleChangePlayers}
               className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 gpu anim-lite"
             >
-              Cambiar Jugadores
+              {t('end.changePlayers')}
             </button>
             <button
               onClick={handleChangeMode}
               className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 gpu anim-lite"
             >
-              Cambiar Modo
+              {t('end.changeMode')}
             </button>
           </div>
         </div>

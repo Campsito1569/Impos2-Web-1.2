@@ -1,0 +1,14 @@
+{
+  "categories": {
+    "countries": ["France", "Belgique", "Suisse", "Canada", "Maroc", "Sénégal", "Algérie", "Tunisie", "États-Unis", "Royaume-Uni", "Allemagne", "Espagne", "Italie", "Japon", "Chine", "Brésil", "Argentine", "Mexique", "Portugal", "Pays-Bas", "Pologne", "Grèce", "Turquie", "Égypte", "Afrique du Sud", "Inde", "Russie", "Australie", "Irlande", "Suède", "Norvège"],
+    "famous": ["Zinedine Zidane", "Jean Reno", "Marion Cotillard", "Omar Sy", "Louis de Funès", "Albert Einstein", "Marie Curie", "Victor Hugo", "Mozart", "Beethoven", "Léonard de Vinci", "Pablo Picasso", "Cristiano Ronaldo", "Lionel Messi", "Napoléon", "Charles de Gaulle", "Édith Piaf", "Johnny Hallyday", "Céline Dion", "Daft Punk"],
+    "animals": ["Chien", "Chat", "Oiseau", "Poisson", "Lapin", "Cheval", "Vache", "Lion", "Tigre", "Ours", "Loup", "Renard", "Singe", "Dauphin", "Aigle", "Serpent", "Tortue", "Papillon", "Abeille", "Souris", "Écureuil", "Cerf", "Pingouin", "Kangourou", "Éléphant", "Girafe", "Zèbre", "Crocodile", "Grenouille", "Ourson"],
+    "objects": ["Tasse", "Téléphone", "Livre", "Table", "Chaise", "Voiture", "Clé", "Horloge", "Lampe", "Porte", "Fenêtre", "Stylo", "Sac", "Chaussure", "Chapeau", "Lunettes", "Montre", "Appareil photo", "Ordinateur", "Guitare", "Piano", "Ballon", "Miroir", "Brosse", "Bouteille", "Assiette", "Couteau", "Cuillère", "Télévision", "Radio"],
+    "actions": ["Courir", "Marcher", "Sauter", "Nager", "Danser", "Chanter", "Manger", "Boire", "Dormir", "Lire", "Écrire", "Parler", "Écouter", "Jouer", "Travailler", "Penser", "Aimer", "Aider", "Ouvrir", "Fermer", "Acheter", "Vendre", "Voyager", "Apprendre", "Enseigner", "Créer", "Construire", "Gagner", "Perdre"],
+    "places": ["Paris", "Londres", "New York", "Tokyo", "Rome", "Madrid", "Berlin", "Sydney", "Toronto", "Dubaï", "Tour Eiffel", "Big Ben", "Statue de la Liberté", "Pyramides", "Plage", "Montagne", "Forêt", "Rivière", "École", "Hôpital", "Hôtel", "Aéroport", "Parc", "Musée", "Restaurant", "Église", "Pont", "Place"]
+  },
+  "football": {
+    "players": ["Kylian Mbappé", "Zinedine Zidane", "Thierry Henry", "Michel Platini", "Just Fontaine", "Lilian Thuram", "Patrick Vieira", "Antoine Griezmann", "Olivier Giroud", "Paul Pogba", "N'Golo Kanté", "Hugo Lloris", "Karim Benzema", "Lucas Hernandez", "Lionel Messi", "Cristiano Ronaldo", "Pelé", "Diego Maradona"],
+    "teams": ["Paris Saint-Germain", "Olympique de Marseille", "Olympique Lyonnais", "AS Monaco", "Real Madrid", "FC Barcelone", "Manchester United", "Juventus", "Bayern Munich", "Ajax", "Lille OSC", "Saint-Étienne", "Bordeaux", "Nantes"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "categories": {
+    "countries": ["Brasil", "Portugal", "Angola", "Moçambique", "Estados Unidos", "Reino Unido", "França", "Alemanha", "Espanha", "Itália", "Argentina", "México", "Chile", "Colômbia", "Peru", "Japão", "China", "Índia", "Rússia", "Canadá", "Austrália", "Holanda", "Bélgica", "Suíça", "Suécia", "Polônia", "Grécia", "Turquia", "Egito", "África do Sul"],
+    "famous": ["Pelé", "Neymar", "Ronaldinho", "Ronaldo Nazário", "Cristiano Ronaldo", "Lionel Messi", "Fernando Pessoa", "Paulo Coelho", "Albert Einstein", "Marie Curie", "Leonardo da Vinci", "Pablo Picasso", "Tom Jobim", "Vinícius de Moraes", "Elis Regina", "Chico Buarque", "Caetano Veloso", "Gilberto Gil", "Barack Obama", "Nelson Mandela"],
+    "animals": ["Cão", "Gato", "Pássaro", "Peixe", "Coelho", "Cavalo", "Vaca", "Porco", "Leão", "Tigre", "Urso", "Lobo", "Raposa", "Macaco", "Golfinho", "Baleia", "Tubarão", "Águia", "Cobra", "Tartaruga", "Sapo", "Borboleta", "Abelha", "Rato", "Esquilo", "Cervo", "Pinguim", "Canguru", "Elefante", "Girafa"],
+    "objects": ["Xícara", "Telefone", "Livro", "Mesa", "Cadeira", "Carro", "Chave", "Relógio", "Lâmpada", "Porta", "Janela", "Caneta", "Papel", "Bolsa", "Sapato", "Chapéu", "Óculos", "Relógio", "Câmera", "Computador", "Guitarra", "Piano", "Bola", "Espelho", "Escova", "Garrafa", "Prato", "Faca", "Colher", "Televisão"],
+    "actions": ["Correr", "Andar", "Pular", "Nadar", "Dançar", "Cantar", "Comer", "Beber", "Dormir", "Ler", "Escrever", "Falar", "Ouvir", "Jogar", "Trabalhar", "Pensar", "Amar", "Ajudar", "Abrir", "Fechar", "Comprar", "Vender", "Viajar", "Aprender", "Ensinar", "Criar", "Construir", "Ganhar", "Perder"],
+    "places": ["Paris", "Londres", "Nova York", "Tóquio", "Roma", "Madrid", "Berlim", "Sydney", "Toronto", "Dubai", "Rio de Janeiro", "São Paulo", "Lisboa", "Torre Eiffel", "Big Ben", "Estatua da Liberdade", "Praia", "Montanha", "Floresta", "Rio", "Escola", "Hospital", "Hotel", "Aeroporto", "Parque", "Museu", "Restaurante", "Igreja", "Ponte", "Praça"]
+  },
+  "football": {
+    "players": ["Pelé", "Neymar", "Ronaldinho", "Ronaldo Nazário", "Romário", "Cafu", "Roberto Carlos", "Kaká", "Zico", "Sócrates", "Garrincha", "Lionel Messi", "Cristiano Ronaldo", "Kylian Mbappé", "Vinicius Junior", "Casemiro", "Alisson", "Ederson", "Thiago Silva", "Marquinhos"],
+    "teams": ["Santos", "Flamengo", "São Paulo", "Corinthians", "Palmeiras", "Cruzeiro", "Grêmio", "Internacional", "Real Madrid", "FC Barcelona", "Manchester United", "Juventus", "Bayern Munich", "Benfica", "Porto", "Sporting CP"]
+  }
+}

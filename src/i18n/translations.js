@@ -5,6 +5,8 @@ export const translations = {
       title: "¿Quién es el impostor?",
       subtitle: "El juego de deducción entre amigos",
       description: "Descubre al impostor entre tus amigos. Un jugador (o varios) no conoce la palabra secreta y debe pasar desapercibido mientras los demás intentan descubrirlo.",
+      descriptionShort: "Uno (o varios) jugadores no conocen la palabra secreta.",
+      tagline: "Engaña, observa y descubre quién es el impostor.",
       startGame: "COMENZAR PARTIDA"
     },
     // Mode Select
@@ -36,6 +38,15 @@ export const translations = {
       impostorCountHint: "Puedes tener hasta {count} impostor{plural}",
       playersList: "Jugadores",
       addPlayer: "+ Agregar Jugador",
+      eliminationType: "Tipo de Eliminación",
+      classic: "Clásico",
+      classicRecommended: "(Recomendado)",
+      noMiss: "Sin fallos",
+      noMissDeath: "(Muerte súbita)",
+      classicHint: "Puedes expulsar jugadores aunque te equivoques.",
+      noMissHint: "Si expulsan a un jugador y NO es impostor, los impostores ganan inmediatamente.",
+      playerPlaceholder: "Jugador {n}",
+      addPlayerButton: "Agregar Jugador",
       back: "Volver",
       continue: "Continuar",
       minPlayers: "Necesitas al menos 3 jugadores para comenzar.",
@@ -56,10 +67,14 @@ export const translations = {
         placeholder: "Palabra1, Palabra2, Palabra3...",
         addToPool: "Agregar al Pool",
         poolCount: "Pool actual: {count} palabra{plural}",
+        poolLoaded: "Palabras cargadas: {count}",
         addSuccess: "Palabras agregadas al pool. Puedes agregar más o continuar.",
         minWords: "Debes agregar al menos una palabra al pool.",
         noWords: "Debes agregar al menos una palabra al pool."
       },
+      deletePool: "Eliminar pool",
+      deletePoolConfirm: "¿Seguro que quieres eliminar todas las palabras del pool?",
+      addWordsToContinue: "Agrega palabras para continuar.",
       database: {
         title: "Preparación de Palabra",
         description: "Se seleccionará una palabra aleatoria de la base de datos de ~1000 palabras conocidas."
@@ -72,6 +87,17 @@ export const translations = {
       turn: "Turno de {name}",
       playerCount: "Jugador {current} de {total}",
       viewInfo: "VER MI INFORMACIÓN",
+      onlyFor: "SOLO PARA {name}",
+      instructionBefore: "Asegúrate de estar solo. Memoriza tu información antes de pasar el teléfono.",
+      revealButton: "Revelar mi rol",
+      onlyCanLook: "SOLO {name} PUEDE MIRAR",
+      impostorNoWord: "NO CONOCES LA PALABRA",
+      impostorHint: "Improvise. No te delates.",
+      impostorInstruction: "Actúa natural. Escucha bien y trata de adivinar la palabra.",
+      playerInstruction: "Memoriza la palabra. Cuando estés listo, pasa el teléfono.",
+      hideAndNext: "OCULTAR Y PASAR AL SIGUIENTE",
+      hideAndStartRound: "OCULTAR Y COMENZAR RONDA",
+      tapToHide: "Toca para ocultar tu rol y pasar el turno.",
       impostor: {
         title: "ERES EL IMPOSTOR",
         description: "No conoces la palabra secreta.",
@@ -89,6 +115,7 @@ export const translations = {
     // Round
     round: {
       title: "Ronda de Eliminación",
+      subtitle: "Tras la discusión, elimina al sospechoso.",
       players: "Jugadores",
       activePlayers: "Jugadores activos: {count}",
       activeImpostors: "Impostores activos: {count}",
@@ -96,7 +123,12 @@ export const translations = {
       revive: "Revivir",
       back: "Volver",
       endGame: "Finalizar Partida",
-      canEnd: "✓ Puedes finalizar la partida"
+      canEnd: "✓ Puedes finalizar la partida",
+      confirm: "Confirmar",
+      cancel: "Cancelar",
+      eliminated: "ELIMINADO",
+      winnerPlayers: "Jugadores",
+      winnerImpostors: "Impostores"
     },
     // End
     end: {
@@ -108,7 +140,10 @@ export const translations = {
       changePlayers: "Cambiar Jugadores",
       changeMode: "Cambiar Modo",
       allImpostorsEliminated: "Todos los impostores fueron eliminados",
-      impostorsWinCondition: "Los impostores igualan o superan a los jugadores"
+      impostorsWinCondition: "Los impostores igualan o superan a los jugadores",
+      narrativeImpostor: "El impostor logró engañar al grupo.",
+      narrativePlayers: "El grupo logró descubrir al impostor.",
+      wrongEliminationNoMiss: "Regla: Sin fallos (Muerte súbita). Expulsión incorrecta → ganan impostores."
     },
     // Settings
     settings: {
@@ -118,12 +153,24 @@ export const translations = {
       soundEffects: "Efectos de Sonido",
       music: "Música",
       back: "Volver",
-      save: "Guardar"
+      save: "Guardar",
+      soundComingSoon: "(Funcionalidad de sonido próximamente)"
+    },
+    categories: {
+      countries: "Países",
+      famous: "Famosos",
+      animals: "Animales",
+      objects: "Objetos",
+      actions: "Acciones",
+      places: "Lugares",
+      footballPlayers: "Jugadores",
+      footballTeams: "Equipos"
     },
     // Common
     common: {
       loading: "Cargando...",
       error: "Error",
+      playerNotFound: "Error: Jugador no encontrado",
       offline: {
         title: "Sin conexión",
         message: "El impostor se llevó el WiFi",
@@ -136,6 +183,8 @@ export const translations = {
       title: "Who is the impostor?",
       subtitle: "The deduction game between friends",
       description: "Discover the impostor among your friends. One player (or several) doesn't know the secret word and must go unnoticed while others try to find them.",
+      descriptionShort: "One (or more) players don't know the secret word.",
+      tagline: "Deceive, observe and discover who the impostor is.",
       startGame: "START GAME"
     },
     modeSelect: {
@@ -165,6 +214,15 @@ export const translations = {
       impostorCountHint: "You can have up to {count} impostor{plural}",
       playersList: "Players",
       addPlayer: "+ Add Player",
+      eliminationType: "Elimination Type",
+      classic: "Classic",
+      classicRecommended: "(Recommended)",
+      noMiss: "No mistakes",
+      noMissDeath: "(Sudden death)",
+      classicHint: "You can eliminate players even if you're wrong.",
+      noMissHint: "If a player is eliminated and is NOT the impostor, impostors win immediately.",
+      playerPlaceholder: "Player {n}",
+      addPlayerButton: "Add Player",
       back: "Back",
       continue: "Continue",
       minPlayers: "You need at least 3 players to start.",
@@ -184,10 +242,14 @@ export const translations = {
         placeholder: "Word1, Word2, Word3...",
         addToPool: "Add to Pool",
         poolCount: "Current pool: {count} word{plural}",
+        poolLoaded: "Words loaded: {count}",
         addSuccess: "Words added to pool. You can add more or continue.",
         minWords: "You must add at least one word to the pool.",
         noWords: "You must add at least one word to the pool."
       },
+      deletePool: "Delete pool",
+      deletePoolConfirm: "Are you sure you want to delete all words from the pool?",
+      addWordsToContinue: "Add words to continue.",
       database: {
         title: "Word Preparation",
         description: "A random word will be selected from the database of ~1000 known words."
@@ -199,6 +261,17 @@ export const translations = {
       turn: "Turn of {name}",
       playerCount: "Player {current} of {total}",
       viewInfo: "VIEW MY INFORMATION",
+      onlyFor: "ONLY FOR {name}",
+      instructionBefore: "Make sure you're alone. Memorize your information before passing the phone.",
+      revealButton: "Reveal my role",
+      onlyCanLook: "ONLY {name} CAN LOOK",
+      impostorNoWord: "YOU DON'T KNOW THE WORD",
+      impostorHint: "Improvise. Don't give yourself away.",
+      impostorInstruction: "Act natural. Listen carefully and try to guess the word.",
+      playerInstruction: "Memorize the word. When you're ready, pass the phone.",
+      hideAndNext: "HIDE AND NEXT",
+      hideAndStartRound: "HIDE AND START ROUND",
+      tapToHide: "Tap to hide your role and pass the turn.",
       impostor: {
         title: "YOU ARE THE IMPOSTOR",
         description: "You don't know the secret word.",
@@ -215,6 +288,7 @@ export const translations = {
     },
     round: {
       title: "Elimination Round",
+      subtitle: "After the discussion, eliminate the suspect.",
       players: "Players",
       activePlayers: "Active players: {count}",
       activeImpostors: "Active impostors: {count}",
@@ -222,7 +296,12 @@ export const translations = {
       revive: "Revive",
       back: "Back",
       endGame: "End Game",
-      canEnd: "✓ You can end the game"
+      canEnd: "✓ You can end the game",
+      confirm: "Confirm",
+      cancel: "Cancel",
+      eliminated: "ELIMINATED",
+      winnerPlayers: "Players",
+      winnerImpostors: "Impostors"
     },
     end: {
       playersWin: "PLAYERS WON",
@@ -233,7 +312,10 @@ export const translations = {
       changePlayers: "Change Players",
       changeMode: "Change Mode",
       allImpostorsEliminated: "All impostors were eliminated",
-      impostorsWinCondition: "Impostors equal or exceed players"
+      impostorsWinCondition: "Impostors equal or exceed players",
+      narrativeImpostor: "The impostor fooled the group.",
+      narrativePlayers: "The group found the impostor.",
+      wrongEliminationNoMiss: "Rule: No mistakes (Sudden death). Wrong elimination → impostors win."
     },
     settings: {
       title: "Settings",
@@ -242,11 +324,23 @@ export const translations = {
       soundEffects: "Sound Effects",
       music: "Music",
       back: "Back",
-      save: "Save"
+      save: "Save",
+      soundComingSoon: "(Sound functionality coming soon)"
+    },
+    categories: {
+      countries: "Countries",
+      famous: "Famous",
+      animals: "Animals",
+      objects: "Objects",
+      actions: "Actions",
+      places: "Places",
+      footballPlayers: "Players",
+      footballTeams: "Teams"
     },
     common: {
       loading: "Loading...",
       error: "Error",
+      playerNotFound: "Error: Player not found",
       offline: {
         title: "No connection",
         message: "The impostor took the WiFi",
@@ -259,6 +353,8 @@ export const translations = {
       title: "Qui est l'imposteur ?",
       subtitle: "Le jeu de déduction entre amis",
       description: "Découvrez l'imposteur parmi vos amis. Un joueur (ou plusieurs) ne connaît pas le mot secret et doit passer inaperçu pendant que les autres tentent de le trouver.",
+      descriptionShort: "Un (ou plusieurs) joueurs ne connaissent pas le mot secret.",
+      tagline: "Trompez, observez et découvrez qui est l'imposteur.",
       startGame: "COMMENCER LA PARTIE"
     },
     modeSelect: {
@@ -288,6 +384,15 @@ export const translations = {
       impostorCountHint: "Vous pouvez avoir jusqu'à {count} imposteur{plural}",
       playersList: "Joueurs",
       addPlayer: "+ Ajouter un Joueur",
+      eliminationType: "Type d'élimination",
+      classic: "Classique",
+      classicRecommended: "(Recommandé)",
+      noMiss: "Sans erreur",
+      noMissDeath: "(Mort subite)",
+      classicHint: "Vous pouvez éliminer des joueurs même si vous vous trompez.",
+      noMissHint: "Si un joueur est éliminé et n'est PAS l'imposteur, les imposteurs gagnent immédiatement.",
+      playerPlaceholder: "Joueur {n}",
+      addPlayerButton: "Ajouter un Joueur",
       back: "Retour",
       continue: "Continuer",
       minPlayers: "Vous avez besoin d'au moins 3 joueurs pour commencer.",
@@ -307,10 +412,14 @@ export const translations = {
         placeholder: "Mot1, Mot2, Mot3...",
         addToPool: "Ajouter au Pool",
         poolCount: "Pool actuel: {count} mot{plural}",
+        poolLoaded: "Mots chargés: {count}",
         addSuccess: "Mots ajoutés au pool. Vous pouvez en ajouter plus ou continuer.",
         minWords: "Vous devez ajouter au moins un mot au pool.",
         noWords: "Vous devez ajouter au moins un mot au pool."
       },
+      deletePool: "Vider le pool",
+      deletePoolConfirm: "Êtes-vous sûr de vouloir supprimer tous les mots du pool ?",
+      addWordsToContinue: "Ajoutez des mots pour continuer.",
       database: {
         title: "Préparation du Mot",
         description: "Un mot aléatoire sera sélectionné dans la base de données de ~1000 mots connus."
@@ -322,6 +431,17 @@ export const translations = {
       turn: "Tour de {name}",
       playerCount: "Joueur {current} sur {total}",
       viewInfo: "VOIR MES INFORMATIONS",
+      onlyFor: "UNIQUEMENT POUR {name}",
+      instructionBefore: "Assurez-vous d'être seul. Mémorisez vos informations avant de passer le téléphone.",
+      revealButton: "Révéler mon rôle",
+      onlyCanLook: "SEUL {name} PEUT REGARDER",
+      impostorNoWord: "VOUS NE CONNAISSEZ PAS LE MOT",
+      impostorHint: "Improvisez. Ne vous faites pas repérer.",
+      impostorInstruction: "Agissez naturellement. Écoutez bien et essayez de deviner le mot.",
+      playerInstruction: "Mémorisez le mot. Quand vous êtes prêt, passez le téléphone.",
+      hideAndNext: "MASQUER ET SUIVANT",
+      hideAndStartRound: "MASQUER ET COMMENCER LE TOUR",
+      tapToHide: "Appuyez pour masquer votre rôle et passer le tour.",
       impostor: {
         title: "VOUS ÊTES L'IMPOSTEUR",
         description: "Vous ne connaissez pas le mot secret.",
@@ -338,6 +458,7 @@ export const translations = {
     },
     round: {
       title: "Tour d'Élimination",
+      subtitle: "Après la discussion, éliminez le suspect.",
       players: "Joueurs",
       activePlayers: "Joueurs actifs: {count}",
       activeImpostors: "Imposteurs actifs: {count}",
@@ -345,7 +466,12 @@ export const translations = {
       revive: "Ressusciter",
       back: "Retour",
       endGame: "Terminer la Partie",
-      canEnd: "✓ Vous pouvez terminer la partie"
+      canEnd: "✓ Vous pouvez terminer la partie",
+      confirm: "Confirmer",
+      cancel: "Annuler",
+      eliminated: "ÉLIMINÉ",
+      winnerPlayers: "Joueurs",
+      winnerImpostors: "Imposteurs"
     },
     end: {
       playersWin: "LES JOUEURS ONT GAGNÉ",
@@ -356,7 +482,10 @@ export const translations = {
       changePlayers: "Changer les Joueurs",
       changeMode: "Changer le Mode",
       allImpostorsEliminated: "Tous les imposteurs ont été éliminés",
-      impostorsWinCondition: "Les imposteurs égalent ou dépassent les joueurs"
+      impostorsWinCondition: "Les imposteurs égalent ou dépassent les joueurs",
+      narrativeImpostor: "L'imposteur a trompé le groupe.",
+      narrativePlayers: "Le groupe a trouvé l'imposteur.",
+      wrongEliminationNoMiss: "Règle : Sans erreur (mort subite). Mauvaise élimination → les imposteurs gagnent."
     },
     settings: {
       title: "Paramètres",
@@ -365,11 +494,23 @@ export const translations = {
       soundEffects: "Effets Sonores",
       music: "Musique",
       back: "Retour",
-      save: "Enregistrer"
+      save: "Enregistrer",
+      soundComingSoon: "(Fonctionnalité son à venir)"
+    },
+    categories: {
+      countries: "Pays",
+      famous: "Célébrités",
+      animals: "Animaux",
+      objects: "Objets",
+      actions: "Actions",
+      places: "Lieux",
+      footballPlayers: "Joueurs",
+      footballTeams: "Équipes"
     },
     common: {
       loading: "Chargement...",
       error: "Erreur",
+      playerNotFound: "Erreur : Joueur non trouvé",
       offline: {
         title: "Pas de connexion",
         message: "L'imposteur a pris le WiFi",
@@ -382,6 +523,8 @@ export const translations = {
       title: "Quem é o impostor?",
       subtitle: "O jogo de dedução entre amigos",
       description: "Descubra o impostor entre seus amigos. Um jogador (ou vários) não conhece a palavra secreta e deve passar despercebido enquanto os outros tentam encontrá-lo.",
+      descriptionShort: "Um (ou vários) jogadores não conhecem a palavra secreta.",
+      tagline: "Engane, observe e descubra quem é o impostor.",
       startGame: "INICIAR PARTIDA"
     },
     modeSelect: {
@@ -411,6 +554,15 @@ export const translations = {
       impostorCountHint: "Você pode ter até {count} impostor{plural}",
       playersList: "Jogadores",
       addPlayer: "+ Adicionar Jogador",
+      eliminationType: "Tipo de Eliminação",
+      classic: "Clássico",
+      classicRecommended: "(Recomendado)",
+      noMiss: "Sem erros",
+      noMissDeath: "(Morte súbita)",
+      classicHint: "Você pode eliminar jogadores mesmo que se engane.",
+      noMissHint: "Se um jogador for eliminado e NÃO for o impostor, os impostores ganham imediatamente.",
+      playerPlaceholder: "Jogador {n}",
+      addPlayerButton: "Adicionar Jogador",
       back: "Voltar",
       continue: "Continuar",
       minPlayers: "Você precisa de pelo menos 3 jogadores para começar.",
@@ -430,10 +582,14 @@ export const translations = {
         placeholder: "Palavra1, Palavra2, Palavra3...",
         addToPool: "Adicionar ao Pool",
         poolCount: "Pool atual: {count} palavra{plural}",
+        poolLoaded: "Palavras carregadas: {count}",
         addSuccess: "Palavras adicionadas ao pool. Você pode adicionar mais ou continuar.",
         minWords: "Você deve adicionar pelo menos uma palavra ao pool.",
         noWords: "Você deve adicionar pelo menos uma palavra ao pool."
       },
+      deletePool: "Eliminar pool",
+      deletePoolConfirm: "Tem certeza de que deseja eliminar todas as palavras do pool?",
+      addWordsToContinue: "Adicione palavras para continuar.",
       database: {
         title: "Preparação da Palavra",
         description: "Uma palavra aleatória será selecionada do banco de dados de ~1000 palavras conhecidas."
@@ -445,6 +601,17 @@ export const translations = {
       turn: "Turno de {name}",
       playerCount: "Jogador {current} de {total}",
       viewInfo: "VER MINHA INFORMAÇÃO",
+      onlyFor: "APENAS PARA {name}",
+      instructionBefore: "Certifique-se de estar sozinho. Memorize suas informações antes de passar o telefone.",
+      revealButton: "Revelar meu papel",
+      onlyCanLook: "APENAS {name} PODE OLHAR",
+      impostorNoWord: "VOCÊ NÃO CONHECE A PALAVRA",
+      impostorHint: "Improvisar. Não se entregue.",
+      impostorInstruction: "Aja naturalmente. Ouça bem e tente adivinhar a palavra.",
+      playerInstruction: "Memorize a palavra. Quando estiver pronto, passe o telefone.",
+      hideAndNext: "OCULTAR E PRÓXIMO",
+      hideAndStartRound: "OCULTAR E INICIAR RODADA",
+      tapToHide: "Toque para ocultar seu papel e passar a vez.",
       impostor: {
         title: "VOCÊ É O IMPOSTOR",
         description: "Você não conhece a palavra secreta.",
@@ -461,6 +628,7 @@ export const translations = {
     },
     round: {
       title: "Rodada de Eliminação",
+      subtitle: "Após a discussão, elimine o suspeito.",
       players: "Jogadores",
       activePlayers: "Jogadores ativos: {count}",
       activeImpostors: "Impostores ativos: {count}",
@@ -468,7 +636,12 @@ export const translations = {
       revive: "Reviver",
       back: "Voltar",
       endGame: "Finalizar Partida",
-      canEnd: "✓ Você pode finalizar a partida"
+      canEnd: "✓ Você pode finalizar a partida",
+      confirm: "Confirmar",
+      cancel: "Cancelar",
+      eliminated: "ELIMINADO",
+      winnerPlayers: "Jogadores",
+      winnerImpostors: "Impostores"
     },
     end: {
       playersWin: "JOGADORES GANHARAM",
@@ -479,7 +652,10 @@ export const translations = {
       changePlayers: "Mudar Jogadores",
       changeMode: "Mudar Modo",
       allImpostorsEliminated: "Todos os impostores foram eliminados",
-      impostorsWinCondition: "Os impostores igualam ou superam os jogadores"
+      impostorsWinCondition: "Os impostores igualam ou superam os jogadores",
+      narrativeImpostor: "O impostor enganou o grupo.",
+      narrativePlayers: "O grupo descobriu o impostor.",
+      wrongEliminationNoMiss: "Regra: Sem erros (morte súbita). Eliminação incorreta → impostores ganham."
     },
     settings: {
       title: "Configurações",
@@ -488,11 +664,23 @@ export const translations = {
       soundEffects: "Efeitos Sonoros",
       music: "Música",
       back: "Voltar",
-      save: "Salvar"
+      save: "Salvar",
+      soundComingSoon: "(Funcionalidade de som em breve)"
+    },
+    categories: {
+      countries: "Países",
+      famous: "Famosos",
+      animals: "Animais",
+      objects: "Objetos",
+      actions: "Ações",
+      places: "Lugares",
+      footballPlayers: "Jogadores",
+      footballTeams: "Times"
     },
     common: {
       loading: "Carregando...",
       error: "Erro",
+      playerNotFound: "Erro: Jogador não encontrado",
       offline: {
         title: "Sem conexão",
         message: "O impostor levou o WiFi",

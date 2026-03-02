@@ -4,9 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import { useGame } from '../store/GameContext'
+import { useLanguage } from '../store/LanguageContext'
 
 export default function Round() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
   const { currentGame, setCurrentGame } = useGame()
   const [gameState, setGameState] = useState(null)
   const [confirmingIndex, setConfirmingIndex] = useState(null)
@@ -61,7 +63,7 @@ export default function Round() {
           players: updatedPlayers,
           winner: 'Impostores',
           winnerType: 'impostors',
-          endReason: 'Regla: Sin fallos (Muerte súbita). Expulsión incorrecta → ganan impostores.',
+          endReasonKey: 'wrongEliminationNoMiss',
           eliminationRule: gameState.eliminationRule
         }
         
@@ -104,7 +106,6 @@ export default function Round() {
       winner = 'Impostores'
       winnerType = 'impostors'
     } else {
-      // El juego continúa
       return
     }
 
@@ -112,9 +113,7 @@ export default function Round() {
       ...gameState,
       winner,
       winnerType,
-      endReason: winnerType === 'players' 
-        ? 'Todos los impostores fueron eliminados'
-        : 'Los impostores igualan o superan a los jugadores',
+      endReasonKey: winnerType === 'players' ? 'allImpostorsEliminated' : 'impostorsWinCondition',
       eliminationRule: gameState.eliminationRule || 'classic'
     }
 
@@ -126,7 +125,7 @@ export default function Round() {
   if (!gameState) {
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <div className="text-2xl text-neon-lila">Cargando...</div>
+        <div className="text-2xl text-neon-lila">{t('common.loading')}</div>
       </div>
     )
   }
@@ -148,10 +147,10 @@ export default function Round() {
         {/* Encabezado mejorado */}
         <div className="mb-6 sm:mb-8 animate-fadeInUp">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide mb-2 sm:mb-3 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(167,139,250,0.5)] px-2">
-            Ronda de Eliminación
+            {t('round.title')}
           </h1>
           <p className="text-white/70 text-sm sm:text-base md:text-lg text-center">
-            Tras la discusión, elimina al sospechoso.
+            {t('round.subtitle')}
           </p>
         </div>
 
@@ -162,11 +161,11 @@ export default function Round() {
             <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
               <div className="px-3 py-1.5 sm:py-2 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-xs sm:text-sm font-semibold flex items-center gap-2">
                 <span>🟢</span>
-                <span>Jugadores: {activeNormalPlayers.length}</span>
+                <span>{t('round.players')}: {activeNormalPlayers.length}</span>
               </div>
               <div className="px-3 py-1.5 sm:py-2 rounded-full bg-red-500/20 border border-red-400/30 text-red-300 text-xs sm:text-sm font-semibold flex items-center gap-2">
                 <span>🔴</span>
-                <span>Impostores: {activeImpostors.length}</span>
+                <span>{t('round.winnerImpostors')}: {activeImpostors.length}</span>
               </div>
             </div>
 
@@ -211,7 +210,7 @@ export default function Round() {
                           {player.name}
                         </span>
                         {player.eliminado && (
-                          <span className="text-xs text-red-400 font-medium">ELIMINADO</span>
+                          <span className="text-xs text-red-400 font-medium">{t('round.eliminated')}</span>
                         )}
                       </div>
                     </div>
@@ -223,13 +222,13 @@ export default function Round() {
                           onClick={() => confirmElimination(index)}
                           className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.97] shadow-[0_0_15px_rgba(239,68,68,0.3)]"
                         >
-                          ✅ Confirmar
+                          ✅ {t('round.confirm')}
                         </button>
                         <button
                           onClick={cancelElimination}
                           className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-gray-600 hover:bg-gray-700 text-white text-xs sm:text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.97]"
                         >
-                          ✖ Cancelar
+                          ✖ {t('round.cancel')}
                         </button>
                       </div>
                     ) : (
@@ -243,7 +242,7 @@ export default function Round() {
                           }
                         `}
                       >
-                        {player.eliminado ? 'Revivir' : 'Eliminar'}
+                        {player.eliminado ? t('round.revive') : t('round.eliminate')}
                       </button>
                     )}
                   </motion.div>
@@ -259,7 +258,7 @@ export default function Round() {
                 onClick={() => navigate('/reveal-role')}
                 className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 hover:bg-white/5 hover:border-purple-400/60 transition-all duration-200"
               >
-                Volver
+                {t('round.back')}
               </motion.button>
               <motion.button
                 whileHover={{ scale: canEndGame ? 1.02 : 1 }}
@@ -274,7 +273,7 @@ export default function Round() {
                   }
                 `}
               >
-                Finalizar Partida
+                {t('round.endGame')}
               </motion.button>
             </div>
 
@@ -285,7 +284,7 @@ export default function Round() {
                 className="mt-4 text-center"
               >
                 <p className="text-cyan-400 text-sm sm:text-base font-semibold">
-                  ✓ Puedes finalizar la partida
+                  {t('round.canEnd')}
                 </p>
               </motion.div>
             )}

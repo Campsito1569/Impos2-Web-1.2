@@ -87,10 +87,10 @@ export default function Home() {
               {/* Descripción mejorada */}
               <div className="space-y-3">
                 <p className="text-gray-200 leading-relaxed text-center text-sm sm:text-base md:text-lg">
-                  Uno (o varios) jugadores no conocen la palabra secreta.
+                  {t('home.descriptionShort')}
                 </p>
                 <p className="text-gray-300 leading-relaxed text-center text-sm sm:text-base md:text-lg font-medium">
-                  Engaña, observa y descubre quién es el impostor.
+                  {t('home.tagline')}
                 </p>
               </div>
               

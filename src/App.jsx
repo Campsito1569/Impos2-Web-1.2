@@ -1,9 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import { GameProvider } from './store/GameContext'
+import { GameProvider, useGame } from './store/GameContext'
 import { useLanguage } from './store/LanguageContext'
 import Home from './pages/Home'
+
+function LanguageGameSync() {
+  const { language } = useLanguage()
+  const { setUsedAutomaticWords, gameMode } = useGame()
+  const prevLang = useRef(language)
+  useEffect(() => {
+    if (prevLang.current !== language && (gameMode === 'database' || gameMode === 'football')) {
+      setUsedAutomaticWords([])
+      prevLang.current = language
+    } else if (prevLang.current !== language) {
+      prevLang.current = language
+    }
+  }, [language, gameMode, setUsedAutomaticWords])
+  return null
+}
 import ModeSelect from './pages/ModeSelect'
 import Players from './pages/Players'
 import WordSetup from './pages/WordSetup'
@@ -57,6 +72,7 @@ function App() {
 
   return (
     <GameProvider>
+      <LanguageGameSync />
       <Router>
         <div className="w-full min-h-screen bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg">
           <AnimatePresence mode="wait">

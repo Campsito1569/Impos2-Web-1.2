@@ -1,0 +1,14 @@
+{
+  "categories": {
+    "countries": ["USA", "UK", "France", "Germany", "Spain", "Italy", "Japan", "China", "Brazil", "Canada", "Australia", "Mexico", "India", "Russia", "Argentina", "Netherlands", "Portugal", "Belgium", "Switzerland", "Sweden", "Poland", "Greece", "Turkey", "Egypt", "South Africa", "Nigeria", "Thailand", "Indonesia", "South Korea", "Vietnam", "Ireland", "New Zealand", "Austria", "Norway", "Denmark", "Finland", "Chile", "Colombia", "Peru", "Cuba", "Costa Rica"],
+    "famous": ["Leonardo DiCaprio", "Brad Pitt", "Tom Cruise", "Will Smith", "Johnny Depp", "Tom Hanks", "Morgan Freeman", "Meryl Streep", "Jennifer Lawrence", "Emma Watson", "Cristiano Ronaldo", "Lionel Messi", "LeBron James", "Michael Jordan", "Serena Williams", "Roger Federer", "Elvis Presley", "Michael Jackson", "Madonna", "Beyoncé", "Taylor Swift", "Albert Einstein", "Isaac Newton", "Marie Curie", "Pablo Picasso", "Vincent van Gogh", "Shakespeare", "Mozart", "Beethoven", "Barack Obama", "Nelson Mandela", "Steve Jobs", "Bill Gates", "Elon Musk"],
+    "animals": ["Dog", "Cat", "Bird", "Fish", "Rabbit", "Horse", "Cow", "Pig", "Elephant", "Lion", "Tiger", "Bear", "Wolf", "Fox", "Monkey", "Dolphin", "Whale", "Shark", "Eagle", "Owl", "Butterfly", "Bee", "Snake", "Turtle", "Frog", "Mouse", "Squirrel", "Deer", "Penguin", "Kangaroo"],
+    "objects": ["Cup", "Phone", "Book", "Table", "Chair", "Car", "Bike", "Key", "Clock", "Lamp", "Door", "Window", "Pen", "Paper", "Bag", "Shoe", "Hat", "Glasses", "Watch", "Camera", "Computer", "Guitar", "Piano", "Ball", "Mirror", "Brush", "Bottle", "Plate", "Knife", "Spoon"],
+    "actions": ["Run", "Walk", "Jump", "Swim", "Dance", "Sing", "Eat", "Drink", "Sleep", "Read", "Write", "Speak", "Listen", "Play", "Work", "Think", "Love", "Help", "Open", "Close", "Buy", "Sell", "Travel", "Learn", "Teach", "Create", "Build", "Break", "Win", "Lose"],
+    "places": ["Paris", "London", "New York", "Tokyo", "Rome", "Madrid", "Berlin", "Sydney", "Toronto", "Dubai", "Hollywood", "Times Square", "Eiffel Tower", "Big Ben", "Statue of Liberty", "Pyramids", "Beach", "Mountain", "Forest", "River", "School", "Hospital", "Hotel", "Airport", "Park", "Museum", "Restaurant", "Church", "Bridge", "Square"]
+  },
+  "football": {
+    "players": ["Lionel Messi", "Cristiano Ronaldo", "Kylian Mbappé", "Erling Haaland", "Neymar", "Kevin De Bruyne", "Mohamed Salah", "Robert Lewandowski", "Karim Benzema", "Luka Modrić", "Virgil van Dijk", "Sergio Ramos", "Manuel Neuer", "Thibaut Courtois", "Pelé", "Diego Maradona", "Zinedine Zidane", "Ronaldinho", "Xavi Hernández", "Andrés Iniesta"],
+    "teams": ["Real Madrid", "FC Barcelona", "Manchester United", "Manchester City", "Liverpool", "Chelsea", "Arsenal", "Bayern Munich", "Juventus", "AC Milan", "Inter Milan", "Paris Saint-Germain", "Ajax", "Borussia Dortmund", "Atlético Madrid"]
+  }
+}

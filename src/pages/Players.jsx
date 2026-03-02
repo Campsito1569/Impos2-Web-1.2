@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Input from '../components/Input'
 import { useGame } from '../store/GameContext'
+import { useLanguage } from '../store/LanguageContext'
 
 export default function Players() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
   const { players, setPlayers, impostorCount, setImpostorCount, eliminationRule, setEliminationRule } = useGame()
   const [localPlayers, setLocalPlayers] = useState(['', ''])
   const inputRefs = useRef([])
@@ -75,7 +77,7 @@ export default function Players() {
     
     // Validaciones
     if (validPlayers.length < 3) {
-      alert('Necesitas al menos 3 jugadores para comenzar.')
+      alert(t('players.minPlayers'))
       return
     }
 
@@ -84,12 +86,12 @@ export default function Players() {
     )
     
     if (duplicates.length > 0) {
-      alert('No puede haber jugadores con el mismo nombre.')
+      alert(t('players.duplicateNames'))
       return
     }
 
     if (impostorCount >= validPlayers.length) {
-      alert('No puede haber más o igual cantidad de impostores que jugadores.')
+      alert(t('players.tooManyImpostors'))
       return
     }
 
@@ -110,13 +112,13 @@ export default function Players() {
       <div className="max-w-3xl w-full py-4 sm:py-6 md:py-8 space-y-6 sm:space-y-8 gpu">
         {/* Título mejorado */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 sm:mb-8 text-center bg-gradient-to-r from-neon-lila via-purple-400 to-neon-lila bg-clip-text text-transparent px-2">
-          Gestión de Jugadores
+          {t('players.title')}
         </h1>
 
         {/* Card: Configuración de Impostores */}
         <div className="relative bg-white/5 card-lite rounded-3xl border border-white/10 glow-lite p-6 sm:p-8 gpu anim-lite">
           <label className="block text-sm sm:text-base font-bold text-neon-lila mb-4 sm:mb-5">
-            Cantidad de Impostores
+            {t('players.impostorCount')}
           </label>
           <div className="flex items-center justify-center gap-4 sm:gap-6 mb-3 sm:mb-4">
             <button
@@ -152,14 +154,14 @@ export default function Players() {
             </button>
           </div>
           <p className="text-xs sm:text-sm text-gray-400 text-center">
-            Puedes tener hasta {maxImpostors} impostor{maxImpostors !== 1 ? 'es' : ''}
+            {t('players.impostorCountHint', { count: maxImpostors, plural: maxImpostors !== 1 ? 'es' : '' })}
           </p>
         </div>
 
         {/* Card: Tipo de Eliminación */}
         <div className="relative bg-white/5 card-lite rounded-3xl border border-white/10 glow-lite p-6 sm:p-8 gpu anim-lite">
           <label className="block text-sm sm:text-base font-bold text-neon-lila mb-4 sm:mb-5">
-            Tipo de Eliminación
+            {t('players.eliminationType')}
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
             <button
@@ -172,9 +174,9 @@ export default function Players() {
                 }
               `}
             >
-              <div className="font-bold mb-1">Clásico</div>
+              <div className="font-bold mb-1">{t('players.classic')}</div>
               <div className={`text-xs ${eliminationRule === 'classic' ? 'text-purple-200' : 'text-gray-400'}`}>
-                (Recomendado)
+                {t('players.classicRecommended')}
               </div>
             </button>
             <button
@@ -187,23 +189,20 @@ export default function Players() {
                 }
               `}
             >
-              <div className="font-bold mb-1">Sin fallos</div>
+              <div className="font-bold mb-1">{t('players.noMiss')}</div>
               <div className={`text-xs ${eliminationRule === 'no-miss' ? 'text-red-200' : 'text-gray-400'}`}>
-                (Muerte súbita)
+                {t('players.noMissDeath')}
               </div>
             </button>
           </div>
           <p className="text-xs sm:text-sm text-gray-400 text-center leading-relaxed">
-            {eliminationRule === 'classic' 
-              ? 'Puedes expulsar jugadores aunque te equivoques.'
-              : 'Si expulsan a un jugador y NO es impostor, los impostores ganan inmediatamente.'
-            }
+            {eliminationRule === 'classic' ? t('players.classicHint') : t('players.noMissHint')}
           </p>
         </div>
 
         {/* Card: Lista de Jugadores */}
         <div className="relative bg-white/5 card-lite rounded-3xl border border-white/10 glow-lite p-6 sm:p-8 gpu anim-lite">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-neon-lila">Jugadores</h2>
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-neon-lila">{t('players.playersList')}</h2>
           
           <div className="space-y-3 sm:space-y-4 mb-6">
             {localPlayers.map((player, index) => (
@@ -226,7 +225,7 @@ export default function Players() {
                   <Input
                     value={player}
                     onChange={(e) => handlePlayerChange(index, e.target.value)}
-                    placeholder={`Jugador ${index + 1}`}
+                    placeholder={t('players.playerPlaceholder', { n: index + 1 })}
                     className="mb-0"
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     ref={(el) => {
@@ -254,7 +253,7 @@ export default function Players() {
             className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border-2 border-purple-400/40 text-white/90 flex items-center justify-center gap-2 gpu anim-lite"
           >
             <span className="text-lg sm:text-xl">+</span>
-            <span>Agregar Jugador</span>
+            <span>{t('players.addPlayerButton')}</span>
           </button>
         </div>
 
@@ -264,13 +263,13 @@ export default function Players() {
             onClick={() => navigate('/mode-select')}
             className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 w-full sm:w-auto gpu anim-lite"
           >
-            Volver
+            {t('players.back')}
           </button>
           <button
             onClick={handleContinue}
             className="px-8 sm:px-12 py-3 sm:py-4 md:py-5 rounded-xl font-bold text-base sm:text-lg bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white glow-lite w-full sm:w-auto gpu anim-lite"
           >
-            Continuar
+            {t('players.continue')}
           </button>
         </div>
       </div>

@@ -5,18 +5,19 @@ import Button from '../components/Button'
 import Card from '../components/Card'
 import Input from '../components/Input'
 import { useGame } from '../store/GameContext'
-import { getRandomAutomaticWord, getAllAutomaticWords } from '../data/words_auto_es'
-import { getRandomFootballWord, getAllFootballWords } from '../data/footballWords'
+import { useLanguage } from '../store/LanguageContext'
+import { getAllWordsFromDb, getAllFootballWordsFromDb, getRandomWordFromDb, getRandomFootballWordFromDb } from '../data/getWordsDb'
 
 export default function WordSetup() {
   const navigate = useNavigate()
+  const { t, language } = useLanguage()
   const { gameMode, wordPool, addWordsToPool, resetWordPool, getRandomWordFromPool, setCurrentGame, players, impostorCount, eliminationRule, assignImpostors, shuffleArray, usedAutomaticWords, setUsedAutomaticWords } = useGame()
   const [manualWord, setManualWord] = useState('')
   const [semiManualWords, setSemiManualWords] = useState('')
 
   const handleManualWordSubmit = () => {
     if (!manualWord.trim()) {
-      alert('Debes ingresar una palabra secreta.')
+      alert(t('wordSetup.manual.required'))
       return
     }
 
@@ -49,24 +50,24 @@ export default function WordSetup() {
 
   const handleSemiManualWordsSubmit = () => {
     if (!semiManualWords.trim()) {
-      alert('Debes ingresar al menos una palabra.')
+      alert(t('wordSetup.semiManual.minWords'))
       return
     }
 
     addWordsToPool(semiManualWords)
     setSemiManualWords('')
-    alert('Palabras agregadas al pool. Puedes agregar más o continuar.')
+    alert(t('wordSetup.semiManual.addSuccess'))
   }
 
   const handleSemiManualContinue = () => {
     if (wordPool.length === 0) {
-      alert('Agrega palabras para continuar.')
+      alert(t('wordSetup.addWordsToContinue'))
       return
     }
 
     const word = getRandomWordFromPool()
     if (!word) {
-      alert('Agrega palabras para continuar.')
+      alert(t('wordSetup.addWordsToContinue'))
       return
     }
 
@@ -97,18 +98,13 @@ export default function WordSetup() {
   }
 
   const handleDatabaseContinue = () => {
-    const allWords = getAllAutomaticWords()
-    
-    // Obtener palabras disponibles
+    const allWords = getAllWordsFromDb(language)
     const availableWords = allWords.filter(w => !usedAutomaticWords.includes(w))
-    
     let word
     if (availableWords.length === 0) {
-      // Si se agotaron todas, reiniciar y usar una aleatoria
       setUsedAutomaticWords([])
-      word = getRandomAutomaticWord()
+      word = getRandomWordFromDb(language)
     } else {
-      // Seleccionar una palabra aleatoria de las disponibles
       word = availableWords[Math.floor(Math.random() * availableWords.length)]
       setUsedAutomaticWords([...usedAutomaticWords, word])
     }
@@ -140,8 +136,7 @@ export default function WordSetup() {
   }
 
   const handleFootballContinue = () => {
-    // Seleccionar una palabra aleatoria del dataset de fútbol
-    const word = getRandomFootballWord()
+    const word = getRandomFootballWordFromDb(language)
     
     // Crear turnOrder barajado
     const turnOrder = shuffleArray(players)
@@ -178,15 +173,15 @@ export default function WordSetup() {
           className="max-w-2xl w-full"
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
-            Palabra Secreta
+            {t('wordSetup.manual.title')}
           </h1>
 
           <Card glowColor="lila" className="mb-4 sm:mb-6">
             <Input
-              label="Ingresa la palabra secreta para esta partida"
+              label={t('wordSetup.manual.label')}
               value={manualWord}
               onChange={(e) => setManualWord(e.target.value)}
-              placeholder="Escribe la palabra..."
+              placeholder={t('wordSetup.manual.placeholder')}
               onKeyPress={(e) => e.key === 'Enter' && handleManualWordSubmit()}
               autoFocus
             />
@@ -198,14 +193,14 @@ export default function WordSetup() {
               variant="secondary"
               className="w-full sm:w-auto"
             >
-              Volver
+              {t('wordSetup.back')}
             </Button>
             <Button
               onClick={handleManualWordSubmit}
               variant="primary"
               className="w-full sm:w-auto"
             >
-              Continuar
+              {t('wordSetup.continue')}
             </Button>
           </div>
         </motion.div>
@@ -222,15 +217,15 @@ export default function WordSetup() {
           className="max-w-2xl w-full py-4 sm:py-6 md:py-8"
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
-            Pool de Palabras
+            {t('wordSetup.semiManual.title')}
           </h1>
 
           <Card glowColor="lila" className="mb-4 sm:mb-6">
             <Input
-              label="Agrega palabras (una por línea o separadas por comas)"
+              label={t('wordSetup.semiManual.label')}
               value={semiManualWords}
               onChange={(e) => setSemiManualWords(e.target.value)}
-              placeholder="Palabra1, Palabra2, Palabra3..."
+              placeholder={t('wordSetup.semiManual.placeholder')}
               type="textarea"
               className="mb-4"
             />
@@ -239,27 +234,27 @@ export default function WordSetup() {
               variant="secondary"
               className="w-full"
             >
-              Agregar al Pool
+              {t('wordSetup.semiManual.addToPool')}
             </Button>
           </Card>
 
           {wordPool.length > 0 && (
             <p className="text-sm text-gray-400 mb-4 text-center">
-              Palabras cargadas: {wordPool.length}
+              {t('wordSetup.semiManual.poolLoaded', { count: wordPool.length })}
             </p>
           )}
 
           {wordPool.length > 0 && (
             <Button
               onClick={() => {
-                if (window.confirm('¿Seguro que quieres eliminar todas las palabras del pool?')) {
+                if (window.confirm(t('wordSetup.deletePoolConfirm'))) {
                   resetWordPool()
                 }
               }}
               variant="secondary"
               className="w-full mb-4"
             >
-              Eliminar pool
+              {t('wordSetup.deletePool')}
             </Button>
           )}
 
@@ -269,7 +264,7 @@ export default function WordSetup() {
               variant="secondary"
               className="w-full sm:w-auto"
             >
-              Volver
+              {t('wordSetup.back')}
             </Button>
             <Button
               onClick={handleSemiManualContinue}
@@ -277,7 +272,7 @@ export default function WordSetup() {
               disabled={wordPool.length === 0}
               className="w-full sm:w-auto"
             >
-              Continuar
+              {t('wordSetup.continue')}
             </Button>
           </div>
         </motion.div>
@@ -294,19 +289,19 @@ export default function WordSetup() {
           className="max-w-2xl w-full text-center"
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
-            Preparación de Palabra
+            {t('wordSetup.database.title')}
           </h1>
 
           <Card glowColor="lila" className="mb-4 sm:mb-6">
             <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
-              Se seleccionará una palabra aleatoria de la base de datos de ~1000 palabras conocidas.
+              {t('wordSetup.database.description')}
             </p>
             <Button
               onClick={handleDatabaseContinue}
               variant="primary"
               className="w-full text-base sm:text-lg py-3 sm:py-4"
             >
-              Continuar
+              {t('wordSetup.continue')}
             </Button>
           </Card>
 
@@ -316,7 +311,7 @@ export default function WordSetup() {
               variant="secondary"
               className="w-full sm:w-auto"
             >
-              Volver
+              {t('wordSetup.back')}
             </Button>
           </div>
         </motion.div>
@@ -333,20 +328,20 @@ export default function WordSetup() {
           className="max-w-2xl w-full text-center"
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
-            Preparación de Palabra
+            {t('wordSetup.database.title')}
           </h1>
 
           <Card glowColor="lila" className="mb-4 sm:mb-6">
             <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">⚽</div>
             <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
-              Se seleccionará una palabra aleatoria de la base de datos de fútbol (jugadores y equipos famosos).
+              {t('modeSelect.football.description')}
             </p>
             <Button
               onClick={handleFootballContinue}
               variant="primary"
               className="w-full text-base sm:text-lg py-3 sm:py-4"
             >
-              Continuar
+              {t('wordSetup.continue')}
             </Button>
           </Card>
 
@@ -356,7 +351,7 @@ export default function WordSetup() {
               variant="secondary"
               className="w-full sm:w-auto"
             >
-              Volver
+              {t('wordSetup.back')}
             </Button>
           </div>
         </motion.div>

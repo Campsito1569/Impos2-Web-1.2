@@ -103,7 +103,7 @@ export default function Settings() {
                 <span>100%</span>
               </div>
               <p className="text-xs text-gray-500 mt-2">
-                (Funcionalidad de sonido próximamente)
+                {t('settings.soundComingSoon')}
               </p>
             </div>
 

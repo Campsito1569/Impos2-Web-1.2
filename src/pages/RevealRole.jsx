@@ -4,9 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import { useGame } from '../store/GameContext'
+import { useLanguage } from '../store/LanguageContext'
 
 export default function RevealRole() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
   const { currentGame } = useGame()
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0)
   const [infoRevealed, setInfoRevealed] = useState(false)
@@ -21,7 +23,7 @@ export default function RevealRole() {
 
   const handleNext = () => {
     if (!infoRevealed) {
-      alert('Debes ver tu información antes de continuar.')
+      alert(t('revealRole.mustView'))
       return
     }
 
@@ -43,7 +45,7 @@ export default function RevealRole() {
   if (turnOrder.length === 0 || players.length === 0) {
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <div className="text-2xl text-neon-lila">Cargando...</div>
+        <div className="text-2xl text-neon-lila">{t('common.loading')}</div>
       </div>
     )
   }
@@ -56,7 +58,7 @@ export default function RevealRole() {
   if (!currentPlayer) {
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <div className="text-2xl text-neon-lila">Error: Jugador no encontrado</div>
+        <div className="text-2xl text-neon-lila">{t('common.playerNotFound')}</div>
       </div>
     )
   }
@@ -79,17 +81,17 @@ export default function RevealRole() {
             <div className="mb-6 sm:mb-8 md:mb-10 animate-fadeInUp">
               {/* Línea 1: Aviso de privacidad */}
               <p className="text-xs sm:text-sm md:text-base uppercase tracking-wider text-gray-400 mb-3 sm:mb-4 opacity-70">
-                👁️ SOLO PARA {currentPlayer.name.toUpperCase()}
+                👁️ {t('revealRole.onlyFor', { name: currentPlayer.name.toUpperCase() })}
               </p>
               
               {/* Línea 2: Progreso */}
               <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-5 font-medium">
-                Jugador {currentPlayerIndex + 1} de {turnOrder.length}
+                {t('revealRole.playerCount', { current: currentPlayerIndex + 1, total: turnOrder.length })}
               </p>
               
               {/* Línea 3: Título grande con glow */}
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-neon-lila via-purple-400 to-neon-lila bg-clip-text text-transparent mb-6 sm:mb-8 drop-shadow-[0_0_15px_rgba(167,139,250,0.5)]">
-                Turno de {currentPlayer.name}
+                {t('revealRole.turn', { name: currentPlayer.name })}
               </h1>
             </div>
 
@@ -111,7 +113,7 @@ export default function RevealRole() {
 
                   {/* Texto de instrucción */}
                   <p className="text-xs sm:text-sm md:text-base text-gray-400 text-center opacity-70 leading-relaxed px-2 sm:px-4">
-                    Asegúrate de estar solo. Memoriza tu información antes de pasar el teléfono.
+                    {t('revealRole.instructionBefore')}
                   </p>
 
                   {/* Botón mejorado */}
@@ -122,7 +124,7 @@ export default function RevealRole() {
                       onClick={handleRevealInfo}
                       className="w-full sm:w-auto mx-auto px-8 sm:px-12 md:px-16 py-3 sm:py-4 md:py-5 rounded-2xl font-bold text-base sm:text-lg md:text-xl bg-gradient-to-r from-purple-600 via-neon-lila to-fuchsia-500 text-white shadow-[0_0_20px_rgba(167,139,250,0.5)] hover:shadow-[0_0_30px_rgba(167,139,250,0.7)] transition-all duration-300"
                     >
-                      🔍 Revelar mi rol
+                      🔍 {t('revealRole.revealButton')}
                     </motion.button>
                   </div>
                 </motion.div>
@@ -134,10 +136,10 @@ export default function RevealRole() {
             {/* Encabezado de privacidad y progreso */}
             <div className="mb-4 sm:mb-6 animate-fadeInUp">
               <p className="text-xs sm:text-sm uppercase tracking-wider text-yellow-400/80 mb-2 text-center">
-                📵 SOLO {currentPlayer.name.toUpperCase()} PUEDE MIRAR
+                📵 {t('revealRole.onlyCanLook', { name: currentPlayer.name.toUpperCase() })}
               </p>
               <p className="text-sm sm:text-base text-gray-300 text-center font-medium">
-                Jugador {currentPlayerIndex + 1} de {turnOrder.length}
+                {t('revealRole.playerCount', { current: currentPlayerIndex + 1, total: turnOrder.length })}
               </p>
             </div>
 
@@ -181,7 +183,7 @@ export default function RevealRole() {
                         transition={{ delay: 0.3 }}
                         className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-pink-400 to-red-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]"
                       >
-                        ERES EL IMPOSTOR
+                        {t('revealRole.impostor.title')}
                       </motion.h2>
 
                       {/* Mensaje para impostor */}
@@ -192,10 +194,10 @@ export default function RevealRole() {
                         className="space-y-3 sm:space-y-4"
                       >
                         <p className="text-lg sm:text-xl md:text-2xl font-semibold text-red-300">
-                          NO CONOCES LA PALABRA
+                          {t('revealRole.impostorNoWord')}
                         </p>
                         <p className="text-sm sm:text-base text-gray-300 italic opacity-80">
-                          Improvise. No te delates.
+                          {t('revealRole.impostorHint')}
                         </p>
                       </motion.div>
 
@@ -206,7 +208,7 @@ export default function RevealRole() {
                         transition={{ delay: 0.6 }}
                         className="text-xs sm:text-sm text-gray-400 opacity-70 leading-relaxed px-2"
                       >
-                        Actúa natural. Escucha bien y trata de adivinar la palabra.
+                        {t('revealRole.impostorInstruction')}
                       </motion.p>
                     </motion.div>
                   ) : (
@@ -237,7 +239,7 @@ export default function RevealRole() {
                         transition={{ delay: 0.3 }}
                         className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-cyan-300 to-green-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]"
                       >
-                        ERES JUGADOR
+                        {t('revealRole.player.title')}
                       </motion.h2>
 
                       {/* Palabra secreta como token/chip */}
@@ -247,7 +249,7 @@ export default function RevealRole() {
                         transition={{ delay: 0.5, type: "spring" }}
                         className="space-y-3 sm:space-y-4"
                       >
-                        <p className="text-xs sm:text-sm text-gray-400 mb-2">La palabra secreta es:</p>
+                        <p className="text-xs sm:text-sm text-gray-400 mb-2">{t('revealRole.player.secretWord')}</p>
                         <div className="inline-block px-4 sm:px-6 py-3 sm:py-4 bg-dark-hover/80 backdrop-blur-sm border-2 border-cyan-400/50 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.3)]">
                           <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-300 tracking-wider">
                             {game.word?.toUpperCase()}
@@ -262,7 +264,7 @@ export default function RevealRole() {
                         transition={{ delay: 0.6 }}
                         className="text-xs sm:text-sm text-gray-400 opacity-70 leading-relaxed px-2"
                       >
-                        Memoriza la palabra. Cuando estés listo, pasa el teléfono.
+                        {t('revealRole.playerInstruction')}
                       </motion.p>
                     </motion.div>
                   )}
@@ -278,10 +280,10 @@ export default function RevealRole() {
                 onClick={handleNext}
                 className="w-full max-w-md px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 rounded-2xl font-bold text-sm sm:text-base md:text-lg bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(168,85,247,0.5)] transition-all duration-300"
               >
-                {currentPlayerIndex < turnOrder.length - 1 ? 'OCULTAR Y PASAR AL SIGUIENTE' : 'OCULTAR Y COMENZAR RONDA'}
+                {currentPlayerIndex < turnOrder.length - 1 ? t('revealRole.hideAndNext') : t('revealRole.hideAndStartRound')}
               </motion.button>
               <p className="text-xs sm:text-sm text-gray-500 opacity-70 text-center">
-                Toca para ocultar tu rol y pasar el turno.
+                {t('revealRole.tapToHide')}
               </p>
             </div>
           </>
