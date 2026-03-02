@@ -9,6 +9,8 @@ export function GameProvider({ children }) {
   const [eliminationRule, setEliminationRule] = useState('classic')
   const [currentGame, setCurrentGame] = useState(null)
   const [wordPool, setWordPool] = useState([])
+  const [shuffledWordPool, setShuffledWordPool] = useState([])
+  const [wordPoolIndex, setWordPoolIndex] = useState(0)
   const [usedWords, setUsedWords] = useState([])
   const [usedAutomaticWords, setUsedAutomaticWords] = useState([])
   const [impostorHistory, setImpostorHistory] = useState({})
@@ -20,6 +22,8 @@ export function GameProvider({ children }) {
     const savedImpostorCount = localStorage.getItem('impostorCount')
     const savedEliminationRule = localStorage.getItem('eliminationRule')
     const savedWordPool = localStorage.getItem('wordPool')
+    const savedShuffledPool = localStorage.getItem('shuffledWordPool')
+    const savedPoolIndex = localStorage.getItem('wordPoolIndex')
     const savedUsedWords = localStorage.getItem('usedWords')
     const savedUsedAutomaticWords = localStorage.getItem('usedAutomaticWords')
     const savedHistory = localStorage.getItem('impostorHistory')
@@ -29,6 +33,8 @@ export function GameProvider({ children }) {
     if (savedImpostorCount) setImpostorCount(parseInt(savedImpostorCount))
     if (savedEliminationRule) setEliminationRule(savedEliminationRule)
     if (savedWordPool) setWordPool(JSON.parse(savedWordPool))
+    if (savedShuffledPool) setShuffledWordPool(JSON.parse(savedShuffledPool))
+    if (savedPoolIndex !== null) setWordPoolIndex(parseInt(savedPoolIndex, 10))
     if (savedUsedWords) setUsedWords(JSON.parse(savedUsedWords))
     if (savedUsedAutomaticWords) setUsedAutomaticWords(JSON.parse(savedUsedAutomaticWords))
     if (savedHistory) setImpostorHistory(JSON.parse(savedHistory))
@@ -54,6 +60,14 @@ export function GameProvider({ children }) {
   useEffect(() => {
     if (wordPool.length > 0) localStorage.setItem('wordPool', JSON.stringify(wordPool))
   }, [wordPool])
+
+  useEffect(() => {
+    if (shuffledWordPool.length > 0) localStorage.setItem('shuffledWordPool', JSON.stringify(shuffledWordPool))
+  }, [shuffledWordPool])
+
+  useEffect(() => {
+    localStorage.setItem('wordPoolIndex', wordPoolIndex.toString())
+  }, [wordPoolIndex])
 
   useEffect(() => {
     if (usedWords.length > 0) localStorage.setItem('usedWords', JSON.stringify(usedWords))
@@ -95,24 +109,50 @@ export function GameProvider({ children }) {
     const newWords = words
       .split(/[,\n]/)
       .map(w => w.trim())
-      .filter(w => w.length > 0 && !wordPool.includes(w))
+      .filter(w => w.length > 0)
+      .filter(w => !wordPool.some(p => p.toLowerCase() === w.toLowerCase()))
     
+    if (newWords.length === 0) return
     setWordPool([...wordPool, ...newWords])
+    setShuffledWordPool([])
+    setWordPoolIndex(0)
+    localStorage.removeItem('shuffledWordPool')
   }
 
-  const getRandomWord = () => {
+  const resetWordPool = () => {
+    localStorage.removeItem('wordPool')
+    localStorage.removeItem('shuffledWordPool')
+    localStorage.removeItem('wordPoolIndex')
+    setWordPool([])
+    setShuffledWordPool([])
+    setWordPoolIndex(0)
+  }
+
+  // Fisher-Yates shuffle (definido antes de getRandomWordFromPool)
+  const shuffleArrayForPool = (array) => {
+    const shuffled = [...array]
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    }
+    return shuffled
+  }
+
+  const getRandomWordFromPool = () => {
     if (wordPool.length === 0) return null
     
-    const availableWords = wordPool.filter(w => !usedWords.includes(w))
+    let currentShuffled = shuffledWordPool
+    let currentIndex = wordPoolIndex
     
-    if (availableWords.length === 0) {
-      // Reiniciar palabras usadas si se agotaron
-      setUsedWords([])
-      return wordPool[Math.floor(Math.random() * wordPool.length)]
+    if (currentShuffled.length === 0 || currentIndex >= currentShuffled.length) {
+      currentShuffled = shuffleArrayForPool(wordPool)
+      currentIndex = 0
+      setShuffledWordPool(currentShuffled)
+      setWordPoolIndex(0)
     }
     
-    const word = availableWords[Math.floor(Math.random() * availableWords.length)]
-    setUsedWords([...usedWords, word])
+    const word = currentShuffled[currentIndex]
+    setWordPoolIndex(currentIndex + 1)
     return word
   }
 
@@ -233,7 +273,8 @@ export function GameProvider({ children }) {
         wordPool,
         setWordPool,
         addWordsToPool,
-        getRandomWord,
+        resetWordPool,
+        getRandomWordFromPool,
         usedWords,
         resetUsedWords,
         usedAutomaticWords,

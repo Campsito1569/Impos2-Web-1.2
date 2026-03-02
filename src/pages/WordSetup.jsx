@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from '../components/Button'
@@ -10,14 +10,9 @@ import { getRandomFootballWord, getAllFootballWords } from '../data/footballWord
 
 export default function WordSetup() {
   const navigate = useNavigate()
-  const { gameMode, wordPool, addWordsToPool, getRandomWord, setCurrentGame, players, impostorCount, eliminationRule, assignImpostors, shuffleArray, usedAutomaticWords, setUsedAutomaticWords } = useGame()
+  const { gameMode, wordPool, addWordsToPool, resetWordPool, getRandomWordFromPool, setCurrentGame, players, impostorCount, eliminationRule, assignImpostors, shuffleArray, usedAutomaticWords, setUsedAutomaticWords } = useGame()
   const [manualWord, setManualWord] = useState('')
   const [semiManualWords, setSemiManualWords] = useState('')
-  const [wordPoolDisplay, setWordPoolDisplay] = useState([])
-
-  useEffect(() => {
-    setWordPoolDisplay(wordPool)
-  }, [wordPool])
 
   const handleManualWordSubmit = () => {
     if (!manualWord.trim()) {
@@ -65,13 +60,13 @@ export default function WordSetup() {
 
   const handleSemiManualContinue = () => {
     if (wordPool.length === 0) {
-      alert('Debes agregar al menos una palabra al pool.')
+      alert('Agrega palabras para continuar.')
       return
     }
 
-    const word = getRandomWord()
+    const word = getRandomWordFromPool()
     if (!word) {
-      alert('Error al obtener palabra. Intenta agregar más palabras.')
+      alert('Agrega palabras para continuar.')
       return
     }
 
@@ -248,21 +243,24 @@ export default function WordSetup() {
             </Button>
           </Card>
 
-          {wordPoolDisplay.length > 0 && (
-            <Card glowColor="purple" className="mb-4 sm:mb-6">
-              <h2 className="text-lg sm:text-xl font-bold mb-3 text-neon-lila">
-                Pool actual: {wordPoolDisplay.length} palabra{wordPoolDisplay.length !== 1 ? 's' : ''}
-              </h2>
-              <div className="max-h-40 overflow-y-auto">
-                <div className="flex flex-wrap gap-2">
-                  {wordPoolDisplay.map((word, index) => (
-                    <span key={index} className="px-2 sm:px-3 py-1 bg-dark-hover rounded-lg text-xs sm:text-sm text-gray-300">
-                      {word}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Card>
+          {wordPool.length > 0 && (
+            <p className="text-sm text-gray-400 mb-4 text-center">
+              Palabras cargadas: {wordPool.length}
+            </p>
+          )}
+
+          {wordPool.length > 0 && (
+            <Button
+              onClick={() => {
+                if (window.confirm('¿Seguro que quieres eliminar todas las palabras del pool?')) {
+                  resetWordPool()
+                }
+              }}
+              variant="secondary"
+              className="w-full mb-4"
+            >
+              Eliminar pool
+            </Button>
           )}
 
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2">
@@ -276,7 +274,7 @@ export default function WordSetup() {
             <Button
               onClick={handleSemiManualContinue}
               variant="primary"
-              disabled={wordPoolDisplay.length === 0}
+              disabled={wordPool.length === 0}
               className="w-full sm:w-auto"
             >
               Continuar
