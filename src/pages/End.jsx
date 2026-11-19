@@ -1,3 +1,4 @@
+import { Drama, PartyPopper, Gamepad2 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGame } from '../store/GameContext'
@@ -61,25 +62,25 @@ export default function End() {
   const narrativeMessage = isImpostorWin ? t('end.narrativeImpostor') : t('end.narrativePlayers')
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
       <div className="max-w-3xl w-full text-center px-2 gpu anim-lite">
         {/* Título principal mejorado */}
         <div className="mb-6 sm:mb-8 md:mb-10">
           <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 sm:mb-6">
-            {isImpostorWin ? '🎭' : '🎉'}
+            {isImpostorWin ? <Drama className="w-[1em] h-[1em]" strokeWidth={1.6} /> : <PartyPopper className="w-[1em] h-[1em]" strokeWidth={1.6} />}
           </div>
           <h1 className={`
             text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 sm:mb-5 tracking-wide
             ${isImpostorWin 
-              ? 'bg-gradient-to-r from-pink-400 to-red-500 bg-clip-text text-transparent' 
-              : 'bg-gradient-to-r from-cyan-300 to-green-300 bg-clip-text text-transparent'
+              ? 'text-ember-400' 
+              : 'text-neon-blue'
             }
           `}>
             {isImpostorWin ? t('end.impostorsWin') : t('end.playersWin')}
           </h1>
           
           <p className={`text-base sm:text-lg md:text-xl mb-3 sm:mb-4 ${
-            isImpostorWin ? 'text-pink-300' : 'text-cyan-300'
+            isImpostorWin ? 'text-ember-400' : 'text-neon-blue'
           } font-medium`}>
             {narrativeMessage}
           </p>
@@ -95,7 +96,7 @@ export default function End() {
 
         {/* Tarjeta principal con glassmorphism */}
         <div className={`
-          relative bg-white/5 card-lite rounded-3xl border border-white/10 p-6 sm:p-8 md:p-10 mb-6 sm:mb-8 glow-lite
+          relative bg-white/5 card-lite rounded-xl border border-white/10 p-6 sm:p-8 md:p-10 mb-6 sm:mb-8 glow-lite
         `}>
           {/* Palabra secreta como badge destacado */}
           <div className="mb-6 sm:mb-8">
@@ -109,7 +110,7 @@ export default function End() {
               }}
             >
               <p className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-wider ${
-                isImpostorWin ? 'text-red-300' : 'text-cyan-300'
+                isImpostorWin ? 'text-red-300' : 'text-neon-blue'
               }`}>
                 {endData.word?.toUpperCase()}
               </p>
@@ -152,21 +153,21 @@ export default function End() {
           {/* Botón principal */}
           <button
             onClick={handlePlayAgain}
-            className="w-full px-6 sm:px-8 py-3 sm:py-4 md:py-5 rounded-2xl font-bold text-base sm:text-lg md:text-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white glow-lite gpu anim-lite"
+            className="w-full px-6 sm:px-8 py-3 sm:py-4 md:py-5 rounded-lg font-bold text-base sm:text-lg md:text-xl bg-ochre-600 text-white glow-lite gpu anim-lite"
           >
-            🎮 {t('end.playAgain')}
+            <Gamepad2 className="inline-block w-[1em] h-[1em] align-[-0.15em] mr-2" strokeWidth={2} />{t('end.playAgain')}
           </button>
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <button
               onClick={handleChangePlayers}
-              className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 gpu anim-lite"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-ochre-400/40 text-white/90 gpu anim-lite"
             >
               {t('end.changePlayers')}
             </button>
             <button
               onClick={handleChangeMode}
-              className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 gpu anim-lite"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-ochre-400/40 text-white/90 gpu anim-lite"
             >
               {t('end.changeMode')}
             </button>

@@ -31,13 +31,13 @@ export default function About() {
   const tips = [t('about.tip1'), t('about.tip2'), t('about.tip3')]
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+    <div className="w-full min-h-screen flex flex-col bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-2xl w-full mx-auto flex flex-col flex-1 min-h-0"
       >
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2 shrink-0">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-center text-neon-lila px-2 shrink-0">
           {t('about.title')}
         </h1>
 

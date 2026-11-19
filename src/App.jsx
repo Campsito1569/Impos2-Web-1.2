@@ -1,3 +1,4 @@
+import { WifiOff } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
@@ -51,7 +52,7 @@ function App() {
       <div className="w-full min-h-screen flex items-center justify-center bg-[#0f0f1b] p-4">
         <div className="text-center max-w-md w-full">
           <div className="mb-8">
-            <div className="text-6xl sm:text-7xl md:text-8xl mb-6">📡</div>
+            <div className="text-6xl sm:text-7xl md:text-8xl mb-6"><WifiOff className="w-[1em] h-[1em]" strokeWidth={1.6} /></div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 text-[#a855f7]">
               {t('common.offline.title') || 'Sin conexión'}
             </h1>
@@ -62,7 +63,7 @@ function App() {
           
           <button
             onClick={() => window.location.reload()}
-            className="px-8 sm:px-12 py-4 sm:py-5 rounded-2xl font-bold text-lg sm:text-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(168,85,247,0.5)] transition-all duration-300"
+            className="px-8 sm:px-12 py-4 sm:py-5 rounded-lg font-bold text-lg sm:text-xl bg-ochre-600 text-white   transition-all duration-300"
           >
             {t('common.offline.retry') || 'Reintentar misión'}
           </button>
@@ -75,7 +76,7 @@ function App() {
     <GameProvider>
       <LanguageGameSync />
       <Router>
-        <div className="w-full min-h-screen bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg">
+        <div className="w-full min-h-screen bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg">
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Home />} />

@@ -1,3 +1,4 @@
+import { Info } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from '../components/Button'
@@ -14,13 +15,13 @@ export default function Settings() {
   } = useLanguage()
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-2xl w-full py-4 sm:py-6 md:py-8"
       >
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center text-neon-lila px-2">
           {t('settings.title')}
         </h1>
 
@@ -60,7 +61,7 @@ export default function Settings() {
                 variant="secondary"
                 className="w-full flex items-center justify-center gap-2"
               >
-                <span>ℹ️</span>
+                <span><Info className="w-4 h-4" /></span>
                 <span>{t('settings.aboutGame')}</span>
               </Button>
             </div>

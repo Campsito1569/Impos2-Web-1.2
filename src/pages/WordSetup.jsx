@@ -1,3 +1,4 @@
+import { Goal, PawPrint, Globe, Clapperboard, Trophy } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -181,13 +182,13 @@ export default function WordSetup() {
 
   if (gameMode === 'manual') {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="max-w-2xl w-full"
         >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center text-neon-lila px-2">
             {t('wordSetup.manual.title')}
           </h1>
 
@@ -225,13 +226,13 @@ export default function WordSetup() {
 
   if (gameMode === 'semi-manual') {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="max-w-2xl w-full py-4 sm:py-6 md:py-8"
         >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-center text-neon-lila px-2">
             {t('wordSetup.semiManual.title')}
           </h1>
 
@@ -297,13 +298,13 @@ export default function WordSetup() {
 
   if (gameMode === 'database') {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="max-w-2xl w-full text-center"
         >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-neon-lila px-2">
             {t('wordSetup.database.title')}
           </h1>
 
@@ -334,18 +335,18 @@ export default function WordSetup() {
     )
   }
 
-  const DatasetModeScreen = ({ icon, titleKey, descriptionKey, onContinue }) => (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+  const DatasetModeScreen = ({ icon: Icon, titleKey, descriptionKey, onContinue }) => (
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-2xl w-full text-center"
       >
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent px-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-neon-lila px-2">
           {t(titleKey)}
         </h1>
         <Card glowColor="lila" className="mb-4 sm:mb-6">
-          <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">{icon}</div>
+          <div className="text-4xl sm:text-5xl mb-3 sm:mb-4"><Icon className="w-[1em] h-[1em]" strokeWidth={1.6} /></div>
           <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
             {t(descriptionKey)}
           </p>
@@ -369,7 +370,7 @@ export default function WordSetup() {
   if (gameMode === 'football') {
     return (
       <DatasetModeScreen
-        icon="⚽"
+        icon={Goal}
         titleKey="modeSelect.football.title"
         descriptionKey="modeSelect.football.description"
         onContinue={handleFootballContinue}
@@ -380,7 +381,7 @@ export default function WordSetup() {
   if (gameMode === 'animals') {
     return (
       <DatasetModeScreen
-        icon="🦁"
+        icon={PawPrint}
         titleKey="modeSelect.animals.title"
         descriptionKey="modeSelect.animals.description"
         onContinue={handleAnimalsContinue}
@@ -391,7 +392,7 @@ export default function WordSetup() {
   if (gameMode === 'countries') {
     return (
       <DatasetModeScreen
-        icon="🌍"
+        icon={Globe}
         titleKey="modeSelect.countries.title"
         descriptionKey="modeSelect.countries.description"
         onContinue={handleCountriesContinue}
@@ -402,7 +403,7 @@ export default function WordSetup() {
   if (gameMode === 'movies') {
     return (
       <DatasetModeScreen
-        icon="🎬"
+        icon={Clapperboard}
         titleKey="modeSelect.movies.title"
         descriptionKey="modeSelect.movies.description"
         onContinue={handleMoviesContinue}
@@ -413,7 +414,7 @@ export default function WordSetup() {
   if (gameMode === 'sports') {
     return (
       <DatasetModeScreen
-        icon="🏃"
+        icon={Trophy}
         titleKey="modeSelect.sports.title"
         descriptionKey="modeSelect.sports.description"
         onContinue={handleSportsContinue}

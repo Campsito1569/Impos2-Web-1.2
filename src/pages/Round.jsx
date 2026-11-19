@@ -1,3 +1,4 @@
+import { Skull, Check, X } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -142,11 +143,11 @@ export default function Round() {
   }
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
       <div className="max-w-4xl w-full py-4 sm:py-6 md:py-8">
         {/* Encabezado mejorado */}
         <div className="mb-6 sm:mb-8 animate-fadeInUp">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide mb-2 sm:mb-3 text-center bg-gradient-to-r from-neon-lila to-purple-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(167,139,250,0.5)] px-2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide mb-2 sm:mb-3 text-center text-neon-lila  px-2">
             {t('round.title')}
           </h1>
           <p className="text-white/70 text-sm sm:text-base md:text-lg text-center">
@@ -156,15 +157,15 @@ export default function Round() {
 
         {/* Tarjeta principal con glassmorphism */}
         <div className="mb-6 sm:mb-8 animate-fadeInUp">
-          <div className="relative bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(168,85,247,0.25)] p-4 sm:p-6 md:p-8">
+          <div className="relative bg-white/5  rounded-xl border border-white/10  p-4 sm:p-6 md:p-8">
             {/* Barra superior con badges de resumen */}
             <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <div className="px-3 py-1.5 sm:py-2 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-xs sm:text-sm font-semibold flex items-center gap-2">
-                <span>🟢</span>
+              <div className="px-3 py-1.5 sm:py-2 rounded-full bg-cyan-500/20 border border-neon-blue/30 text-neon-blue text-xs sm:text-sm font-semibold flex items-center gap-2">
+                <span className="inline-block w-2.5 h-2.5 rounded-full bg-neon-green" />
                 <span>{t('round.players')}: {activeNormalPlayers.length}</span>
               </div>
               <div className="px-3 py-1.5 sm:py-2 rounded-full bg-red-500/20 border border-red-400/30 text-red-300 text-xs sm:text-sm font-semibold flex items-center gap-2">
-                <span>🔴</span>
+                <span className="inline-block w-2.5 h-2.5 rounded-full bg-ember-500" />
                 <span>{t('round.winnerImpostors')}: {activeImpostors.length}</span>
               </div>
             </div>
@@ -183,7 +184,7 @@ export default function Round() {
                       flex items-center justify-between p-3 sm:p-4 rounded-xl border transition-all duration-200
                       ${player.eliminado 
                         ? 'bg-gray-900/30 border-gray-600/30 opacity-60' 
-                        : 'bg-black/20 border-purple-400/20 hover:border-purple-400/50 hover:bg-white/5'
+                        : 'bg-black/20 border-ochre-400/20 hover:border-ochre-400/50 hover:bg-white/5'
                       }
                     `}
                   >
@@ -193,10 +194,10 @@ export default function Round() {
                         w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base
                         ${player.eliminado 
                           ? 'bg-gray-700/50 text-gray-400 border border-gray-600/30' 
-                          : 'bg-gradient-to-br from-purple-600/40 to-purple-800/40 text-purple-200 border border-purple-400/30'
+                          : 'bg-gradient-to-br from-ochre-600/40 to-ochre-800/40 text-ochre-200 border border-ochre-400/30'
                         }
                       `}>
-                        {player.eliminado ? '💀' : getInitial(player.name)}
+                        {player.eliminado ? <Skull className="w-[1.1em] h-[1.1em]" strokeWidth={1.8} /> : getInitial(player.name)}
                       </div>
                       
                       <div className="flex-1">
@@ -220,15 +221,15 @@ export default function Round() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => confirmElimination(index)}
-                          className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.97] shadow-[0_0_15px_rgba(239,68,68,0.3)]"
+                          className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.97] "
                         >
-                          ✅ {t('round.confirm')}
+                          <Check className="inline-block w-4 h-4 align-[-0.15em] mr-1" strokeWidth={2.5} />{t('round.confirm')}
                         </button>
                         <button
                           onClick={cancelElimination}
                           className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-gray-600 hover:bg-gray-700 text-white text-xs sm:text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.97]"
                         >
-                          ✖ {t('round.cancel')}
+                          <X className="inline-block w-4 h-4 align-[-0.15em] mr-1" strokeWidth={2.5} />{t('round.cancel')}
                         </button>
                       </div>
                     ) : (
@@ -237,8 +238,8 @@ export default function Round() {
                         className={`
                           px-4 py-2 rounded-lg font-semibold text-xs sm:text-sm transition-all hover:scale-[1.02] active:scale-[0.97]
                           ${player.eliminado
-                            ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-[0_0_15px_rgba(34,197,94,0.3)]'
-                            : 'bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white shadow-[0_0_20px_rgba(239,68,68,0.25)]'
+                            ? 'bg-emerald-700 hover:from-green-600 hover:to-emerald-700 text-white '
+                            : 'bg-ember-600 hover:from-red-600 hover:to-pink-700 text-white '
                           }
                         `}
                       >
@@ -256,7 +257,7 @@ export default function Round() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => navigate('/reveal-role')}
-                className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 hover:bg-white/5 hover:border-purple-400/60 transition-all duration-200"
+                className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base border border-ochre-400/40 text-white/90 hover:bg-white/5 hover:border-ochre-400/60 transition-all duration-200"
               >
                 {t('round.back')}
               </motion.button>
@@ -268,7 +269,7 @@ export default function Round() {
                 className={`
                   px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200
                   ${canEndGame
-                    ? 'bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(168,85,247,0.5)]'
+                    ? 'bg-ochre-600 text-white  '
                     : 'bg-gray-700/50 text-gray-400 cursor-not-allowed opacity-50'
                   }
                 `}
@@ -283,8 +284,8 @@ export default function Round() {
                 animate={{ opacity: 1, y: 0 }}
                 className="mt-4 text-center"
               >
-                <p className="text-cyan-400 text-sm sm:text-base font-semibold">
-                  {t('round.canEnd')}
+                <p className="text-neon-blue text-sm sm:text-base font-semibold">
+                  <Check className="inline-block w-4 h-4 align-[-0.15em] mr-1" strokeWidth={2.5} />{t('round.canEnd')}
                 </p>
               </motion.div>
             )}

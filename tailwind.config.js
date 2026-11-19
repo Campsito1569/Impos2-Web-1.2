@@ -6,49 +6,54 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ['"Big Shoulders Display"', 'Impact', 'sans-serif'],
+        body: ['"Atkinson Hyperlegible"', 'system-ui', 'sans-serif'],
+      },
       colors: {
+        // Tinta cálida: fondo de habitación con poca luz
         neon: {
-          blue: '#00f0ff',
-          purple: '#b347ff',
-          green: '#00ff88',
-          pink: '#ff00ff',
-          lila: '#A78BFA',
+          blue: '#8FB3C9',
+          purple: '#4A3B2E',
+          green: '#7FB69A',
+          pink: '#E07A5F',
+          lila: '#E2A93B',
         },
         dark: {
-          bg: '#0B0714',
-          card: '#22173A',
-          hover: '#1A1033',
-        }
+          bg: '#14100D',
+          card: '#1E1915',
+          hover: '#2A221C',
+        },
+        // Ocre: acción principal y tintes de fondo (sustituye al morado)
+        ochre: {
+          50: '#FBF5EA',
+          200: '#EBD9B8',
+          300: '#E2C28E',
+          400: '#D9A35C',
+          500: '#C98B3E',
+          600: '#9A6228',
+          700: '#7E5222',
+          800: '#56381B',
+          900: '#35220F',
+          950: '#1E1409',
+        },
+        // Ceniza roja: impostor y acciones peligrosas (sustituye al fucsia)
+        ember: {
+          400: '#E8674B',
+          500: '#D2503A',
+          600: '#B8402B',
+          700: '#962F20',
+          900: '#4A170F',
+        },
       },
       boxShadow: {
-        'neon-blue': '0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff',
-        'neon-purple': '0 0 10px #b347ff, 0 0 20px #b347ff, 0 0 30px #b347ff',
-        'neon-green': '0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 30px #00ff88',
-        'neon-lila': '0 0 10px #A78BFA, 0 0 20px #A78BFA, 0 0 30px #A78BFA',
+        // Sombras duras sin brillo: como una carta impresa sobre la mesa
+        'neon-blue': '4px 4px 0 0 #0A0806',
+        'neon-purple': '4px 4px 0 0 #0A0806',
+        'neon-green': '4px 4px 0 0 #0A0806',
+        'neon-lila': '4px 4px 0 0 #0A0806',
       },
-      animation: {
-        'pulse-neon': 'pulse-neon 2s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-        'float': 'float 3s ease-in-out infinite',
-      },
-      keyframes: {
-        'pulse-neon': {
-          '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0.5 }
-        },
-        'glow': {
-          'from': { textShadow: '0 0 10px #A78BFA, 0 0 20px #A78BFA' },
-          'to': { textShadow: '0 0 20px #A78BFA, 0 0 30px #A78BFA, 0 0 40px #A78BFA' }
-        },
-        'float': {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' }
-        }
-      }
     },
   },
   plugins: [],
 }
-
-
-

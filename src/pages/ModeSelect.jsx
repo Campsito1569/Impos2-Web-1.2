@@ -1,3 +1,4 @@
+import { PenLine, NotebookPen, Database, Goal, PawPrint, Globe, Clapperboard, Trophy } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from '../components/Button'
@@ -22,7 +23,7 @@ export default function ModeSelect() {
   // Configuración de colores y estilos por modo
   const modeConfig = {
     manual: {
-      icon: '✍️',
+      icon: PenLine,
       title: t('modeSelect.manual.title'),
       description: t('modeSelect.manual.description'),
       borderColor: 'border-pink-400/50',
@@ -31,7 +32,7 @@ export default function ModeSelect() {
       iconGlow: 'rgba(244, 114, 182, 0.4)'
     },
     'semi-manual': {
-      icon: '📝',
+      icon: NotebookPen,
       title: t('modeSelect.semiManual.title'),
       description: t('modeSelect.semiManual.description'),
       borderColor: 'border-blue-400/50',
@@ -40,7 +41,7 @@ export default function ModeSelect() {
       iconGlow: 'rgba(96, 165, 250, 0.4)'
     },
     database: {
-      icon: '📚',
+      icon: Database,
       title: t('modeSelect.database.title'),
       description: t('modeSelect.database.description'),
       borderColor: 'border-green-400/50',
@@ -49,16 +50,16 @@ export default function ModeSelect() {
       iconGlow: 'rgba(74, 222, 128, 0.4)'
     },
     football: {
-      icon: '⚽',
+      icon: Goal,
       title: t('modeSelect.football.title'),
       description: t('modeSelect.football.description'),
-      borderColor: 'border-cyan-400/50',
+      borderColor: 'border-neon-blue/50',
       glowColor: 'rgba(34, 211, 238, 0.3)',
       hoverGlow: 'rgba(34, 211, 238, 0.5)',
       iconGlow: 'rgba(34, 211, 238, 0.4)'
     },
     animals: {
-      icon: '🦁',
+      icon: PawPrint,
       title: t('modeSelect.animals.title'),
       description: t('modeSelect.animals.description'),
       borderColor: 'border-amber-400/50',
@@ -67,7 +68,7 @@ export default function ModeSelect() {
       iconGlow: 'rgba(251, 191, 36, 0.4)'
     },
     countries: {
-      icon: '🌍',
+      icon: Globe,
       title: t('modeSelect.countries.title'),
       description: t('modeSelect.countries.description'),
       borderColor: 'border-emerald-400/50',
@@ -76,7 +77,7 @@ export default function ModeSelect() {
       iconGlow: 'rgba(52, 211, 153, 0.4)'
     },
     movies: {
-      icon: '🎬',
+      icon: Clapperboard,
       title: t('modeSelect.movies.title'),
       description: t('modeSelect.movies.description'),
       borderColor: 'border-rose-400/50',
@@ -85,7 +86,7 @@ export default function ModeSelect() {
       iconGlow: 'rgba(251, 113, 133, 0.4)'
     },
     sports: {
-      icon: '🏃',
+      icon: Trophy,
       title: t('modeSelect.sports.title'),
       description: t('modeSelect.sports.description'),
       borderColor: 'border-orange-400/50',
@@ -96,10 +97,10 @@ export default function ModeSelect() {
   }
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
       <div className="max-w-6xl w-full py-4 sm:py-6 md:py-8 gpu anim-lite">
         {/* Título mejorado */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-8 sm:mb-10 md:mb-12 text-center bg-gradient-to-r from-neon-lila via-purple-400 to-neon-lila bg-clip-text text-transparent px-2">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-8 sm:mb-10 md:mb-12 text-center text-neon-lila px-2">
           {t('modeSelect.title')}
         </h1>
 
@@ -117,7 +118,7 @@ export default function ModeSelect() {
               }}
             >
               <div
-                className="relative bg-white/5 card-lite rounded-3xl border border-white/10 p-6 sm:p-8 h-full glow-lite gpu"
+                className="relative bg-white/5 card-lite rounded-xl border border-white/10 p-6 sm:p-8 h-full glow-lite gpu"
                 style={{
                   borderColor: config.borderColor.replace('/50', '/30')
                 }}
@@ -126,7 +127,7 @@ export default function ModeSelect() {
                   {/* Icono sin animación continua */}
                   <div className="mb-4 sm:mb-6">
                     <div className="text-5xl sm:text-6xl md:text-7xl">
-                      {config.icon}
+                      <config.icon className="w-[1em] h-[1em] mx-auto" strokeWidth={1.6} />
                     </div>
                   </div>
 
@@ -149,7 +150,7 @@ export default function ModeSelect() {
         <div className="flex justify-center gpu anim-lite">
           <button
             onClick={() => navigate('/')}
-            className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border border-purple-400/40 text-white/90 hover:bg-white/5 hover:border-purple-400/60 gpu anim-lite"
+            className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border border-ochre-400/40 text-white/90 hover:bg-white/5 hover:border-ochre-400/60 gpu anim-lite"
           >
             {t('modeSelect.back')}
           </button>

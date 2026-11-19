@@ -6,12 +6,12 @@ export default function Modal({ isOpen, onClose, title, children, onConfirm, con
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 ">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="bg-dark-card border-2 border-neon-lila rounded-3xl p-6 max-w-md w-full mx-4 shadow-neon-lila"
+          className="bg-dark-card border-2 border-neon-lila rounded-xl p-6 max-w-md w-full mx-4 shadow-neon-lila"
         >
           {title && (
             <h2 className="text-2xl font-bold text-neon-lila mb-4">{title}</h2>

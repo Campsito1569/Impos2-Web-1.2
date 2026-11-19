@@ -1,3 +1,4 @@
+import { Eye, EyeOff, Search, UserRoundSearch, Drama, Brain } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -66,7 +67,7 @@ export default function RevealRole() {
   const isImpostor = currentPlayer.role === 'impostor'
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-purple-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-ochre-900/20 to-dark-bg p-3 sm:p-4 md:p-6 py-6 sm:py-8">
       <motion.div
         key={currentPlayerIndex}
         initial={{ opacity: 0, scale: 0.9 }}
@@ -81,7 +82,7 @@ export default function RevealRole() {
             <div className="mb-6 sm:mb-8 md:mb-10 animate-fadeInUp">
               {/* Línea 1: Aviso de privacidad */}
               <p className="text-xs sm:text-sm md:text-base uppercase tracking-wider text-gray-400 mb-3 sm:mb-4 opacity-70">
-                👁️ {t('revealRole.onlyFor', { name: currentPlayer.name.toUpperCase() })}
+                <Eye className="inline-block w-4 h-4 align-[-0.15em] mr-1" />{t('revealRole.onlyFor', { name: currentPlayer.name.toUpperCase() })}
               </p>
               
               {/* Línea 2: Progreso */}
@@ -90,14 +91,14 @@ export default function RevealRole() {
               </p>
               
               {/* Línea 3: Título grande con glow */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-neon-lila via-purple-400 to-neon-lila bg-clip-text text-transparent mb-6 sm:mb-8 drop-shadow-[0_0_15px_rgba(167,139,250,0.5)]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-neon-lila mb-6 sm:mb-8 ">
                 {t('revealRole.turn', { name: currentPlayer.name })}
               </h1>
             </div>
 
             {/* Tarjeta principal mejorada */}
             <Card glowColor="lila" className="mb-4 sm:mb-6 md:mb-8 animate-fadeInUp">
-              <div className="relative bg-gradient-to-br from-purple-900/30 via-purple-800/20 to-dark-card rounded-3xl p-6 sm:p-8 md:p-10 border-t border-purple-500/30">
+              <div className="relative bg-gradient-to-br from-ochre-900/30 via-ochre-800/20 to-dark-card rounded-xl p-6 sm:p-8 md:p-10 border-t border-ochre-500/30">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -106,8 +107,8 @@ export default function RevealRole() {
                 >
                   {/* Ícono central con badge circular */}
                   <div className="flex justify-center mb-4 sm:mb-6">
-                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-purple-600/40 to-purple-800/40 border-2 border-neon-lila/50 flex items-center justify-center shadow-[0_0_30px_rgba(167,139,250,0.4)] animate-pulse">
-                      <span className="text-4xl sm:text-5xl md:text-6xl">🕵️</span>
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-ochre-600/40 to-ochre-800/40 border-2 border-neon-lila/50 flex items-center justify-center  ">
+                      <span className="text-4xl sm:text-5xl md:text-6xl"><UserRoundSearch className="w-[1em] h-[1em]" strokeWidth={1.6} /></span>
                     </div>
                   </div>
 
@@ -122,9 +123,9 @@ export default function RevealRole() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={handleRevealInfo}
-                      className="w-full sm:w-auto mx-auto px-8 sm:px-12 md:px-16 py-3 sm:py-4 md:py-5 rounded-2xl font-bold text-base sm:text-lg md:text-xl bg-gradient-to-r from-purple-600 via-neon-lila to-fuchsia-500 text-white shadow-[0_0_20px_rgba(167,139,250,0.5)] hover:shadow-[0_0_30px_rgba(167,139,250,0.7)] transition-all duration-300"
+                      className="w-full sm:w-auto mx-auto px-8 sm:px-12 md:px-16 py-3 sm:py-4 md:py-5 rounded-lg font-bold text-base sm:text-lg md:text-xl bg-ochre-600 text-white   transition-all duration-300"
                     >
-                      🔍 {t('revealRole.revealButton')}
+                      <Search className="inline-block w-4 h-4 align-[-0.15em] mr-1" />{t('revealRole.revealButton')}
                     </motion.button>
                   </div>
                 </motion.div>
@@ -136,7 +137,7 @@ export default function RevealRole() {
             {/* Encabezado de privacidad y progreso */}
             <div className="mb-4 sm:mb-6 animate-fadeInUp">
               <p className="text-xs sm:text-sm uppercase tracking-wider text-yellow-400/80 mb-2 text-center">
-                📵 {t('revealRole.onlyCanLook', { name: currentPlayer.name.toUpperCase() })}
+                <EyeOff className="inline-block w-4 h-4 align-[-0.15em] mr-1" />{t('revealRole.onlyCanLook', { name: currentPlayer.name.toUpperCase() })}
               </p>
               <p className="text-sm sm:text-base text-gray-300 text-center font-medium">
                 {t('revealRole.playerCount', { current: currentPlayerIndex + 1, total: turnOrder.length })}
@@ -147,10 +148,10 @@ export default function RevealRole() {
             <div className="mb-6 sm:mb-8 animate-fadeInUp">
               <div className={`
                 relative max-w-xl w-full mx-auto px-4
-                rounded-3xl border border-white/10
+                rounded-xl border border-white/10
                 ${isImpostor 
-                  ? 'bg-red-950/40 backdrop-blur-md shadow-[0_0_30px_rgba(239,68,68,0.3)]' 
-                  : 'bg-cyan-950/40 backdrop-blur-md shadow-[0_0_30px_rgba(34,211,238,0.3)]'
+                  ? 'bg-red-950/40  ' 
+                  : 'bg-cyan-950/40  '
                 }
                 p-6 sm:p-8 md:p-10
               `}>
@@ -171,8 +172,8 @@ export default function RevealRole() {
                         transition={{ delay: 0.2, type: "spring" }}
                         className="flex justify-center"
                       >
-                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-red-600/40 to-pink-800/40 border-2 border-red-400/50 flex items-center justify-center animate-breathing-glow-red">
-                          <span className="text-5xl sm:text-6xl">😈</span>
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-red-600/40 to-pink-800/40 border-2 border-red-400/50 flex items-center justify-center ">
+                          <span className="text-5xl sm:text-6xl"><Drama className="w-[1em] h-[1em]" strokeWidth={1.6} /></span>
                         </div>
                       </motion.div>
 
@@ -181,7 +182,7 @@ export default function RevealRole() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-pink-400 to-red-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]"
+                        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide text-ember-400 "
                       >
                         {t('revealRole.impostor.title')}
                       </motion.h2>
@@ -227,8 +228,8 @@ export default function RevealRole() {
                         transition={{ delay: 0.2, type: "spring" }}
                         className="flex justify-center"
                       >
-                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-cyan-600/40 to-green-800/40 border-2 border-cyan-400/50 flex items-center justify-center animate-breathing-glow-cyan">
-                          <span className="text-5xl sm:text-6xl">🧠</span>
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-cyan-600/40 to-green-800/40 border-2 border-neon-blue/50 flex items-center justify-center ">
+                          <span className="text-5xl sm:text-6xl"><Brain className="w-[1em] h-[1em]" strokeWidth={1.6} /></span>
                         </div>
                       </motion.div>
 
@@ -237,7 +238,7 @@ export default function RevealRole() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-cyan-300 to-green-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+                        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide text-neon-blue "
                       >
                         {t('revealRole.player.title')}
                       </motion.h2>
@@ -250,8 +251,8 @@ export default function RevealRole() {
                         className="space-y-3 sm:space-y-4"
                       >
                         <p className="text-xs sm:text-sm text-gray-400 mb-2">{t('revealRole.player.secretWord')}</p>
-                        <div className="inline-block px-4 sm:px-6 py-3 sm:py-4 bg-dark-hover/80 backdrop-blur-sm border-2 border-cyan-400/50 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.3)]">
-                          <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-300 tracking-wider">
+                        <div className="inline-block px-4 sm:px-6 py-3 sm:py-4 bg-dark-hover/80  border-2 border-neon-blue/50 rounded-xl ">
+                          <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-neon-blue tracking-wider">
                             {game.word?.toUpperCase()}
                           </p>
                         </div>
@@ -278,7 +279,7 @@ export default function RevealRole() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleNext}
-                className="w-full max-w-md px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 rounded-2xl font-bold text-sm sm:text-base md:text-lg bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(168,85,247,0.5)] transition-all duration-300"
+                className="w-full max-w-md px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 rounded-lg font-bold text-sm sm:text-base md:text-lg bg-ochre-600 text-white   transition-all duration-300"
               >
                 {currentPlayerIndex < turnOrder.length - 1 ? t('revealRole.hideAndNext') : t('revealRole.hideAndStartRound')}
               </motion.button>
