@@ -11,47 +11,47 @@ export default {
         body: ['"Atkinson Hyperlegible"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        // Tinta cálida: fondo de habitación con poca luz
+        // Paleta nocturna inspirada en el atardecer urbano (original, sin logos de terceros)
         neon: {
-          blue: '#8FB3C9',
-          purple: '#4A3B2E',
-          green: '#7FB69A',
-          pink: '#E07A5F',
-          lila: '#E2A93B',
+          blue: '#45D6DA',   // turquesa: jugador
+          purple: '#3A3766', // bordes
+          green: '#45D6DA',
+          pink: '#FF985C',   // atardecer
+          lila: '#FC529C',   // rosa neón: títulos y etiquetas
         },
         dark: {
-          bg: '#14100D',
-          card: '#1E1915',
-          hover: '#2A221C',
+          bg: '#111021',
+          card: '#1B1A33',
+          hover: '#26244A',
         },
-        // Ocre: acción principal y tintes de fondo (sustituye al morado)
+        // Violeta: acción principal y tintes de fondo (sustituye al ocre)
         ochre: {
-          50: '#FBF5EA',
-          200: '#EBD9B8',
-          300: '#E2C28E',
-          400: '#D9A35C',
-          500: '#C98B3E',
-          600: '#9A6228',
-          700: '#7E5222',
-          800: '#56381B',
-          900: '#35220F',
-          950: '#1E1409',
+          50: '#F7F0FF',
+          200: '#D9C2F5',
+          300: '#C29BEE',
+          400: '#B07AF0',
+          500: '#9956EB',
+          600: '#8A45DA',
+          700: '#6E31B0',
+          800: '#4F2384',
+          900: '#2E1452',
+          950: '#1A0B30',
         },
-        // Ceniza roja: impostor y acciones peligrosas (sustituye al fucsia)
+        // Rosa y magenta: impostor y acciones peligrosas (sustituye a la ceniza)
         ember: {
-          400: '#E8674B',
-          500: '#D2503A',
-          600: '#B8402B',
-          700: '#962F20',
-          900: '#4A170F',
+          400: '#FF985C',
+          500: '#FC529C',
+          600: '#D63A85',
+          700: '#A8286A',
+          900: '#3E0F2E',
         },
       },
       boxShadow: {
-        // Sombras duras sin brillo: como una carta impresa sobre la mesa
-        'neon-blue': '4px 4px 0 0 #0A0806',
-        'neon-purple': '4px 4px 0 0 #0A0806',
-        'neon-green': '4px 4px 0 0 #0A0806',
-        'neon-lila': '4px 4px 0 0 #0A0806',
+        // Resplandor suave de neón en lugar de sombra dura
+        'neon-blue': '0 0 0 1px rgba(69,214,218,0.35), 0 8px 28px rgba(69,214,218,0.18)',
+        'neon-purple': '0 0 0 1px rgba(153,86,235,0.35), 0 8px 28px rgba(153,86,235,0.18)',
+        'neon-green': '0 0 0 1px rgba(69,214,218,0.35), 0 8px 28px rgba(69,214,218,0.18)',
+        'neon-lila': '0 0 0 1px rgba(252,82,156,0.35), 0 8px 28px rgba(252,82,156,0.2)',
       },
     },
   },

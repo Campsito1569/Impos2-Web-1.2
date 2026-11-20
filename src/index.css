@@ -15,8 +15,8 @@ body {
   font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #14100D;
-  color: #EFE6D2;
+  background: linear-gradient(170deg, #111021 0%, #1B1A33 55%, #2A1045 100%) fixed;
+  color: #F4EEFF;
   overflow-x: hidden;
   overflow-y: auto;
   min-height: 100vh;
@@ -44,20 +44,20 @@ h2 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #14100D;
+  background: #111021;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4A3B2E;
+  background: #3A3766;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9A6228;
+  background: #9956EB;
 }
 
 :focus-visible {
-  outline: 2px solid #E2A93B;
+  outline: 2px solid #45D6DA;
   outline-offset: 3px;
 }
 
@@ -89,7 +89,7 @@ h2 {
 
 /* Carta impresa: borde firme y sombra dura, sin brillo */
 .glow-lite {
-  box-shadow: 4px 4px 0 0 #0A0806;
+  box-shadow: 0 0 0 1px rgba(252, 82, 156, 0.3), 0 10px 30px rgba(252, 82, 156, 0.2);
 }
 
 .card-lite {
@@ -134,7 +134,7 @@ h1,
 h2 {
   text-wrap: balance;
   letter-spacing: 0.02em;
-  text-shadow: 0 2px 0 rgba(10, 8, 6, 0.55), 0 0 28px rgba(226, 169, 59, 0.18);
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.7), 0 0 30px rgba(252, 82, 156, 0.35);
 }
 
 p {
